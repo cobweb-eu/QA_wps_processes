@@ -1,0 +1,1128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wfs:FeatureCollection xmlns:CobwebTest="cobweb" xmlns:wfs="http://www.opengis.net/wfs" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:ows="http://www.opengis.net/ows" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" numberOfFeatures="0" timeStamp="2014-06-25T14:37:05.890Z" xsi:schemaLocation="cobweb http://grasp.nottingham.ac.uk:8080/geoserver/CobwebTest/wfs?service=WFS&version=1.0.0&request=DescribeFeatureType&typeName=CobwebTest%3AHospitals http://www.opengis.net/wfs http://grasp.nottingham.ac.uk:8080/geoserver/schemas/wfs/1.1.0/wfs.xsd">
+<script/>
+<gml:featureMembers>
+<CobwebTest:Hospitals gml:id="Hospitals.1">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>259207.99624245 281805.00340833</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Bronglais General Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Caradog Road, Aberystwyth</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>SY23 1ER</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01970 623131</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Major acute - Major A&E - Open</CobwebTest:TYPE>
+<CobwebTest:SERVICE>Major A&E</CobwebTest:SERVICE>
+<CobwebTest:_24HR>24</CobwebTest:_24HR>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/862/directory/hospitals/110
+</CobwebTest:URL>
+<CobwebTest:POINT_X>259207.996242</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>281805.003408</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-4.071631</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>52.416041</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.2">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>300308.9992068 376019.00493106</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Glan Clwyd Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Rhuddlan Road, Bodelwyddan, Rhyl, Denbighshire</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>LL18 5UJ</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01745 583910</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Major acute - Major A&E - Open</CobwebTest:TYPE>
+<CobwebTest:SERVICE>Major A&E</CobwebTest:SERVICE>
+<CobwebTest:_24HR>24</CobwebTest:_24HR>
+<CobwebTest:URL>http://www.wales.nhs.uk/sitesplus/861/page/41577</CobwebTest:URL>
+<CobwebTest:POINT_X>300308.999207</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>376019.004931</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.496383</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>53.271745</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.3">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>242791.99713954 221239.99996014</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Glangwili General Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Dolgwili Road, Glangwili, Carmarthen</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>SA31 2AF</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01267 235151</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Major acute - Major A&E - Open</CobwebTest:TYPE>
+<CobwebTest:SERVICE>Major A&E</CobwebTest:SERVICE>
+<CobwebTest:_24HR>24</CobwebTest:_24HR>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/862/directory/hospitals/116
+</CobwebTest:URL>
+<CobwebTest:POINT_X>242791.99714</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>221239.99996</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-4.284783</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>51.867487</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.4">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>266311.00095019 200206.00087972</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Morriston Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Swansea, Heol Maes Eglwys, Cwmrhydyceirw, Swansea</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>SA6 6NL</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01792 702222</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Major acute - Major A&E - Open</CobwebTest:TYPE>
+<CobwebTest:SERVICE>Major A&E</CobwebTest:SERVICE>
+<CobwebTest:_24HR>24</CobwebTest:_24HR>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/863/directory/hospitals/151
+</CobwebTest:URL>
+<CobwebTest:POINT_X>266311.00095</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>200206.00088</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.935307</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>51.68461</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.5">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>328833.00245766 214505.99754827</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Nevill Hall Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Brecon Road, Abergavenny, Gwent</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>NP7 7EG</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01873 732732</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Major acute - Major A&E - Open</CobwebTest:TYPE>
+<CobwebTest:SERVICE>Major A&E</CobwebTest:SERVICE>
+<CobwebTest:_24HR>24</CobwebTest:_24HR>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/866/directory/hospitals/201
+</CobwebTest:URL>
+<CobwebTest:POINT_X>328833.002458</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>214505.997548</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.034048</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>51.824582</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.6">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>304481.00012396 208161.00378384</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Prince Charles Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Merthyr Tydfil, Mid Glamorgan</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>CF47 9DT</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01685 721721</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Major acute - Major A&E - Open</CobwebTest:TYPE>
+<CobwebTest:SERVICE>Major A&E</CobwebTest:SERVICE>
+<CobwebTest:_24HR>24</CobwebTest:_24HR>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/865/directory/hospitals/181
+</CobwebTest:URL>
+<CobwebTest:POINT_X>304481.000124</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>208161.003784</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.385548</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>51.763913</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.7">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>291047.00051455 181032.99909437</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Princess of Wales Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Coity Road, Bridgend, Mid Glamorgan</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>CF31 1RQ</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01656 752752</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Major acute - Major A&E - Open</CobwebTest:TYPE>
+<CobwebTest:SERVICE>Major A&E</CobwebTest:SERVICE>
+<CobwebTest:_24HR>24</CobwebTest:_24HR>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/863/directory/hospitals/153
+</CobwebTest:URL>
+<CobwebTest:POINT_X>291047.000515</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>181032.999094</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.571686</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>51.51763</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.8">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>303648.99925331 184109.99831251</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Royal Glamorgan Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Ynysmaerdy, Pontyclun, Llantrisant</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>CF72 8XR</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01443 443443</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Major acute - Major A&E - Open</CobwebTest:TYPE>
+<CobwebTest:SERVICE>Major A&E</CobwebTest:SERVICE>
+<CobwebTest:_24HR>24</CobwebTest:_24HR>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/865/directory/hospitals/182
+</CobwebTest:URL>
+<CobwebTest:POINT_X>303648.999253</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>184109.998313</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.390965</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>51.547582</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.9">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>330931.99713253 187243.00149968</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Royal Gwent Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Cardiff Road, Newport, Gwent</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>NP20 2UB</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01633 234234</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Major acute - Major A&E - Open</CobwebTest:TYPE>
+<CobwebTest:SERVICE>Major A&E</CobwebTest:SERVICE>
+<CobwebTest:_24HR>24</CobwebTest:_24HR>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/866/directory/hospitals/203
+</CobwebTest:URL>
+<CobwebTest:POINT_X>330931.997133</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>187243.0015</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-2.998189</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>51.579752</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.10">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>317550.99677588 179318.99972158</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>University Hospital of Wales</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Heath Park, Cardiff</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>CF14 4XW</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 029 2074 7747</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Major acute - Major A&E - Open</CobwebTest:TYPE>
+<CobwebTest:SERVICE>Major A&E</CobwebTest:SERVICE>
+<CobwebTest:_24HR>24</CobwebTest:_24HR>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/864/directory/hospitals/171
+</CobwebTest:URL>
+<CobwebTest:POINT_X>317550.996776</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>179318.999722</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.189401</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>51.506717</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.11">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>195710.00211726 216835.00087801</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Withybush General Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Fishguard Road, Haverfordwest, Pembs.</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>SA61 2PZ</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01437 764545</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Major acute - Major A&E - Open</CobwebTest:TYPE>
+<CobwebTest:SERVICE>Major A&E</CobwebTest:SERVICE>
+<CobwebTest:_24HR>24</CobwebTest:_24HR>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/862/directory/hospitals/132
+</CobwebTest:URL>
+<CobwebTest:POINT_X>195710.002117</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>216835.000878</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-4.965147</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>51.812678</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.12">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>332374.99825608 350356.00088951</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Wrexham Maelor Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Croesnewydd Road, Wrexham</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>LL13 7TD</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01978 291100</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Major acute - Major A&E - Open</CobwebTest:TYPE>
+<CobwebTest:SERVICE>Major A&E</CobwebTest:SERVICE>
+<CobwebTest:_24HR>24</CobwebTest:_24HR>
+<CobwebTest:URL>http://www.wales.nhs.uk/sitesplus/861/page/42939</CobwebTest:URL>
+<CobwebTest:POINT_X>332374.998256</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>350356.00089</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.010209</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>53.046158</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.13">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>255856.99728443 370172.99833303</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Ysbyty Gwynedd</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Penrhosgarnedd, Bangor, Gwynedd</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>LL57 2PW</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01248 384384</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Major acute - Major A&E - Open</CobwebTest:TYPE>
+<CobwebTest:SERVICE>Major A&E</CobwebTest:SERVICE>
+<CobwebTest:_24HR>24</CobwebTest:_24HR>
+<CobwebTest:URL>http://www.wales.nhs.uk/sitesplus/861/page/41562</CobwebTest:URL>
+<CobwebTest:POINT_X>255856.997284</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>370172.998333</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-4.159877</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>53.20901</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.14">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>252459.00147814 201366.9985476</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Prince Philip Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Bryngwyn Mawr, Dafen, Llanelli</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>SA14 8QF</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01554 756567</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Major acute - Minor A&E - Open</CobwebTest:TYPE>
+<CobwebTest:SERVICE>Minor A&E</CobwebTest:SERVICE>
+<CobwebTest:_24HR>24</CobwebTest:_24HR>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/862/directory/hospitals/127
+</CobwebTest:URL>
+<CobwebTest:POINT_X>252459.001478</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>201366.998548</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-4.136032</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>51.691571</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.15">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>310746.79308244 169085.05915658</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Barry Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Colcot Road, Barry, South Glamorgan</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>CF62 8YH</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01446 704000</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Community</CobwebTest:TYPE>
+<CobwebTest:SERVICE>Minor Injuries Unit</CobwebTest:SERVICE>
+<CobwebTest:_24HR>Not 24</CobwebTest:_24HR>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/864/directory/hospitals/160
+</CobwebTest:URL>
+<CobwebTest:POINT_X>310746.793082</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>169085.059157</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.28483</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>51.413685</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.16">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>304920.00015723 228742.00253426</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Brecon War Memorial Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Cerrigochion Road, Brecon, Powys</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>LD3 7NS</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01874 622443</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Community</CobwebTest:TYPE>
+<CobwebTest:SERVICE>Minor Injuries Unit</CobwebTest:SERVICE>
+<CobwebTest:_24HR>24</CobwebTest:_24HR>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/867/directory/hospitals/211
+</CobwebTest:URL>
+<CobwebTest:POINT_X>304920.000157</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>228742.002534</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.384857</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>51.948979</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.17">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>239069.56642398 337659.58520068</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Bryn Beryl Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Caernarfon Road, Pwllheli, Gwynedd</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>LL53 6TT</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01758 701122</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Community</CobwebTest:TYPE>
+<CobwebTest:SERVICE>Minor Injuries Unit</CobwebTest:SERVICE>
+<CobwebTest:_24HR>Not 24</CobwebTest:_24HR>
+<CobwebTest:URL>http://www.wales.nhs.uk/sitesplus/861/page/41589</CobwebTest:URL>
+<CobwebTest:POINT_X>239069.566424</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>337659.585201</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-4.394766</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>52.912176</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.18">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>305886.99741329 366365.99807551</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Denbigh Community Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Ruthin Road, Denbigh, Denbighshire</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>LL16 3ES</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01745 818100</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Community</CobwebTest:TYPE>
+<CobwebTest:SERVICE>Minor Injuries Unit</CobwebTest:SERVICE>
+<CobwebTest:_24HR>Not 24</CobwebTest:_24HR>
+<CobwebTest:URL>http://www.wales.nhs.uk/sitesplus/861/page/42923</CobwebTest:URL>
+<CobwebTest:POINT_X>305886.997413</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>366365.998076</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.409914</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>53.186021</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.19">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>273047.9991506 317569.99578581</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Dolgellau & Barmouth District Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Dolgellau, Gwynedd</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>LL40 1NT</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01341 422479</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Community</CobwebTest:TYPE>
+<CobwebTest:SERVICE>Minor Injuries Unit</CobwebTest:SERVICE>
+<CobwebTest:_24HR>Not 24</CobwebTest:_24HR>
+<CobwebTest:URL>http://www.wales.nhs.uk/sitesplus/861/page/41723</CobwebTest:URL>
+<CobwebTest:POINT_X>273047.999151</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>317569.995786</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.881969</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>52.740785</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.20">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>318831.88350806 375508.39109275</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Holywell Community Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Halkyn Road, Holywell, Flintshire</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>CH8 7TZ</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01352 711833</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Community</CobwebTest:TYPE>
+<CobwebTest:SERVICE>Minor Injuries Unit</CobwebTest:SERVICE>
+<CobwebTest:_24HR>Not 24</CobwebTest:_24HR>
+<CobwebTest:URL>http://www.wales.nhs.uk/sitesplus/861/page/42942</CobwebTest:URL>
+<CobwebTest:POINT_X>318831.883508</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>375508.391093</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.218569</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>53.270318</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.21">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>306095.27590176 261482.0307987</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Llandrindod Wells County War Memorial Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Temple Street, Llandrindod Wells, Radnor, Powys</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>LD1 5HF</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01597 822951</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Community</CobwebTest:TYPE>
+<CobwebTest:SERVICE>Minor Injuries Unit</CobwebTest:SERVICE>
+<CobwebTest:_24HR>24</CobwebTest:_24HR>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/867/directory/hospitals/217
+</CobwebTest:URL>
+<CobwebTest:POINT_X>306095.275902</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>261482.030799</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.376793</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>52.243452</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.22">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>278280.00161304 380948.00401975</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Llandudno General Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Hospital Road, Llandudno, Conwy</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>LL30 1LB</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01492 860066</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Acute</CobwebTest:TYPE>
+<CobwebTest:SERVICE>Minor Injuries Unit</CobwebTest:SERVICE>
+<CobwebTest:_24HR>Not 24</CobwebTest:_24HR>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/861/tudalen/42404
+</CobwebTest:URL>
+<CobwebTest:POINT_X>278280.001613</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>380948.00402</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.828442</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>53.311428</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.23">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>275401.99707521 190465.99892627</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Neath Port Talbot Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Baglan Way, Port Talbot</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>SA12 7BX</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01639 862000</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Acute</CobwebTest:TYPE>
+<CobwebTest:SERVICE>Minor Injuries Unit</CobwebTest:SERVICE>
+<CobwebTest:_24HR>24</CobwebTest:_24HR>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/863/directory/hospitals/152
+</CobwebTest:URL>
+<CobwebTest:POINT_X>275401.997075</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>190465.998926</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.800402</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>51.599169</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.24">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>262626.00281203 191909.99558652</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Singleton Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Sketty Lane, Sketty, Swansea</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>SA2 8QA</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01792 205666</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Major acute</CobwebTest:TYPE>
+<CobwebTest:SERVICE>Minor Injuries Unit</CobwebTest:SERVICE>
+<CobwebTest:_24HR>Not 24</CobwebTest:_24HR>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/863/directory/hospitals/154
+</CobwebTest:URL>
+<CobwebTest:POINT_X>262626.002812</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>191909.995587</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.985318</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>51.609172</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.25">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>259068.00335001 300513.99801436</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Tywyn Memorial Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Bryn Hyfryd Road, Tywyn, Gwynedd</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>LL36 9HH</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01654 710411</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Community</CobwebTest:TYPE>
+<CobwebTest:SERVICE>Minor Injuries Unit</CobwebTest:SERVICE>
+<CobwebTest:_24HR>Not 24</CobwebTest:_24HR>
+<CobwebTest:URL>http://www.wales.nhs.uk/sitesplus/861/page/41603</CobwebTest:URL>
+<CobwebTest:POINT_X>259068.00335</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>300513.998014</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-4.081615</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>52.584091</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.26">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>322772.97324402 307789.40545065</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Victoria Memorial Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Salop Road, Welshpool, Powys</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>SY21 7DU</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01938 553133</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Community</CobwebTest:TYPE>
+<CobwebTest:SERVICE>Minor Injuries Unit</CobwebTest:SERVICE>
+<CobwebTest:_24HR>Not 24</CobwebTest:_24HR>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/867/directory/hospitals/225
+</CobwebTest:URL>
+<CobwebTest:POINT_X>322772.973244</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>307789.405451</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.143313</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>52.662277</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.27">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>299936.99854004 194152.00381835</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Ysbyty Cwm Rhondda</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Partridge Road, Llwynypia</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>CF40 2LX</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01443 430022</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Community</CobwebTest:TYPE>
+<CobwebTest:SERVICE>Minor Injuries Unit</CobwebTest:SERVICE>
+<CobwebTest:_24HR>Not 24</CobwebTest:_24HR>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/865/directory/hospitals/186
+</CobwebTest:URL>
+<CobwebTest:POINT_X>299936.99854</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>194152.003818</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.447347</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>51.637199</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.28">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>225795.99921347 381794.00185539</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Ysbyty Penrhos Stanley</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Penrhos Beach Road, Holyhead, Anglesey</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>LL65 2QA</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01407 766000</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Community</CobwebTest:TYPE>
+<CobwebTest:SERVICE>Minor Injuries Unit</CobwebTest:SERVICE>
+<CobwebTest:_24HR>Not 24</CobwebTest:_24HR>
+<CobwebTest:URL>http://www.wales.nhs.uk/sitesplus/861/page/41751</CobwebTest:URL>
+<CobwebTest:POINT_X>225795.999213</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>381794.001855</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-4.615908</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>53.304358</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.29">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>308235.99883087 190126.99596485</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Pontypridd & District Cottage Hospital (Y Bwthyn)</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>The Common, Pontypridd, Glamorgan</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>CF37 4AL</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01443 486222</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Acute</CobwebTest:TYPE>
+<CobwebTest:SERVICE/>
+<CobwebTest:_24HR/>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/865/directory/hospitals/180
+</CobwebTest:URL>
+<CobwebTest:POINT_X>308235.998831</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>190126.995965</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.326405</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>51.602435</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.30">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>330607.00155911 187514.00392604</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>St. Woolos Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Stow Hill, Newport</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>NP20 4SZ</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01633 234234</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Acute</CobwebTest:TYPE>
+<CobwebTest:SERVICE/>
+<CobwebTest:_24HR/>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/866/directory/hospitals/205
+</CobwebTest:URL>
+<CobwebTest:POINT_X>330607.001559</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>187514.003926</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.002932</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>51.582148</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.31">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>286074.99780888 378172.99835685</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Colwyn Bay Clinic</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>
+Myrtle Villa, 19 Nant-Y-Glyn Road, Colwyn Bay, Conwy
+</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>LL29 8AY</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01492 593491</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Clinic</CobwebTest:TYPE>
+<CobwebTest:SERVICE/>
+<CobwebTest:_24HR/>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/861/directory/hospitals/69
+</CobwebTest:URL>
+<CobwebTest:POINT_X>286074.997809</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>378172.998357</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.710504</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>53.28823</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.32">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>305886.99741329 366365.99807551</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Denbigh Clinic</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>
+Denbigh Infirmary, Ruthin Road, Denbigh, Denbighshire
+</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>LL16 3ES</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01745 818100</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Clinic</CobwebTest:TYPE>
+<CobwebTest:SERVICE/>
+<CobwebTest:_24HR/>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/861/directory/hospitals/74
+</CobwebTest:URL>
+<CobwebTest:POINT_X>305886.997413</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>366365.998076</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.409914</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>53.186021</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.33">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>294666.89565026 375550.74896793</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Abergele Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Llanfair Road, Abergele</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>LL22 8DP</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01745 832295</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Community</CobwebTest:TYPE>
+<CobwebTest:SERVICE/>
+<CobwebTest:_24HR/>
+<CobwebTest:URL>http://www.wales.nhs.uk/sitesplus/861/page/42921</CobwebTest:URL>
+<CobwebTest:POINT_X>294666.89565</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>375550.748968</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.580799</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>53.266446</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.34">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>267427.73676091 214010.59935453</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Amman Valley Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Folland Road, Glanamman, Ammanford</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>SA18 2BQ</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01269 822226</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Community</CobwebTest:TYPE>
+<CobwebTest:SERVICE/>
+<CobwebTest:_24HR/>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/862/directory/hospitals/108
+</CobwebTest:URL>
+<CobwebTest:POINT_X>267427.736761</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>214010.599355</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.924428</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>51.808926</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.35">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>313765.67273424 235010.38822752</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Bronllys Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Bronllys, Brecon, Powys</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>LD3 0LS</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01874 711255</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Community</CobwebTest:TYPE>
+<CobwebTest:SERVICE/>
+<CobwebTest:_24HR/>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/867/directory/hospitals/213
+</CobwebTest:URL>
+<CobwebTest:POINT_X>313765.672734</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>235010.388228</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.257763</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>52.006768</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.36">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>319378.00337515 176916.99728762</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Cardiff Royal Infirmary</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Glossop Terrace, Cardiff</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>CF24 0SZ</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 029 2049 2233</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Community</CobwebTest:TYPE>
+<CobwebTest:SERVICE/>
+<CobwebTest:_24HR/>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/864/directory/hospitals/161
+</CobwebTest:URL>
+<CobwebTest:POINT_X>319378.003375</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>176916.997288</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.162532</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>51.485388</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.37">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>218134.00409826 246039.00131988</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Cardigan & District Memorial Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Pontyceifion, Cardigan</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>SA43 1DP</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01239 612214</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Community</CobwebTest:TYPE>
+<CobwebTest:SERVICE/>
+<CobwebTest:_24HR/>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/862/directory/hospitals/113
+</CobwebTest:URL>
+<CobwebTest:POINT_X>218134.004098</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>246039.00132</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-4.655687</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>52.082718</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.38">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>317550.99677588 179318.99972158</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Children's Hospital for Wales</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>University Hospital of Wales, Heath Park, Cardiff</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>CF14 4XW</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 029 2074 7747</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Community</CobwebTest:TYPE>
+<CobwebTest:SERVICE/>
+<CobwebTest:_24HR/>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/864/directory/hospitals/165
+</CobwebTest:URL>
+<CobwebTest:POINT_X>317550.996776</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>179318.999722</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.189401</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>51.506717</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.39">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>329382.67594609 338983.01637245</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Chirk Community Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>off John's Street, Chirk, Wrexham</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>LL14 5LN</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01691 772430</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Community</CobwebTest:TYPE>
+<CobwebTest:SERVICE/>
+<CobwebTest:_24HR/>
+<CobwebTest:URL>http://www.wales.nhs.uk/sitesplus/861/page/42946</CobwebTest:URL>
+<CobwebTest:POINT_X>329382.675946</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>338983.016372</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.052349</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>52.943552</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.40">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>286074.99780888 378172.99835685</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Colwyn Bay Community Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Hesketh Road, Colwyn Bay, Conwy</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>LL29 8AY</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01492 515218</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Community</CobwebTest:TYPE>
+<CobwebTest:SERVICE/>
+<CobwebTest:_24HR/>
+<CobwebTest:URL>http://www.wales.nhs.uk/sitesplus/861/page/42922</CobwebTest:URL>
+<CobwebTest:POINT_X>286074.997809</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>378172.998357</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.710504</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>53.28823</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.41">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>329157.99803108 199717.00085452</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>County Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Coed y Gric Road, Griffithstown, Pontypool, Gwent</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>NP4 5YA</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01495 768768</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Community</CobwebTest:TYPE>
+<CobwebTest:SERVICE/>
+<CobwebTest:_24HR/>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/866/directory/hospitals/196
+</CobwebTest:URL>
+<CobwebTest:POINT_X>329157.998031</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>199717.000855</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.026315</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>51.691673</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.42">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>330531.15524204 367764.41778204</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Deeside Community Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Plough Lane, Higher Shotton, Deeside, Flintshire</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>CH5 1XS</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01244 830461</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Community</CobwebTest:TYPE>
+<CobwebTest:SERVICE/>
+<CobwebTest:_24HR/>
+<CobwebTest:URL>http://www.wales.nhs.uk/sitesplus/861/page/42949</CobwebTest:URL>
+<CobwebTest:POINT_X>330531.155242</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>367764.417782</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.041484</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>53.202382</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.43">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>307021.99603434 189653.00164432</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Dewi Sant Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Albert Road, Pontypridd, Mid Glamorgan</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>CF37 1LB</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01443 486222</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Community</CobwebTest:TYPE>
+<CobwebTest:SERVICE/>
+<CobwebTest:_24HR/>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/865/directory/hospitals/178
+</CobwebTest:URL>
+<CobwebTest:POINT_X>307021.996034</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>189653.001644</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.343804</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>51.597975</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.44">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>248707.00397347 361611.99889362</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Eryri Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>LÃ´n Parc, Caernarfon, Gwynedd</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>LL55 2YE</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01286 672481</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Community</CobwebTest:TYPE>
+<CobwebTest:SERVICE/>
+<CobwebTest:_24HR/>
+<CobwebTest:URL>http://www.wales.nhs.uk/sitesplus/861/page/41648</CobwebTest:URL>
+<CobwebTest:POINT_X>248707.003973</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>361611.998894</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-4.262801</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>53.130126</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.45">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>270213.74290697 345562.83291957</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Ffestiniog Memorial Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Wynne Rd, Blaenau Ffestiniog, Gwynedd</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>LL41 3DW</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01766 831281</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Community</CobwebTest:TYPE>
+<CobwebTest:SERVICE/>
+<CobwebTest:_24HR/>
+<CobwebTest:URL>http://www.wales.nhs.uk/sitesplus/861/page/41727</CobwebTest:URL>
+<CobwebTest:POINT_X>270213.742907</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>345562.83292</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.935089</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>52.991612</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.46">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>262946.00187843 193631.00295329</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Hill House Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Sketty, Swansea</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>SA2 0FB</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01792 203551</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Community</CobwebTest:TYPE>
+<CobwebTest:SERVICE/>
+<CobwebTest:_24HR/>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/863/directory/hospitals/147
+</CobwebTest:URL>
+<CobwebTest:POINT_X>262946.001878</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>193631.002953</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.981374</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>51.624715</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.47">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>328595.00052392 272054.00460269</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Knighton Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Ffrydd Road, Knighton, Radnor, Powys</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>LD7 1DF</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01547 528633</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Community</CobwebTest:TYPE>
+<CobwebTest:SERVICE/>
+<CobwebTest:_24HR/>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/867/directory/hospitals/216
+</CobwebTest:URL>
+<CobwebTest:POINT_X>328595.000524</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>272054.004603</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.049567</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>52.341865</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.48">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>276729.99608652 234875.9966967</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Llandovery Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Llanfair Road, Llandovery</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>SA20 0LA</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01550 722200</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Community</CobwebTest:TYPE>
+<CobwebTest:SERVICE/>
+<CobwebTest:_24HR/>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/862/directory/hospitals/123
+</CobwebTest:URL>
+<CobwebTest:POINT_X>276729.996087</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>234875.996697</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.797039</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>51.998565</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.49">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>295465.99872712 284958.0008722</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Llanidloes War Memorial Hospital</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Eastgate Street, Llanidloes, Powys</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>SY18 6HF</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01686 412121</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Community</CobwebTest:TYPE>
+<CobwebTest:SERVICE/>
+<CobwebTest:_24HR/>
+<CobwebTest:URL>
+http://www.wales.nhs.uk/sitesplus/867/directory/hospitals/218
+</CobwebTest:URL>
+<CobwebTest:POINT_X>295465.998727</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>284958.000872</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.539729</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>52.452515</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+<CobwebTest:Hospitals gml:id="Hospitals.50">
+<CobwebTest:the_geom>
+<gml:Point srsDimension="2" srsName="OSGB_1936_British_National_Grid">
+<gml:pos>275064.99669282 300935.99721834</gml:pos>
+</gml:Point>
+</CobwebTest:the_geom>
+<CobwebTest:NAME>Machynlleth Community Hospital (Bro Ddyfi)</CobwebTest:NAME>
+<CobwebTest:ADDRESS_1>Newtown Road, Machynlleth, Powys</CobwebTest:ADDRESS_1>
+<CobwebTest:POSTCODE>SY20 8AD</CobwebTest:POSTCODE>
+<CobwebTest:NUMBER>Tel: 01654 702266</CobwebTest:NUMBER>
+<CobwebTest:TYPE>Type of Hospital: Community</CobwebTest:TYPE>
+<CobwebTest:SERVICE/>
+<CobwebTest:_24HR/>
+<CobwebTest:URL>http://www.wales.nhs.uk/sitesplus/867/page/67229</CobwebTest:URL>
+<CobwebTest:POINT_X>275064.996693</CobwebTest:POINT_X>
+<CobwebTest:POINT_Y>300935.997218</CobwebTest:POINT_Y>
+<CobwebTest:LONGITUDE>-3.845799</CobwebTest:LONGITUDE>
+<CobwebTest:LATITUDE>52.591796</CobwebTest:LATITUDE>
+<CobwebTest:hospital_n/>
+<CobwebTest:telephone_/>
+</CobwebTest:Hospitals>
+</gml:featureMembers>
+</wfs:FeatureCollection>

@@ -1,0 +1,21 @@
+<GMLFeatureClassList>
+  <GMLFeatureClass>
+    <Name>tasmania_roads</Name>
+    <ElementPath>tasmania_roads</ElementPath>
+    <GeometryType>5</GeometryType>
+    <SRSName>EPSG:4326</SRSName>
+    <DatasetSpecificInfo>
+      <FeatureCount>14</FeatureCount>
+      <ExtentXMin>145.19754</ExtentXMin>
+      <ExtentXMax>148.27298</ExtentXMax>
+      <ExtentYMin>-43.42351</ExtentYMin>
+      <ExtentYMax>-40.85280</ExtentYMax>
+    </DatasetSpecificInfo>
+    <PropertyDefn>
+      <Name>TYPE</Name>
+      <ElementPath>TYPE</ElementPath>
+      <Type>String</Type>
+      <Width>7</Width>
+    </PropertyDefn>
+  </GMLFeatureClass>
+</GMLFeatureClassList>

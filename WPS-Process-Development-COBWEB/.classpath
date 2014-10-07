@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry including="**/*.java" kind="src" output="target/classes" path="src">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry including="**/*.java" kind="src" path="resources"/>
+	<classpathentry kind="src" output="target/test-classes" path="test">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/52n-wps-algorithm-3.1.0.jar" sourcepath="/jbpm-custom-workitem-working"/>
+	<classpathentry kind="lib" path="lib/52n-wps-commons-3.1.0-tests.jar"/>
+	<classpathentry kind="lib" path="lib/52n-wps-commons-3.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/52n-wps-config-1.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/52n-wps-io-3.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/52n-wps-io-impl-3.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/52n-xml-ows-v110-1.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/52n-xml-wps-v100-1.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/52n-xml-xlink-v110-1.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/axis-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/axis-jaxrpc-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/axis-saaj-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/axis-wsdl4j-1.5.1.jar"/>
+	<classpathentry kind="lib" path="lib/common-2.6.0.jar"/>
+	<classpathentry kind="lib" path="lib/commons-codec-1.5.jar"/>
+	<classpathentry kind="lib" path="lib/commons-collections-3.2.jar"/>
+	<classpathentry kind="lib" path="lib/commons-discovery-0.2.jar"/>
+	<classpathentry kind="lib" path="lib/commons-httpclient-3.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-io-2.0.jar"/>
+	<classpathentry kind="lib" path="lib/commons-jxpath-1.3.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang-2.5.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="lib" path="lib/commons-pool-1.5.4.jar"/>
+	<classpathentry kind="lib" path="lib/ecore-2.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/gmlpacket-2.0-0.4.jar"/>
+	<classpathentry kind="lib" path="lib/gt-api-2.7.5.jar"/>
+	<classpathentry kind="lib" path="lib/gt-arcgrid-2.7.5.jar"/>
+	<classpathentry kind="lib" path="lib/gt-coverage-2.7.5.jar"/>
+	<classpathentry kind="lib" path="lib/gt-data-2.7.5.jar"/>
+	<classpathentry kind="lib" path="lib/gt-epsg-hsql-2.7.5.jar"/>
+	<classpathentry kind="lib" path="lib/gt-geotiff-2.7.5.jar"/>
+	<classpathentry kind="lib" path="lib/gt-graph-2.7.5.jar"/>
+	<classpathentry kind="lib" path="lib/gt-main-2.7.5.jar"/>
+	<classpathentry kind="lib" path="lib/gt-metadata-2.7.5.jar"/>
+	<classpathentry kind="lib" path="lib/gt-opengis-2.7.5.jar"/>
+	<classpathentry kind="lib" path="lib/gt-referencing-2.7.5.jar"/>
+	<classpathentry kind="lib" path="lib/gt-shapefile-2.7.5.jar"/>
+	<classpathentry kind="lib" path="lib/gt-xml-2.7.5.jar"/>
+	<classpathentry kind="lib" path="lib/gt-xsd-core-2.7.5.jar"/>
+	<classpathentry kind="lib" path="lib/gt-xsd-fes-2.7.5.jar"/>
+	<classpathentry kind="lib" path="lib/gt-xsd-filter-2.7.5.jar"/>
+	<classpathentry kind="lib" path="lib/gt-xsd-gml2-2.7.5.jar"/>
+	<classpathentry kind="lib" path="lib/gt-xsd-gml3-2.7.5.jar"/>
+	<classpathentry kind="lib" path="lib/gt-xsd-kml-2.7.5.jar"/>
+	<classpathentry kind="lib" path="lib/gt-xsd-ows-2.7.5.jar"/>
+	<classpathentry kind="lib" path="lib/gt-xsd-wfs-2.7.5.jar"/>
+	<classpathentry kind="lib" path="lib/guava-13.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/hamcrest-core-1.3.jar"/>
+	<classpathentry kind="lib" path="lib/hsqldb-1.8.0.7.jar"/>
+	<classpathentry kind="lib" path="lib/imageio-ext-arcgrid-1.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/imageio-ext-streams-1.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/imageio-ext-tiff-1.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/imageio-ext-utilities-1.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/jai_codec-1.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/jai_core-1.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/jai_imageio-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/jdom-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/jsr-275-1.0-beta-2.jar"/>
+	<classpathentry kind="lib" path="lib/jts-1.11.jar"/>
+	<classpathentry kind="lib" path="lib/junit-4.11.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.14.jar"/>
+	<classpathentry kind="lib" path="lib/net.opengis.ows-2.7.5.jar"/>
+	<classpathentry kind="lib" path="lib/net.opengis.wfs-2.7.5.jar"/>
+	<classpathentry kind="lib" path="lib/ogckml2.2-1.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/org.w3.xlink-2.7.5.jar"/>
+	<classpathentry kind="lib" path="lib/picocontainer-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/serializer-2.7.1.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api-1.7.2.jar"/>
+	<classpathentry kind="lib" path="lib/stax-utils-20060502.jar"/>
+	<classpathentry kind="lib" path="lib/stax2-api-3.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/vecmath-1.3.2.jar"/>
+	<classpathentry kind="lib" path="lib/woodstox-core-asl-4.0.6.jar"/>
+	<classpathentry kind="lib" path="lib/xalan-2.7.1.jar"/>
+	<classpathentry kind="lib" path="lib/xercesImpl-2.7.1.jar"/>
+	<classpathentry kind="lib" path="lib/xmlbeans-2.4.0.jar"/>
+	<classpathentry kind="lib" path="lib/xsd-2.6.0.jar"/>
+	<classpathentry kind="lib" path="/Users/lgzsam/.m2/repository/org/geoviqua/qim/schemas/4.0/schemas-4.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>
