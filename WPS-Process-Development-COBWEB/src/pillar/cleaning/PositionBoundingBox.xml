@@ -1,8 +1,8 @@
 <wps:ProcessDescriptions xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ows="http://www.opengis.net/ows/1.1" xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsDescribeProcess_response.xsd" xml:lang="en-US" service="WPS" version="1.0.0">
 <script/>
 <ProcessDescription statusSupported="true" storeSupported="true" wps:processVersion="1.0.0">
-	<ows:Identifier>pillar.cleaning.AttributeRange</ows:Identifier>
-	<ows:Title>pillar.cleaning.AttributeRange</ows:Title>
+	<ows:Identifier>pillar.cleaning.PositionBoundingBox</ows:Identifier>
+	<ows:Title>pillar.cleaning.PositionBoundingBox</ows:Title>
 		<DataInputs>
 			<Input maxOccurs="1" minOccurs="1">
 				<ows:Identifier>inputObservations</ows:Identifier>
@@ -22,34 +22,51 @@
 								<Schema>
 									http://schemas.opengis.net/gml/3.1.1/base/gml.xsd
 								</Schema>
-						</Format>
-						<Format>
-							<MimeType>text/xml; subtype=gml/3.1.0</MimeType>
-							<Schema>
-								http://schemas.opengis.net/gml/3.1.0/base/feature.xsd
-							</Schema>
-						</Format>
+								</Format>
+								<Format>
+								<MimeType>text/xml; subtype=gml/3.1.0</MimeType>
+								<Schema>
+									http://schemas.opengis.net/gml/3.1.0/base/feature.xsd
+								</Schema>
+		</Format>
 						</Supported>
 					
-					</ComplexData>
+		</ComplexData>
+		</Input>
+			
+			<Input maxOccurs="1" minOccurs="1">
+				<ows:Identifier>minX</ows:Identifier>
+				<ows:Title>minX</ows:Title>
+					<LiteralData>
+						<ows:DataType ows:reference="xs:double"/>
+						<ows:AnyValue/>
+					</LiteralData>
 			</Input>
 			<Input maxOccurs="1" minOccurs="1">
-				<ows:Identifier>attributeRange</ows:Identifier>
-				<ows:Title>inputDistance</ows:Title>
+				<ows:Identifier>minY</ows:Identifier>
+				<ows:Title>minY</ows:Title>
 					<LiteralData>
-						<ows:DataType ows:reference="xs:string"/>
+						<ows:DataType ows:reference="xs:double"/>
+						<ows:AnyValue/>
+					</LiteralData>
+			</Input>
+			<Input maxOccurs="1" minOccurs="1">
+				<ows:Identifier>maxX</ows:Identifier>
+				<ows:Title>maxX</ows:Title>
+					<LiteralData>
+						<ows:DataType ows:reference="xs:double"/>
+						<ows:AnyValue/>
+					</LiteralData>
+			</Input>
+			<Input maxOccurs="1" minOccurs="1">
+				<ows:Identifier>maxY</ows:Identifier>
+				<ows:Title>maxY</ows:Title>
+					<LiteralData>
+						<ows:DataType ows:reference="xs:double"/>
 						<ows:AnyValue/>
 					</LiteralData>
 			</Input>
 			
-			<Input maxOccurs="1" minOccurs="1">
-				<ows:Identifier>attributeName</ows:Identifier>
-				<ows:Title>searchTerm</ows:Title>
-					<LiteralData>
-						<ows:DataType ows:reference="xs:string"/>
-						<ows:AnyValue/>
-					</LiteralData>
-			</Input>
 		</DataInputs>
 	<ProcessOutputs>
 		<Output>
@@ -58,26 +75,27 @@
 				<ComplexOutput>
 					<Default>
 						<Format>
-							<MimeType>text/xml; subtype=gml/3.1.1</MimeType>
+								<MimeType>text/xml; subtype=gml/3.1.1</MimeType>
 								<Schema>
 									http://schemas.opengis.net/gml/3.1.1/base/gml.xsd
 								</Schema>
-			</Format>
+								</Format>
 		</Default>
 		<Supported>
 		<Format>
-							<MimeType>text/xml; subtype=gml/3.1.1</MimeType>
+								<MimeType>text/xml; subtype=gml/3.1.1</MimeType>
 								<Schema>
 									http://schemas.opengis.net/gml/3.1.1/base/gml.xsd
 								</Schema>
-									</Format>
-			<Format>
-							<MimeType>text/xml; subtype=gml/3.1.0</MimeType>
-							<Schema>
-								http://schemas.opengis.net/gml/3.1.0/base/feature.xsd
-							</Schema>
-						</Format>
+								</Format>
 		
+		
+		<Format>
+								<MimeType>text/xml; subtype=gml/3.1.0</MimeType>
+								<Schema>
+									http://schemas.opengis.net/gml/3.1.0/base/feature.xsd
+								</Schema>
+		</Format>
 		</Supported>
 		</ComplexOutput>
 	</Output>
@@ -88,26 +106,25 @@
 				<ComplexOutput>
 					<Default>
 						<Format>
-							<MimeType>text/xml; subtype=gml/3.1.1</MimeType>
+								<MimeType>text/xml; subtype=gml/3.1.1</MimeType>
 								<Schema>
 									http://schemas.opengis.net/gml/3.1.1/base/gml.xsd
 								</Schema>
-			</Format>
+								</Format>
 		</Default>
 		<Supported>
 		<Format>
-							<MimeType>text/xml</MimeType>
-				<Schema>
-					http://schemas.opengis.net/gml/3.1.1/base/gml.xsd
-				</Schema>
-			</Format>
-			
-			<Format>
-							<MimeType>text/xml; subtype=gml/3.1.0</MimeType>
-							<Schema>
-								http://schemas.opengis.net/gml/3.1.0/base/feature.xsd
-							</Schema>
-						</Format>
+								<MimeType>text/xml; subtype=gml/3.1.1</MimeType>
+								<Schema>
+									http://schemas.opengis.net/gml/3.1.1/base/gml.xsd
+								</Schema>
+								</Format>
+								<Format>
+								<MimeType>text/xml; subtype=gml/3.1.0</MimeType>
+								<Schema>
+									http://schemas.opengis.net/gml/3.1.0/base/feature.xsd
+								</Schema>
+		</Format>
 		</Supported>
 		</ComplexOutput>
 	</Output>

@@ -1,7 +1,6 @@
-package pillar.cleaning;
+package pillar.lbs;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -21,10 +20,11 @@ import org.geoviqua.qualityInformationModel.x40.GVQDataQualityType;
 import org.geoviqua.qualityInformationModel.x40.GVQDiscoveredIssueType;
 import org.geoviqua.qualityInformationModel.x40.GVQMetadataDocument;
 import org.geoviqua.qualityInformationModel.x40.GVQMetadataType;
-import org.n52.wps.io.data.GenericFileData;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
 import org.n52.wps.io.data.binding.complex.GenericFileDataBinding;
+import org.n52.wps.io.data.binding.literal.LiteralDoubleBinding;
+import org.n52.wps.io.data.binding.literal.LiteralIntBinding;
 import org.n52.wps.io.data.binding.literal.LiteralStringBinding;
 import org.n52.wps.server.AbstractAlgorithm;
 import org.n52.wps.server.ExceptionReport;
@@ -32,31 +32,43 @@ import org.opengis.feature.Property;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
 
-
-public class AttributeRange extends AbstractAlgorithm {
-	Logger LOG = Logger.getLogger(AttributeRange.class);
-	
+public class GetSpatialAccuracy extends AbstractAlgorithm {
+	Logger LOG = Logger.getLogger(GetSpatialAccuracy.class);
 	private final String inputObservations = "inputObservations";
-	private final String attributeRange = "attributeRange";
-	private final String attributeName = "attributeName";
-
+	private final String UUIDField = "UUIDField";
+	private final String inputSatelliteNumberField = "inputSatelliteNumberField";
+	private final String inputAccuracyField = "inputAccuracyField";
+	private final String minSatNum = "minSatNum";
+	private final String minAcc = "minAcc";
 	@Override
 	public Class<?> getInputDataType(String identifier) {
 		if(identifier.equalsIgnoreCase("inputObservations")){
 			return GTVectorDataBinding.class;
 		}
-		if(identifier.equalsIgnoreCase("attributeRange")){
+		if(identifier.equalsIgnoreCase("UUIDField")){
 			return LiteralStringBinding.class;
 		}
-		if(identifier.equalsIgnoreCase("attributeName")){
+		if(identifier.equalsIgnoreCase("inputSatelliteNumberField")){
 			return LiteralStringBinding.class;
 		}
+		if(identifier.equalsIgnoreCase("inputAccuracyField")){
+			return LiteralStringBinding.class;
+		}
+		if(identifier.equalsIgnoreCase("minSatNum")){
+			return LiteralIntBinding.class;
+		}
+		if(identifier.equalsIgnoreCase("minAcc")){
+			return LiteralDoubleBinding.class;
+		}
+		
 		return null;
+		
+		
 	}
 
 	@Override
 	public Class<?> getOutputDataType(String identifier) {
-		if(identifier.equalsIgnoreCase("result")){
+		if (identifier.equalsIgnoreCase("result")){
 			return GTVectorDataBinding.class;
 		}
 		if(identifier.equalsIgnoreCase("qual_result")){
@@ -71,104 +83,78 @@ public class AttributeRange extends AbstractAlgorithm {
 	@Override
 	public Map<String, IData> run(Map<String, List<IData>> inputData)
 			throws ExceptionReport {
-		
-		List<IData> obsList = inputData.get("inputObservations");
-		List <IData> attribRangeList = inputData.get("attributeRange");
-		List <IData> attributeNameList = inputData.get("attributeName");
-		
-		IData obsIData =obsList.get(0);
-		IData attributeRangeIData = attribRangeList.get(0);
-		IData attributeNameIData = attributeNameList.get(0);
-		
-		GTVectorDataBinding obs = ((GTVectorDataBinding) obsIData);
-		LiteralStringBinding range = (LiteralStringBinding) attributeRangeIData;
-		LiteralStringBinding name = (LiteralStringBinding) attributeNameIData;
-		
-		LOG.warn("++++++++++++++ HERE +++++++++++++");
-		
-		String rangeString = range.getPayload();
-		
-		String nameString = name.getPayload();
-		
-		String[] rangeStringArray = new String[2];
-		
-		rangeStringArray = rangeString.split(",");
-		
-		double minRange = Double.parseDouble(rangeStringArray[0]);
-		double maxRange = Double.parseDouble(rangeStringArray[1]);
-		
-		FeatureCollection obsFc = ((GTVectorDataBinding)obs).getPayload();
-		
-		ArrayList<SimpleFeature> resultArrayList = new ArrayList<SimpleFeature>(); 
-		
-		SimpleFeatureIterator obsIt = (SimpleFeatureIterator) obsFc.features();
-		SimpleFeatureType typeF = obsIt.next().getType();
-		
-		obsIt.close();
-		SimpleFeatureIterator obsIt2 = (SimpleFeatureIterator) obsFc.features();
+
+		List inputObsList = inputData.get("inputObservations");
+		List satFieldList = inputData.get("inputSatelliteNumberField");
+		List accFieldList = inputData.get("inputAccuracyField");
+		List UUIDList = inputData.get("UUIDField");
+		List minSatList= inputData.get("minSatNum");
+		List minAccList = inputData.get("minAcc");
 		
 		
-		while (obsIt2.hasNext()==true){
+		HashMap <String, String[]> metadata = new HashMap<String, String[]>();
+		
+		FeatureCollection inputObs = ((GTVectorDataBinding) inputObsList.get(0)).getPayload();
+		String inputSatField = ((LiteralStringBinding) satFieldList.get(0)).getPayload();
+		String accField = ((LiteralStringBinding) accFieldList.get(0)).getPayload();
+		String UUIDField = ((LiteralStringBinding) UUIDList.get(0)).getPayload();
+		int minSatNum = ((LiteralIntBinding) minSatList.get(0)).getPayload();
+		double minAcc = ((LiteralDoubleBinding) minAccList.get(0)).getPayload();
+		
+		SimpleFeatureIterator obsIt = (SimpleFeatureIterator) inputObs.features();
+		ArrayList<SimpleFeature> resultList = new ArrayList<SimpleFeature>();
+
+		
+		SimpleFeatureType typeF = null;
+		
+		
+		while (obsIt.hasNext() == true){
 			
-			SimpleFeature tempSf = obsIt2.next();	
-			Property tempAttribute =  tempSf.getProperty(nameString);
+			SimpleFeature tempFeature = obsIt.next();
 			
-			LOG.warn("doubleValue " + tempAttribute.getValue().toString());
+			typeF = tempFeature.getFeatureType();
 			
-			double tempAttributeValue = Double.parseDouble(tempAttribute.getValue().toString());
+			Property accProperty = (Property) tempFeature.getProperty(inputSatField);
+			Property satNumProperty = (Property) tempFeature.getProperty(accField);
+			Property UUIDProperty = (Property) tempFeature.getProperty("UUID");
 			
-			if (tempAttributeValue>= minRange){
+			double numberSat = Double.parseDouble(accProperty.getValue().toString());
+			double acc = Double.parseDouble(satNumProperty.getValue().toString());
+			
+			
+			String UUID = UUIDProperty.getValue().toString();
+			
+			String[] element = new String[2];
+			element[0] = "DQ_PositionalAccuracy";
+			element[1] = "element Output";
+			
+			
+			metadata.put(UUID, element);
+			
+			if(numberSat >= minSatNum){
 				
-				if(tempAttributeValue<=maxRange){
 				
-				resultArrayList.add(tempSf);
+				if(acc >= minAcc){
+					resultList.add(tempFeature);
 				}
 				
-		
 			}
 			
 			
 		}
-		obsIt2.close();
-		FeatureCollection resultFeatureCollection = new ListFeatureCollection(typeF, resultArrayList);
 		
+		obsIt.close();
+		ListFeatureCollection qualResult = new ListFeatureCollection(typeF, resultList);
 		
-		GenericFileData fd = null;
+		Map <String, IData> results = new HashMap<String, IData>();
 		
-		HashMap<String, Object> metadataElements = new HashMap<String,Object>();
-		
-		metadataElements.put("element1", "elementReturn");
-		
-		File file = createXMLMetadata(metadataElements);
-		
-	
-		try {
-			
-			
-			fd = new GenericFileData(file, "text/xml");
-			LOG.warn("mimeType " + fd.getMimeType());
-			
-		
-			} catch (IOException e) {
-			// TODO Auto-generated catch block
-			LOG.warn("IOException " + e);
-		
-			} 
-		
-		HashMap<String, IData> results = new HashMap<String, IData>();
-		results.put("result", new GTVectorDataBinding((FeatureCollection)obsFc));
-		results.put("qual_result", new GTVectorDataBinding((FeatureCollection)resultFeatureCollection));
-		results.put("metadata", new GenericFileDataBinding(fd));
-		
+		results.put("result", new GTVectorDataBinding(inputObs));
+		results.put("qual_result", new GTVectorDataBinding (qualResult));
+		results.put("metadata", new GenericFileDataBinding(null));
 		
 		return results;
 	}
 	
-	@Override
-	public List<String> getErrors() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 private File createXMLMetadata(HashMap<String,Object> inputs){
 	
 		
@@ -227,5 +213,11 @@ private File createXMLMetadata(HashMap<String,Object> inputs){
 		return null;
 	}
 	
+	
+	@Override
+	public List<String> getErrors() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

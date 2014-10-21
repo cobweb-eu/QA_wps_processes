@@ -139,10 +139,10 @@ public class LineOfSightCoordinates extends AbstractAlgorithm {
 		sourceCRS = factory.createCoordinateReferenceSystem("EPSG:4326");
 		projectCRS = factory.createCoordinateReferenceSystem("EPSG:"+surfaceModelCRS);
 	} catch (NoSuchAuthorityCodeException e1) {
-		// TODO Auto-generated catch block
+		LOGGER.warn("No Such CRS Authority code " + e1);
 		e1.printStackTrace();
 	} catch (FactoryException e1) {
-		// TODO Auto-generated catch block
+		LOGGER.warn("Factory Exception " + e1);
 		e1.printStackTrace();
 	}
 	
@@ -214,9 +214,7 @@ public class LineOfSightCoordinates extends AbstractAlgorithm {
 				}**/
 			
 			Geometry geom = (Geometry) tempFeature.getDefaultGeometry();
-			geom.setSRID(4326);
-			CoordinateReferenceSystem GPS = CRS.decode("EPSG:4326");
-			CoordinateReferenceSystem asciiCRS = CRS.decode(surfaceModelCRS);
+			
 			
 		//	LOGGER.warn("WGS " + geom.getCoordinate().x + " " + geom.getCoordinate().y);
 			
@@ -226,7 +224,7 @@ public class LineOfSightCoordinates extends AbstractAlgorithm {
 			
 			Point point2 = gf2.createPoint(tempCoord);
 		
-			MathTransform transform = CRS.findMathTransform(GPS, asciiCRS, true);
+			MathTransform transform = CRS.findMathTransform(sourceCRS, projectCRS, true);
 			
 			Geometry transformedGeom = JTS.transform(point2, transform);
 			
@@ -280,7 +278,7 @@ public class LineOfSightCoordinates extends AbstractAlgorithm {
 			//SimpleFeature feature = tempFeature;
 			
 			list.add(feature);
-			fc.add(feature);
+			
 			
 		}
 	
