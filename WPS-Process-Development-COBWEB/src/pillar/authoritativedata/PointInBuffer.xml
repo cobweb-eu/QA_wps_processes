@@ -23,6 +23,12 @@
 									http://schemas.opengis.net/gml/3.1.1/base/gml.xsd
 								</Schema>
 								</Format>
+						<Format>
+								<MimeType>text/xml; subtype=gml/3.1.0</MimeType>
+								<Schema>
+									http://schemas.opengis.net/gml/3.1.0/base/feature.xsd
+								</Schema>
+								</Format>
 						</Supported>
 					
 					</ComplexData>
@@ -44,6 +50,12 @@
 								<MimeType>text/xml; subtype=gml/3.1.1</MimeType>
 								<Schema>
 									http://schemas.opengis.net/gml/3.1.1/base/gml.xsd
+								</Schema>
+								</Format>
+								<Format>
+								<MimeType>text/xml; subtype=gml/3.1.0</MimeType>
+								<Schema>
+									http://schemas.opengis.net/gml/3.1.0/base/feature.xsd
 								</Schema>
 								</Format>
 						</Supported>
@@ -81,6 +93,12 @@
 									http://schemas.opengis.net/gml/3.1.1/base/gml.xsd
 								</Schema>
 								</Format>
+								<Format>
+								<MimeType>text/xml; subtype=gml/3.1.0</MimeType>
+								<Schema>
+									http://schemas.opengis.net/gml/3.1.0/base/feature.xsd
+								</Schema>
+								</Format>
 		</Supported>
 		</ComplexOutput>
 	</Output>
@@ -102,6 +120,12 @@
 								<MimeType>text/xml; subtype=gml/3.1.1</MimeType>
 								<Schema>
 									http://schemas.opengis.net/gml/3.1.1/base/gml.xsd
+								</Schema>
+								</Format>
+								<Format>
+								<MimeType>text/xml; subtype=gml/3.1.0</MimeType>
+								<Schema>
+									http://schemas.opengis.net/gml/3.1.0/base/feature.xsd
 								</Schema>
 								</Format>
 		</Supported>

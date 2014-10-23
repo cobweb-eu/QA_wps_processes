@@ -34,15 +34,6 @@
 					</ComplexData>
 			</Input>
 			<Input maxOccurs="1" minOccurs="1">
-				<ows:Identifier>attributeRange</ows:Identifier>
-				<ows:Title>inputDistance</ows:Title>
-					<LiteralData>
-						<ows:DataType ows:reference="xs:string"/>
-						<ows:AnyValue/>
-					</LiteralData>
-			</Input>
-			
-			<Input maxOccurs="1" minOccurs="1">
 				<ows:Identifier>attributeName</ows:Identifier>
 				<ows:Title>searchTerm</ows:Title>
 					<LiteralData>
@@ -50,6 +41,24 @@
 						<ows:AnyValue/>
 					</LiteralData>
 			</Input>
+			<Input maxOccurs="1" minOccurs="1">
+				<ows:Identifier>maxRange</ows:Identifier>
+				<ows:Title>maxRange</ows:Title>
+					<LiteralData>
+						<ows:DataType ows:reference="xs:double"/>
+						<ows:AnyValue/>
+					</LiteralData>
+			</Input>
+			<Input maxOccurs="1" minOccurs="1">
+				<ows:Identifier>minRange</ows:Identifier>
+				<ows:Title>minRange</ows:Title>
+					<LiteralData>
+						<ows:DataType ows:reference="xs:double"/>
+						<ows:AnyValue/>
+					</LiteralData>
+			</Input>
+			
+			
 		</DataInputs>
 	<ProcessOutputs>
 		<Output>

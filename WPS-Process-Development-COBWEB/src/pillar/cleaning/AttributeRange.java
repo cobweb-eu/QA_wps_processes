@@ -25,6 +25,7 @@ import org.n52.wps.io.data.GenericFileData;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
 import org.n52.wps.io.data.binding.complex.GenericFileDataBinding;
+import org.n52.wps.io.data.binding.literal.LiteralDoubleBinding;
 import org.n52.wps.io.data.binding.literal.LiteralStringBinding;
 import org.n52.wps.server.AbstractAlgorithm;
 import org.n52.wps.server.ExceptionReport;
@@ -37,7 +38,8 @@ public class AttributeRange extends AbstractAlgorithm {
 	Logger LOG = Logger.getLogger(AttributeRange.class);
 	
 	private final String inputObservations = "inputObservations";
-	private final String attributeRange = "attributeRange";
+	private final String attributeMin = "maxRange";
+	private final String attributeMax = "minRange";
 	private final String attributeName = "attributeName";
 
 	@Override
@@ -45,11 +47,14 @@ public class AttributeRange extends AbstractAlgorithm {
 		if(identifier.equalsIgnoreCase("inputObservations")){
 			return GTVectorDataBinding.class;
 		}
-		if(identifier.equalsIgnoreCase("attributeRange")){
-			return LiteralStringBinding.class;
-		}
 		if(identifier.equalsIgnoreCase("attributeName")){
 			return LiteralStringBinding.class;
+		}
+		if(identifier.equalsIgnoreCase("maxRange")){
+			return LiteralDoubleBinding.class;
+		}
+		if(identifier.equalsIgnoreCase("minRange")){
+			return LiteralDoubleBinding.class;
 		}
 		return null;
 	}
@@ -73,29 +78,32 @@ public class AttributeRange extends AbstractAlgorithm {
 			throws ExceptionReport {
 		
 		List<IData> obsList = inputData.get("inputObservations");
-		List <IData> attribRangeList = inputData.get("attributeRange");
+		List<IData> maxList = inputData.get("maxRange");
+		List<IData> minList = inputData.get("minRange");
+		
 		List <IData> attributeNameList = inputData.get("attributeName");
 		
-		IData obsIData =obsList.get(0);
-		IData attributeRangeIData = attribRangeList.get(0);
+		IData obsIData = obsList.get(0);
+		
 		IData attributeNameIData = attributeNameList.get(0);
 		
 		GTVectorDataBinding obs = ((GTVectorDataBinding) obsIData);
-		LiteralStringBinding range = (LiteralStringBinding) attributeRangeIData;
+		double maxRange = ((LiteralDoubleBinding)maxList.get(0)).getPayload();
+		double minRange = ((LiteralDoubleBinding)minList.get(0)).getPayload();
+		
 		LiteralStringBinding name = (LiteralStringBinding) attributeNameIData;
 		
 		LOG.warn("++++++++++++++ HERE +++++++++++++");
 		
-		String rangeString = range.getPayload();
+		
 		
 		String nameString = name.getPayload();
 		
 		String[] rangeStringArray = new String[2];
 		
-		rangeStringArray = rangeString.split(",");
 		
-		double minRange = Double.parseDouble(rangeStringArray[0]);
-		double maxRange = Double.parseDouble(rangeStringArray[1]);
+		
+		
 		
 		FeatureCollection obsFc = ((GTVectorDataBinding)obs).getPayload();
 		

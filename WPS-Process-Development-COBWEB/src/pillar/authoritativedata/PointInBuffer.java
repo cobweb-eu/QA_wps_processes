@@ -39,6 +39,20 @@ import org.opengis.referencing.crs.CoordinateReferenceSystem;
 
 import com.vividsolutions.jts.geom.Geometry;
 
+
+//Does not work in JBPM Workflow:
+
+/** Caused by: java.lang.NullPointerException: source crs
+	at org.geotools.data.store.ReprojectingFeatureCollection.&lt;init>(ReprojectingFeatureCollection.java:111)
+	at org.geotools.data.store.ReprojectingFeatureCollection.&lt;init>(ReprojectingFeatureCollection.java:94)
+	at org.geotools.data.store.ReprojectingFeatureCollection.&lt;init>(ReprojectingFeatureCollection.java:90)
+	at pillar.authoritativedata.PointInBuffer.run(PointInBuffer.java:108)
+	at org.n52.wps.server.request.ExecuteRequest.call(ExecuteRequest.java:685)**/
+
+//to solve, get input data, test for CRS, if null create a new featurecollection with
+//simplefeaturetype of inputcollection and set srs on the simplefeaturetype
+//maybe put all this on a start process that checks data integrity?
+
 public class PointInBuffer extends AbstractAlgorithm{
 
 	Logger LOG = Logger.getLogger(PointInBuffer.class);
@@ -88,6 +102,8 @@ public class PointInBuffer extends AbstractAlgorithm{
 		FeatureCollection obsFcW = ((GTVectorDataBinding) inputObs.get(0)).getPayload();
 		FeatureCollection authFcW = ((GTVectorDataBinding) inputAuth.get(0)).getPayload();
 		double bufferDistance = ((LiteralDoubleBinding) inputDis.get(0)).getPayload();
+		
+		
 		
 		CoordinateReferenceSystem sourceCRS = null;
 		
