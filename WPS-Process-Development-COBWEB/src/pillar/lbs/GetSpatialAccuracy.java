@@ -40,6 +40,7 @@ public class GetSpatialAccuracy extends AbstractAlgorithm {
 	private final String inputAccuracyField = "inputAccuracyField";
 	private final String minSatNum = "minSatNum";
 	private final String minAcc = "minAcc";
+	
 	@Override
 	public Class<?> getInputDataType(String identifier) {
 		if(identifier.equalsIgnoreCase("inputObservations")){
@@ -101,22 +102,29 @@ public class GetSpatialAccuracy extends AbstractAlgorithm {
 		int minSatNum = ((LiteralIntBinding) minSatList.get(0)).getPayload();
 		double minAcc = ((LiteralDoubleBinding) minAccList.get(0)).getPayload();
 		
+		SimpleFeatureIterator sfi = (SimpleFeatureIterator) inputObs.features();
+		
+		SimpleFeatureType typeF = sfi.next().getType();
+		
+		LOG.warn("Get Spatial Accuracy Feature Type " + typeF.toString());
+		
+		sfi.close();
+		
 		SimpleFeatureIterator obsIt = (SimpleFeatureIterator) inputObs.features();
 		ArrayList<SimpleFeature> resultList = new ArrayList<SimpleFeature>();
 
 		
-		SimpleFeatureType typeF = null;
+		
 		
 		
 		while (obsIt.hasNext() == true){
 			
 			SimpleFeature tempFeature = obsIt.next();
-			
-			typeF = tempFeature.getFeatureType();
-			
+			SimpleFeature outFeat = tempFeature;
+					
 			Property accProperty = (Property) tempFeature.getProperty(inputSatField);
 			Property satNumProperty = (Property) tempFeature.getProperty(accField);
-			Property UUIDProperty = (Property) tempFeature.getProperty("UUID");
+			Property UUIDProperty = (Property) tempFeature.getProperty(UUIDField);
 			
 			double numberSat = Double.parseDouble(accProperty.getValue().toString());
 			double acc = Double.parseDouble(satNumProperty.getValue().toString());
@@ -135,7 +143,7 @@ public class GetSpatialAccuracy extends AbstractAlgorithm {
 				
 				
 				if(acc >= minAcc){
-					resultList.add(tempFeature);
+					resultList.add(outFeat);
 				}
 				
 			}

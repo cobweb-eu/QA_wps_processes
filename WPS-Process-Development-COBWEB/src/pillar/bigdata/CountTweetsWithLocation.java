@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.geotools.feature.FeatureCollection;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
+import org.n52.wps.io.data.binding.complex.GenericFileDataBinding;
 import org.n52.wps.io.data.binding.literal.LiteralDoubleBinding;
 import org.n52.wps.io.data.binding.literal.LiteralIntBinding;
 import org.n52.wps.io.data.binding.literal.LiteralStringBinding;
@@ -31,11 +32,15 @@ public class CountTweetsWithLocation extends AbstractAlgorithm {
 	private final String dateSince = "dateSince";
 	private final String searchTerm = "searchTerm";
 	private final String inputDistance = "inputDistance";
+	private final String inputObservations = "inputObservations";
 	Logger LOG = Logger.getLogger(CountTweetsWithLocation.class);
 	@Override
 	public Class<?> getInputDataType(String identifier) {
 	
 		
+		if(identifier.equalsIgnoreCase("inputObservations")){
+			return GTVectorDataBinding.class;
+		}
 		if(identifier.equalsIgnoreCase("inputLocation")){
 			return LiteralStringBinding.class;
 		}
@@ -54,7 +59,13 @@ public class CountTweetsWithLocation extends AbstractAlgorithm {
 	@Override
 	public Class<?> getOutputDataType(String identifier) {
 		if(identifier.equalsIgnoreCase("result")){
-			return LiteralIntBinding.class;
+			return GTVectorDataBinding.class;
+		}
+		if(identifier.equalsIgnoreCase("qual_result")){
+			return GTVectorDataBinding.class;
+		}
+		if(identifier.equalsIgnoreCase("metadata")){
+			return GenericFileDataBinding.class;
 		}
 		return null;
 	}
@@ -71,11 +82,14 @@ public class CountTweetsWithLocation extends AbstractAlgorithm {
 		List<IData> inputLoc = inputData.get(inputLocation);
 		List<IData> dateList = inputData.get(dateSince);
 		List<IData> searchList = inputData.get(searchTerm);
+		List<IData> obsList = inputData.get(inputObservations);
 		
 		IData inputDistance = inputDisList.get(0);
 		IData inputLocation = inputLoc.get(0);
 		IData inputDate = dateList.get(0);
 		IData searchTerm = searchList.get(0);
+		
+		FeatureCollection obsFc = ((GTVectorDataBinding)obsList.get(0)).getPayload();
 		
 		LiteralDoubleBinding inputDist = (LiteralDoubleBinding) inputDistance;
 		LiteralStringBinding inputLoca = (LiteralStringBinding) inputLocation;
@@ -135,7 +149,10 @@ public class CountTweetsWithLocation extends AbstractAlgorithm {
 		System.out.println("Total Tweets " + totalTweets);
 		Map<String, IData> result = new HashMap<String, IData>();
 		
-		result.put("result", new LiteralIntBinding(totalTweets));
+		result.put("metadata", new GenericFileDataBinding(null));
+		result.put("qual_result", new GTVectorDataBinding(obsFc));
+		
+		result.put("result", new GTVectorDataBinding(obsFc));
 		return result;
 	}
 	@Override

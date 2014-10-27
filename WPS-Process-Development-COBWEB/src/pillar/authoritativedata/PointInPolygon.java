@@ -82,6 +82,7 @@ public class PointInPolygon extends AbstractAlgorithm {
 		SimpleFeatureIterator obsIt = (SimpleFeatureIterator) obsFc.features();
 		SimpleFeatureType typeF = obsIt.next().getType();
 		
+		
 		obsIt.close();
 		
 		SimpleFeatureIterator obsIt2 = (SimpleFeatureIterator) obsFc.features();
@@ -101,6 +102,7 @@ public class PointInPolygon extends AbstractAlgorithm {
 				
 				if (obsGeom.within(authGeom)){
 					resultArrayList.add(tempSf);
+				
 				}
 				
 			}

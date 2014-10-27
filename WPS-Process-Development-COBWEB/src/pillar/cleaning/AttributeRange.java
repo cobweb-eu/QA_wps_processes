@@ -82,36 +82,27 @@ public class AttributeRange extends AbstractAlgorithm {
 		List<IData> minList = inputData.get("minRange");
 		
 		List <IData> attributeNameList = inputData.get("attributeName");
-		
-		IData obsIData = obsList.get(0);
-		
+				
 		IData attributeNameIData = attributeNameList.get(0);
 		
-		GTVectorDataBinding obs = ((GTVectorDataBinding) obsIData);
+		FeatureCollection obsFc = ((GTVectorDataBinding)obsList.get(0)).getPayload();
 		double maxRange = ((LiteralDoubleBinding)maxList.get(0)).getPayload();
 		double minRange = ((LiteralDoubleBinding)minList.get(0)).getPayload();
+		String nameString = ((LiteralStringBinding)attributeNameList.get(0)).getPayload();
 		
-		LiteralStringBinding name = (LiteralStringBinding) attributeNameIData;
+		
 		
 		LOG.warn("++++++++++++++ HERE +++++++++++++");
-		
-		
-		
-		String nameString = name.getPayload();
-		
-		String[] rangeStringArray = new String[2];
-		
-		
-		
-		
-		
-		FeatureCollection obsFc = ((GTVectorDataBinding)obs).getPayload();
-		
+		LOG.warn("obsFc " + obsFc.size());
+		LOG.warn("maxRange " + maxRange);
+		LOG.warn("minRange " + minRange);
+		LOG.warn("nameString " + nameString);
+				
 		ArrayList<SimpleFeature> resultArrayList = new ArrayList<SimpleFeature>(); 
 		
 		SimpleFeatureIterator obsIt = (SimpleFeatureIterator) obsFc.features();
 		SimpleFeatureType typeF = obsIt.next().getType();
-		
+		LOG.warn("Attribute Range Feature Type " + typeF.toString() );
 		obsIt.close();
 		SimpleFeatureIterator obsIt2 = (SimpleFeatureIterator) obsFc.features();
 		
@@ -119,17 +110,19 @@ public class AttributeRange extends AbstractAlgorithm {
 		while (obsIt2.hasNext()==true){
 			
 			SimpleFeature tempSf = obsIt2.next();	
-			Property tempAttribute =  tempSf.getProperty(nameString);
+			//Property tempAttribute =  tempSf.getProperty(nameString);
 			
-			LOG.warn("doubleValue " + tempAttribute.getValue().toString());
+		//	LOG.warn("tempFeature " + tempSf.toString() );
 			
-			double tempAttributeValue = Double.parseDouble(tempAttribute.getValue().toString());
+			//LOG.warn("doubleValue " + tempAttribute.getValue().toString());
+			
+			double tempAttributeValue = Double.parseDouble(tempSf.getProperty(nameString).getValue().toString());
 			
 			if (tempAttributeValue>= minRange){
 				
 				if(tempAttributeValue<=maxRange){
 				
-				resultArrayList.add(tempSf);
+					resultArrayList.add(tempSf);
 				}
 				
 		
@@ -154,7 +147,7 @@ public class AttributeRange extends AbstractAlgorithm {
 			
 			
 			fd = new GenericFileData(file, "text/xml");
-			LOG.warn("mimeType " + fd.getMimeType());
+		//	LOG.warn("mimeType " + fd.getMimeType());
 			
 		
 			} catch (IOException e) {

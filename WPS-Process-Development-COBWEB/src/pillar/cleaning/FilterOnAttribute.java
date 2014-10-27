@@ -74,10 +74,15 @@ public class FilterOnAttribute extends AbstractAlgorithm{
 		LOG.warn("inlcudeB " + includeB);
 		
 		ArrayList<SimpleFeature> resultList = new ArrayList<SimpleFeature>(); 
+		SimpleFeatureIterator obsIt2 = (SimpleFeatureIterator) obsFc.features();
+	
+		SimpleFeatureType typeF = obsIt2.next().getType();
+		LOG.warn("Filter On Attribute feature type " + typeF.toString() );
+		
+		obsIt2.close();
 		
 		SimpleFeatureIterator obsIt = (SimpleFeatureIterator) obsFc.features();
 		
-		SimpleFeatureType typeF = null;
 		
 		while (obsIt.hasNext()){
 			
@@ -85,16 +90,15 @@ public class FilterOnAttribute extends AbstractAlgorithm{
 			
 			SimpleFeature tempFeature = obsIt.next();
 			
-			typeF = tempFeature.getFeatureType();
 			String tempProp = tempFeature.getProperty(fieldN).getValue().toString();
 			
-			LOG.warn("tempProp " + tempProp);
+			//LOG.warn("tempProp " + tempProp);
 			
 			if(includeB == true){
 			
 				if (tempProp.equalsIgnoreCase(featureN)){
 					
-					LOG.warn("Here 1 " + tempProp + " " + includeB);
+				//	LOG.warn("Here 1 " + tempProp + " " + includeB);
 					resultList.add(tempFeature);
 				
 				}
@@ -103,7 +107,7 @@ public class FilterOnAttribute extends AbstractAlgorithm{
 			if(includeB == false){
 				
 				if (!tempProp.equalsIgnoreCase(featureN)){
-					LOG.warn("Here 2 " + includeB + " " + featureN + " " + tempProp);
+					//LOG.warn("Here 2 " + includeB + " " + featureN + " " + tempProp);
 					resultList.add(tempFeature);
 				}
 				
