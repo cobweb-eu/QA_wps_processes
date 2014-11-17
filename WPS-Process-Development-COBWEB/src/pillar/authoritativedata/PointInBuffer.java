@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +19,8 @@ import org.geotools.data.collection.ListFeatureCollection;
 import org.geotools.data.simple.SimpleFeatureIterator;
 import org.geotools.data.store.ReprojectingFeatureCollection;
 import org.geotools.feature.FeatureCollection;
+import org.geotools.feature.simple.SimpleFeatureBuilder;
+import org.geotools.feature.simple.SimpleFeatureTypeBuilder;
 import org.geotools.referencing.CRS;
 import org.geoviqua.gmd19157.DQDataQualityType;
 import org.geoviqua.qualityInformationModel.x40.GVQDataQualityType;
@@ -30,8 +34,10 @@ import org.n52.wps.io.data.binding.complex.GenericFileDataBinding;
 import org.n52.wps.io.data.binding.literal.LiteralDoubleBinding;
 import org.n52.wps.server.AbstractAlgorithm;
 import org.n52.wps.server.ExceptionReport;
+import org.opengis.feature.Property;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
+import org.opengis.feature.type.PropertyType;
 import org.opengis.referencing.FactoryException;
 import org.opengis.referencing.NoSuchAuthorityCodeException;
 import org.opengis.referencing.crs.CRSAuthorityFactory;
@@ -83,9 +89,7 @@ public class PointInBuffer extends AbstractAlgorithm{
 		if(identifier.equalsIgnoreCase("qual_result")){
 			return GTVectorDataBinding.class;
 		}
-		if(identifier.equalsIgnoreCase("metadata")){
-			return GenericFileDataBinding.class;
-		}
+	
 		
 		return null;
 	}
@@ -99,20 +103,69 @@ public class PointInBuffer extends AbstractAlgorithm{
 		List <IData> inputDis = inputData.get("inputBufferDistance");
 		
 		LOG.warn("+++++++++HERE+++++++++++");
+		
 		FeatureCollection obsFcW = ((GTVectorDataBinding) inputObs.get(0)).getPayload();
 		FeatureCollection authFcW = ((GTVectorDataBinding) inputAuth.get(0)).getPayload();
 		double bufferDistance = ((LiteralDoubleBinding) inputDis.get(0)).getPayload();
 		
+		SimpleFeatureIterator sfi = (SimpleFeatureIterator) obsFcW.features();
+		SimpleFeature tempPropFeature = sfi.next();
 		
 		
-		CoordinateReferenceSystem sourceCRS = null;
+		CoordinateReferenceSystem inputObsCrs = (CoordinateReferenceSystem)((Geometry)((SimpleFeature)obsFcW.features().next()).getDefaultGeometry()).getUserData(); 
+		CoordinateReferenceSystem inputAuthCrs =(CoordinateReferenceSystem)((Geometry)((SimpleFeature)authFcW.features().next()).getDefaultGeometry()).getUserData(); 
+		LOG.warn("Obs and Auth CRS " + inputObsCrs + " " + inputAuthCrs);
+		Collection<Property> obsProp = tempPropFeature.getProperties();
+		
+		
+		//SimpleFeatureType typeF = tempPropFeature.getType();
+		
+		SimpleFeatureTypeBuilder resultTypeBuilder = new SimpleFeatureTypeBuilder();
+		resultTypeBuilder.setName("typeBuilder");
+		
+		
+		Iterator<Property> pItObs = obsProp.iterator();
+		
+	
+		
+		sfi.close();
+		while (pItObs.hasNext()==true){
+			
+			try{
+				
+			Property tempProp = pItObs.next();
+			PropertyType type = tempProp.getDescriptor().getType();
+			String name = type.getName().getLocalPart();
+			Class<String> valueClass = (Class<String>)tempProp.getType().getBinding();
+			
+			resultTypeBuilder.add(name, valueClass);
+			
+
+			LOG.warn ("Obs property " + name + " " + valueClass);
+			}
+			catch (Exception e){
+				LOG.error("property error " + e);
+			}
+		}
+		
+		//add DQ_Field
+		
+		resultTypeBuilder.add("DQ_TopolocialConsistency", Double.class);
+		
+		SimpleFeatureType typeF = resultTypeBuilder.buildFeatureType();
+		LOG.warn("Get Spatial Accuracy Feature Type " + typeF.toString());
+		
+		CoordinateReferenceSystem sourceCRS = obsFcW.getSchema().getCoordinateReferenceSystem();
+		
+		
 		
 		CoordinateReferenceSystem projectCRS = null;
 		
-		CRSAuthorityFactory   factory = CRS.getAuthorityFactory(true);
+		CRSAuthorityFactory factory = CRS.getAuthorityFactory(true);
 		try {
-			sourceCRS = factory.createCoordinateReferenceSystem("EPSG:4326");
 			projectCRS = factory.createCoordinateReferenceSystem("EPSG:27700");
+		//	inputObsCrs = factory.createCoordinateReferenceSystem("EPSG:4326");
+		//	inputAuthCRS = factory.createCoordinateReferenceSystem("EPSG:4326");
 		} catch (NoSuchAuthorityCodeException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -120,28 +173,49 @@ public class PointInBuffer extends AbstractAlgorithm{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		resultTypeBuilder.setCRS(projectCRS);
 		
-		FeatureCollection obsFc = new ReprojectingFeatureCollection(obsFcW, projectCRS);
-		FeatureCollection authFc = new ReprojectingFeatureCollection(authFcW, projectCRS);
+		LOG.warn("inputObsCrs " + inputObsCrs + " inputAuthCrs " + inputAuthCrs);
+		
+		
+		FeatureCollection obsFc = new ReprojectingFeatureCollection(obsFcW, inputObsCrs, projectCRS);
+		FeatureCollection authFc = new ReprojectingFeatureCollection(authFcW, inputAuthCrs, projectCRS);
 		
 		
 		
 		ArrayList<SimpleFeature> resultArrayList = new ArrayList<SimpleFeature>(); 
+		ArrayList<SimpleFeature> qual_resultArrayList = new ArrayList<SimpleFeature>();
 		
 		SimpleFeatureIterator obsIt = (SimpleFeatureIterator) obsFc.features();
-		SimpleFeatureType typeF = obsIt.next().getType();
-		
+	
+		SimpleFeatureBuilder resultFeatureBuilder = new SimpleFeatureBuilder(typeF);
 		obsIt.close();
 		
 		SimpleFeatureIterator obsIt2 = (SimpleFeatureIterator) obsFc.features();
 		
+		int within = 0;
+		
 		while (obsIt2.hasNext()==true){
 			
+			within = 0;
+			
 			SimpleFeature tempSf = obsIt2.next();	
+			
+			Geometry tempGeom = (Geometry) tempSf.getDefaultGeometry();
 			
 			Geometry obsGeom = (Geometry) tempSf.getDefaultGeometry();
 			
 			SimpleFeatureIterator authIt = (SimpleFeatureIterator) authFc.features();
+			
+			for (Property obsProperty : tempSf.getProperties()){
+
+				
+				String name = obsProperty.getName().toString();
+				Object value = obsProperty.getValue();
+				
+				resultFeatureBuilder.set(name, value);
+				
+			}
 			
 			while (authIt.hasNext()==true){
 				
@@ -149,10 +223,24 @@ public class PointInBuffer extends AbstractAlgorithm{
 				Geometry authGeom = (Geometry) tempAuth.getDefaultGeometry();
 				Geometry bufferGeom = (Geometry) obsGeom.buffer(bufferDistance);
 				
+				
+				
 				if (bufferGeom.intersects(authGeom)==true){
-					resultArrayList.add(tempSf);
+					within = 1;
 				}
 				
+			}
+			
+			resultFeatureBuilder.set("DQ_TopolocialConsistency", within);
+			
+			SimpleFeature tempResult = resultFeatureBuilder.buildFeature(tempSf.getID());
+			
+			tempResult.setDefaultGeometry(tempGeom);
+			
+			resultArrayList.add(tempResult);
+			
+			if(within == 1){
+				qual_resultArrayList.add(tempResult);
 			}
 			
 			authIt.close();
@@ -163,41 +251,18 @@ public class PointInBuffer extends AbstractAlgorithm{
 		}
 		obsIt2.close();
 		FeatureCollection resultFeatureCollection = new ListFeatureCollection(typeF, resultArrayList);
-		FeatureCollection returnFeatureCollection = new ReprojectingFeatureCollection(resultFeatureCollection, sourceCRS);
 		
-	
+		FeatureCollection returnFeatureCollection = new ReprojectingFeatureCollection(resultFeatureCollection, projectCRS, inputObsCrs);
+		
+		FeatureCollection qual_resultFeatureCollection = new ListFeatureCollection(typeF, qual_resultArrayList);
+		FeatureCollection returnQual_ResultFeatureCollection = new ReprojectingFeatureCollection(qual_resultFeatureCollection, projectCRS, inputObsCrs);
 		
 		LOG.warn("Feature Collection Size " + resultFeatureCollection.size());
-		
-		GenericFileData fd = null;
-		
-		HashMap<String, Object> metadataElements = new HashMap<String,Object>();
-		
-		metadataElements.put("element1", "elementReturn");
-		
-		File file = createXMLMetadata(metadataElements);
-		
-		
-			
-		
-		
-		try {
-			
-			
-			fd = new GenericFileData(file, "text/xml");
-			LOG.warn("mimeType " + fd.getMimeType());
-			
-		
-			} catch (IOException e) {
-			// TODO Auto-generated catch block
-			LOG.warn("IOException " + e);
-		
-			} 
+	
 		
 		HashMap<String, IData> results = new HashMap<String, IData>();
-		results.put("result", new GTVectorDataBinding((FeatureCollection)obsFcW));
-		results.put("qual_result", new GTVectorDataBinding((FeatureCollection)returnFeatureCollection));
-		results.put("metadata", new GenericFileDataBinding(fd));
+		results.put("result", new GTVectorDataBinding((FeatureCollection)returnFeatureCollection));
+		results.put("qual_result", new GTVectorDataBinding((FeatureCollection)returnQual_ResultFeatureCollection));
 		
 		
 		

@@ -34,14 +34,6 @@
 					</ComplexData>
 			</Input>
 			<Input maxOccurs="1" minOccurs="1">
-				<ows:Identifier>UUIDField</ows:Identifier>
-				<ows:Title>UUIDField</ows:Title>
-					<LiteralData>
-						<ows:DataType ows:reference="xs:string"/>
-						<ows:AnyValue/>
-					</LiteralData>
-			</Input>
-			<Input maxOccurs="1" minOccurs="1">
 				<ows:Identifier>inputSatelliteNumberField</ows:Identifier>
 				<ows:Title>inputSatelliteNumberField</ows:Title>
 					<LiteralData>
@@ -136,26 +128,7 @@
 		</Supported>
 		</ComplexOutput>
 	</Output>
-	<Output>
-	<ows:Identifier>metadata</ows:Identifier>
-		<ows:Title>metadata</ows:Title>
-		<ows:Abstract>metadata</ows:Abstract>
-			<ComplexOutput>
-				<Default>
-				<Format>
-					<MimeType>text/plain</MimeType>
-			</Format>
-			</Default>
-			<Supported>
-				<Format>
-					<MimeType>text/xml</MimeType>
-				</Format>
-				<Format>
-					<MimeType>text/plain</MimeType>
-				</Format>
-			</Supported>
-		</ComplexOutput>
-		</Output>
+	
 		</ProcessOutputs>
 	</ProcessDescription>
 </wps:ProcessDescriptions>

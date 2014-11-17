@@ -292,6 +292,7 @@ public class BufferAuthoritativeDataComparison extends AbstractAnnotatedAlgorith
 		                                                                                          "GVQ_DataQuality"),
 		                                                                                GVQDataQualityType.type);
 		    GVQDiscoveredIssueType issue = gvqQuality.addNewDiscoveredIssue().addNewGVQDiscoveredIssue();
+		    
 		    issue.addNewKnownProblem().setCharacterString(inputs.get("element").toString());
 		    issue.addNewWorkAround().setCharacterString("solution");
 

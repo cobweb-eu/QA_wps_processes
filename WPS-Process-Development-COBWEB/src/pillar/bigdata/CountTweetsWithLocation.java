@@ -64,9 +64,7 @@ public class CountTweetsWithLocation extends AbstractAlgorithm {
 		if(identifier.equalsIgnoreCase("qual_result")){
 			return GTVectorDataBinding.class;
 		}
-		if(identifier.equalsIgnoreCase("metadata")){
-			return GenericFileDataBinding.class;
-		}
+		
 		return null;
 	}
 
@@ -149,7 +147,7 @@ public class CountTweetsWithLocation extends AbstractAlgorithm {
 		System.out.println("Total Tweets " + totalTweets);
 		Map<String, IData> result = new HashMap<String, IData>();
 		
-		result.put("metadata", new GenericFileDataBinding(null));
+		
 		result.put("qual_result", new GTVectorDataBinding(obsFc));
 		
 		result.put("result", new GTVectorDataBinding(obsFc));

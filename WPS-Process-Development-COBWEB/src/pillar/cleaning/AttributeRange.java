@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +18,8 @@ import org.apache.xmlbeans.XmlOptions;
 import org.geotools.data.collection.ListFeatureCollection;
 import org.geotools.data.simple.SimpleFeatureIterator;
 import org.geotools.feature.FeatureCollection;
+import org.geotools.feature.simple.SimpleFeatureBuilder;
+import org.geotools.feature.simple.SimpleFeatureTypeBuilder;
 import org.geoviqua.gmd19157.DQDataQualityType;
 import org.geoviqua.qualityInformationModel.x40.GVQDataQualityType;
 import org.geoviqua.qualityInformationModel.x40.GVQDiscoveredIssueType;
@@ -29,9 +33,14 @@ import org.n52.wps.io.data.binding.literal.LiteralDoubleBinding;
 import org.n52.wps.io.data.binding.literal.LiteralStringBinding;
 import org.n52.wps.server.AbstractAlgorithm;
 import org.n52.wps.server.ExceptionReport;
+import org.opengis.feature.Attribute;
 import org.opengis.feature.Property;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
+import org.opengis.feature.type.PropertyType;
+import org.opengis.referencing.crs.CoordinateReferenceSystem;
+
+import com.vividsolutions.jts.geom.Geometry;
 
 
 public class AttributeRange extends AbstractAlgorithm {
@@ -67,9 +76,7 @@ public class AttributeRange extends AbstractAlgorithm {
 		if(identifier.equalsIgnoreCase("qual_result")){
 			return GTVectorDataBinding.class;
 		}
-		if(identifier.equalsIgnoreCase("metadata")){
-			return GenericFileDataBinding.class;
-		}
+		
 		return null;
 	}
 
@@ -90,26 +97,83 @@ public class AttributeRange extends AbstractAlgorithm {
 		double minRange = ((LiteralDoubleBinding)minList.get(0)).getPayload();
 		String nameString = ((LiteralStringBinding)attributeNameList.get(0)).getPayload();
 		
+		SimpleFeatureIterator sfi = (SimpleFeatureIterator) obsFc.features();
+		SimpleFeature tempPropFeature = sfi.next();
+		CoordinateReferenceSystem inputObsCrs = obsFc.getSchema().getCoordinateReferenceSystem();
 		
+		Collection<Property> obsProp = tempPropFeature.getProperties();
+		
+		
+		
+		//SimpleFeatureType typeF = tempPropFeature.getType();
+		
+		SimpleFeatureTypeBuilder resultTypeBuilder = new SimpleFeatureTypeBuilder();
+		resultTypeBuilder.setName("typeBuilder");
+		resultTypeBuilder.setCRS(inputObsCrs);
+		
+		Iterator<Property> pItObs = obsProp.iterator();
+		
+	
+		
+		sfi.close();
+		while (pItObs.hasNext()==true){
+			
+			try{
+				
+			Property tempProp = pItObs.next();
+		
+			PropertyType type = tempProp.getType();
+			String name = type.getName().getLocalPart();
+			Class<?> valueClass = (Class<?>)tempProp.getType().getBinding();
+			
+			resultTypeBuilder.add(name, valueClass);
+			
+
+			LOG.warn ("Obs property " + " name " +  name + " class<?> " + valueClass +
+					" type " + type + " tempProp.getValue() " + tempProp.getValue() );
+			}
+			catch (Exception e){
+				LOG.error("property error " + e);
+			}
+		}
+		
+		//add DQ_Field
+		
+		resultTypeBuilder.add("DQ_QuantitativeAttributeAccuracy", Double.class);
+		
+		SimpleFeatureType typeF = resultTypeBuilder.buildFeatureType();
+		LOG.warn("Get Spatial Accuracy Feature Type " + typeF.toString());
 		
 		LOG.warn("++++++++++++++ HERE +++++++++++++");
 		LOG.warn("obsFc " + obsFc.size());
 		LOG.warn("maxRange " + maxRange);
 		LOG.warn("minRange " + minRange);
 		LOG.warn("nameString " + nameString);
+		SimpleFeatureBuilder resultFeatureBuilder = new SimpleFeatureBuilder(typeF);
+		
 				
 		ArrayList<SimpleFeature> resultArrayList = new ArrayList<SimpleFeature>(); 
-		
+		ArrayList<SimpleFeature> qual_resultArrayList = new ArrayList<SimpleFeature>();
 		SimpleFeatureIterator obsIt = (SimpleFeatureIterator) obsFc.features();
-		SimpleFeatureType typeF = obsIt.next().getType();
+		
 		LOG.warn("Attribute Range Feature Type " + typeF.toString() );
 		obsIt.close();
 		SimpleFeatureIterator obsIt2 = (SimpleFeatureIterator) obsFc.features();
 		
-		
+		int within = 0;
 		while (obsIt2.hasNext()==true){
 			
 			SimpleFeature tempSf = obsIt2.next();	
+			within = 0;
+			for (Property obsProperty : tempSf.getProperties()){
+
+				
+				String name = obsProperty.getName().toString();
+				Object value = obsProperty.getValue();
+				
+				resultFeatureBuilder.set(name, value);
+				
+			}
 			//Property tempAttribute =  tempSf.getProperty(nameString);
 			
 		//	LOG.warn("tempFeature " + tempSf.toString() );
@@ -117,49 +181,34 @@ public class AttributeRange extends AbstractAlgorithm {
 			//LOG.warn("doubleValue " + tempAttribute.getValue().toString());
 			
 			double tempAttributeValue = Double.parseDouble(tempSf.getProperty(nameString).getValue().toString());
-			
+			resultFeatureBuilder.set("DQ_QuantitativeAttributeAccuracy", 0);
 			if (tempAttributeValue>= minRange){
 				
 				if(tempAttributeValue<=maxRange){
-				
-					resultArrayList.add(tempSf);
+					within = 1;
+					resultFeatureBuilder.set("DQ_QuantitativeAttributeAccuracy", 1);
 				}
 				
 		
 			}
-			
+			SimpleFeature tempResult = resultFeatureBuilder.buildFeature(tempSf.getID());
+			Geometry tempGeom = (Geometry) tempSf.getDefaultGeometry();
+			tempResult.setDefaultGeometry(tempGeom);
+			resultArrayList.add(tempResult);
+			if(within == 1){
+				qual_resultArrayList.add(tempResult);
+			}
 			
 		}
 		obsIt2.close();
 		FeatureCollection resultFeatureCollection = new ListFeatureCollection(typeF, resultArrayList);
-		
-		
-		GenericFileData fd = null;
-		
-		HashMap<String, Object> metadataElements = new HashMap<String,Object>();
-		
-		metadataElements.put("element1", "elementReturn");
-		
-		File file = createXMLMetadata(metadataElements);
-		
-	
-		try {
-			
-			
-			fd = new GenericFileData(file, "text/xml");
-		//	LOG.warn("mimeType " + fd.getMimeType());
-			
-		
-			} catch (IOException e) {
-			// TODO Auto-generated catch block
-			LOG.warn("IOException " + e);
-		
-			} 
+		FeatureCollection qual_resultFeatureCollection = new ListFeatureCollection(typeF, qual_resultArrayList);
+
 		
 		HashMap<String, IData> results = new HashMap<String, IData>();
-		results.put("result", new GTVectorDataBinding((FeatureCollection)obsFc));
-		results.put("qual_result", new GTVectorDataBinding((FeatureCollection)resultFeatureCollection));
-		results.put("metadata", new GenericFileDataBinding(fd));
+		results.put("result", new GTVectorDataBinding((FeatureCollection)resultFeatureCollection));
+		results.put("qual_result", new GTVectorDataBinding((FeatureCollection)qual_resultFeatureCollection));
+		
 		
 		
 		return results;

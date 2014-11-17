@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +18,8 @@ import org.apache.xmlbeans.XmlOptions;
 import org.geotools.data.collection.ListFeatureCollection;
 import org.geotools.data.simple.SimpleFeatureIterator;
 import org.geotools.feature.FeatureCollection;
+import org.geotools.feature.simple.SimpleFeatureBuilder;
+import org.geotools.feature.simple.SimpleFeatureTypeBuilder;
 import org.geoviqua.gmd19157.DQDataQualityType;
 import org.geoviqua.qualityInformationModel.x40.GVQDataQualityType;
 import org.geoviqua.qualityInformationModel.x40.GVQDiscoveredIssueType;
@@ -30,6 +34,8 @@ import org.n52.wps.server.ExceptionReport;
 import org.opengis.feature.Property;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
+import org.opengis.feature.type.PropertyType;
+import org.opengis.referencing.crs.CoordinateReferenceSystem;
 
 import com.vividsolutions.jts.geom.Geometry;
 
@@ -58,9 +64,7 @@ public class PointInPolygon extends AbstractAlgorithm {
 		if(identifier.equalsIgnoreCase("qual_result")){
 			return GTVectorDataBinding.class;
 		}
-		if(identifier.equalsIgnoreCase("metadata")){
-			return GenericFileDataBinding.class;
-		}
+	
 		
 		return null;
 	}
@@ -77,33 +81,116 @@ public class PointInPolygon extends AbstractAlgorithm {
 		FeatureCollection obsFc = ((GTVectorDataBinding) inputObs.get(0)).getPayload();
 		FeatureCollection authFc = ((GTVectorDataBinding) inputAuth.get(0)).getPayload();
 		
+		
+		SimpleFeatureIterator sfi = (SimpleFeatureIterator) obsFc.features();
+		SimpleFeature tempPropFeature = sfi.next();
+		CoordinateReferenceSystem inputObsCrs = obsFc.getSchema().getCoordinateReferenceSystem();
+		
+		Collection<Property> obsProp = tempPropFeature.getProperties();
+		
+		
+		//SimpleFeatureType typeF = tempPropFeature.getType();
+		
+		SimpleFeatureTypeBuilder resultTypeBuilder = new SimpleFeatureTypeBuilder();
+		resultTypeBuilder.setName("typeBuilder");
+		resultTypeBuilder.setCRS(inputObsCrs);
+		
+		Iterator<Property> pItObs = obsProp.iterator();
+		
+	
+		
+		sfi.close();
+		while (pItObs.hasNext()==true){
+			
+			try{
+				
+			Property tempProp = pItObs.next();
+			PropertyType type = tempProp.getDescriptor().getType();
+			String name = type.getName().getLocalPart();
+			Class<String> valueClass = (Class<String>)tempProp.getType().getBinding();
+			
+	
+			
+			resultTypeBuilder.add(name, valueClass);
+			
+			
+			
+
+			LOG.warn ("Obs property " + name + " " + valueClass + " " +type.toString());
+			}
+			catch (Exception e){
+				LOG.error("property error " + e);
+			}
+		}
+		
+		//add DQ_Field
+		
+		resultTypeBuilder.add("DQ_SA_RelativeAccuracy", Double.class);
+		SimpleFeatureType typeF = resultTypeBuilder.buildFeatureType();
+		LOG.warn("Get Spatial Accuracy Feature Type " + typeF.toString());
+		
+		SimpleFeatureBuilder resultFeatureBuilder = new SimpleFeatureBuilder(typeF);
 		ArrayList<SimpleFeature> resultArrayList = new ArrayList<SimpleFeature>(); 
+		ArrayList<SimpleFeature> qual_resultArrayList = new ArrayList<SimpleFeature>();
+		
 		
 		SimpleFeatureIterator obsIt = (SimpleFeatureIterator) obsFc.features();
-		SimpleFeatureType typeF = obsIt.next().getType();
-		
 		
 		obsIt.close();
 		
 		SimpleFeatureIterator obsIt2 = (SimpleFeatureIterator) obsFc.features();
 		
+		int within = 0;
+		
 		while (obsIt2.hasNext()==true){
-			
+			within = 0;
 			SimpleFeature tempSf = obsIt2.next();	
 			
 			Geometry obsGeom = (Geometry) tempSf.getDefaultGeometry();
 			
+			for (Property obsProperty : tempSf.getProperties()){
+
+				
+				String name = obsProperty.getName().toString();
+				Object value = obsProperty.getValue();
+				
+				resultFeatureBuilder.set(name, value);
+				
+			}
+			
 			SimpleFeatureIterator authIt = (SimpleFeatureIterator) authFc.features();
+			
+			
 			
 			while (authIt.hasNext()==true){
 				
 				SimpleFeature tempAuth = authIt.next();
 				Geometry authGeom = (Geometry) tempAuth.getDefaultGeometry();
 				
-				if (obsGeom.within(authGeom)){
-					resultArrayList.add(tempSf);
+			
 				
+				
+				
+				if (obsGeom.within(authGeom)){
+					within = 1;
+					
 				}
+				
+				
+				
+				
+				
+				
+			}
+			
+			resultFeatureBuilder.set("DQ_SA_RelativeAccuracy", within);
+			SimpleFeature result = resultFeatureBuilder.buildFeature(tempSf.getID());
+			result.setDefaultGeometry(obsGeom);
+			resultArrayList.add(result);
+			
+			if(within == 1){
+				qual_resultArrayList.add(result);
+				
 				
 			}
 			
@@ -115,38 +202,15 @@ public class PointInPolygon extends AbstractAlgorithm {
 		}
 		obsIt2.close();
 		FeatureCollection resultFeatureCollection = new ListFeatureCollection(typeF, resultArrayList);
+		FeatureCollection qual_resultFeatureCollection = new ListFeatureCollection(typeF, qual_resultArrayList);
 		
 		LOG.warn("Feature Collection Size " + resultFeatureCollection.size());
 		
-		GenericFileData fd = null;
-		
-		HashMap<String, Object> metadataElements = new HashMap<String,Object>();
-		
-		metadataElements.put("element1", "elementReturn");
-		
-		File file = createXMLMetadata(metadataElements);
-		
-		
-			
-		
-		
-		try {
-			
-			
-			fd = new GenericFileData(file, "text/xml");
-			LOG.warn("mimeType " + fd.getMimeType());
-			
-		
-			} catch (IOException e) {
-			// TODO Auto-generated catch block
-			LOG.warn("IOException " + e);
-		
-			} 
 		
 		HashMap<String, IData> results = new HashMap<String, IData>();
-		results.put("result", new GTVectorDataBinding((FeatureCollection)obsFc));
-		results.put("qual_result", new GTVectorDataBinding((FeatureCollection)resultFeatureCollection));
-		results.put("metadata", new GenericFileDataBinding(fd));
+		results.put("result", new GTVectorDataBinding((FeatureCollection)resultFeatureCollection));
+		results.put("qual_result", new GTVectorDataBinding((FeatureCollection)qual_resultFeatureCollection));
+		
 		
 		
 		
