@@ -3,6 +3,7 @@
 <ProcessDescription statusSupported="true" storeSupported="true" wps:processVersion="1.0.0">
 	<ows:Identifier>pillar.lbs.GetSpatialAccuracy</ows:Identifier>
 	<ows:Title>pillar.lbs.GetSpatialAccuracy</ows:Title>
+	<ows:Abstract>Analyses the number of satellites and a measure of the accuracy. Returns DQ_SpatialAccuracy as a field with a binary output depending on meeting the conditions</ows:Abstract>
 		<DataInputs>
 			<Input maxOccurs="1" minOccurs="1">
 				<ows:Identifier>inputObservations</ows:Identifier>
@@ -29,6 +30,9 @@
 								http://schemas.opengis.net/gml/3.1.0/base/feature.xsd
 							</Schema>
 						</Format>
+						<Format>
+								<MimeType>application/json</MimeType>
+								</Format>
 						</Supported>
 					
 					</ComplexData>
@@ -94,6 +98,9 @@
 								http://schemas.opengis.net/gml/3.1.0/base/feature.xsd
 							</Schema>
 						</Format>
+						<Format>
+								<MimeType>application/json</MimeType>
+								</Format>
 		
 		</Supported>
 		</ComplexOutput>
@@ -125,6 +132,9 @@
 								http://schemas.opengis.net/gml/3.1.0/base/feature.xsd
 							</Schema>
 						</Format>
+						<Format>
+								<MimeType>application/json</MimeType>
+								</Format>
 		</Supported>
 		</ComplexOutput>
 	</Output>

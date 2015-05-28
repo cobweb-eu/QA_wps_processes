@@ -23,17 +23,45 @@
 									http://schemas.opengis.net/gml/3.1.1/base/gml.xsd
 								</Schema>
 								</Format>
+						
+						<Format>
+								<MimeType>text/xml; subtype=gml/3.1.0</MimeType>
+								<Schema>
+									http://schemas.opengis.net/gml/3.1.0/base/feature.xsd
+								</Schema>
+								</Format>
+								<Format>
+								<MimeType>application/json</MimeType>
+								</Format>
 						</Supported>
 					
 					</ComplexData>
 			</Input>
 			<Input maxOccurs="1" minOccurs="1">
-				<ows:Identifier>inputSurfaceModelPath</ows:Identifier>
-				<ows:Title>inputSurfaceModelPath</ows:Title>
-					<LiteralData>
-						<ows:DataType ows:reference="xs:string"/>
-						<ows:AnyValue/>	
-					</LiteralData>
+				<ows:Identifier>inputSurfaceModel</ows:Identifier>
+				<ows:Title>inputSurfaceModel</ows:Title>
+					<ComplexData>
+						<Default>
+							<Format>
+								<MimeType>text/plain</MimeType>
+								</Format>
+						</Default>
+						<Supported>
+						<Format>
+								<MimeType>text/plain</MimeType>
+								
+								</Format>
+						
+						<Format>
+								<MimeType>text/plain</MimeType>
+								
+								</Format>
+								<Format>
+								<MimeType>application/json</MimeType>
+								</Format>
+						</Supported>
+					
+					</ComplexData>
 			</Input>
 			<Input maxOccurs="1" minOccurs="1">
 				<ows:Identifier>inputBaringFieldName</ows:Identifier>
@@ -59,15 +87,6 @@
 						<ows:AnyValue/>	
 					</LiteralData>
 			</Input>
-			<Input maxOccurs="1" minOccurs="1">
-				<ows:Identifier>inputSurfaceModelCRS</ows:Identifier>
-				<ows:Title>inputSurfaceModelCRS</ows:Title>
-					<LiteralData>
-						<ows:DataType ows:reference="xs:string"/>
-						<ows:AnyValue/>	
-					</LiteralData>
-			</Input>
-			
 			
 		</DataInputs>
 	<ProcessOutputs>
@@ -89,6 +108,15 @@
 								<Schema>
 									http://schemas.opengis.net/gml/3.1.1/base/gml.xsd
 								</Schema>
+								</Format>
+								<Format>
+								<MimeType>text/xml; subtype=gml/3.1.0</MimeType>
+								<Schema>
+									http://schemas.opengis.net/gml/3.1.0/base/feature.xsd
+								</Schema>
+								</Format>
+								<Format>
+								<MimeType>application/json</MimeType>
 								</Format>
 		</Supported>
 		</ComplexOutput>
@@ -113,29 +141,19 @@
 									http://schemas.opengis.net/gml/3.1.1/base/gml.xsd
 								</Schema>
 								</Format>
+								<Format>
+								<MimeType>text/xml; subtype=gml/3.1.0</MimeType>
+								<Schema>
+									http://schemas.opengis.net/gml/3.1.0/base/feature.xsd
+								</Schema>
+								</Format>
+								<Format>
+								<MimeType>application/json</MimeType>
+								</Format>
+								
 		</Supported>
 		</ComplexOutput>
 	</Output>
-	<Output>
-	<ows:Identifier>metadata</ows:Identifier>
-		<ows:Title>metadata</ows:Title>
-		<ows:Abstract>metadata</ows:Abstract>
-			<ComplexOutput>
-				<Default>
-				<Format>
-					<MimeType>text/plain</MimeType>
-			</Format>
-			</Default>
-			<Supported>
-				<Format>
-					<MimeType>text/xml</MimeType>
-				</Format>
-				<Format>
-					<MimeType>text/plain</MimeType>
-				</Format>
-			</Supported>
-		</ComplexOutput>
-		</Output>
 		</ProcessOutputs>
 	</ProcessDescription>
 </wps:ProcessDescriptions>

@@ -3,6 +3,7 @@
 <ProcessDescription statusSupported="true" storeSupported="true" wps:processVersion="1.0.0">
 	<ows:Identifier>pillar.authoritativedata.PointInBuffer</ows:Identifier>
 	<ows:Title>pillar.authoritativedata.PointInBuffer</ows:Title>
+	<ows:Abstract>Creates a buffer with a given distance in the same units as the input observations. Returns binary output DQ_TopologicalConsistency depending on conditions met</ows:Abstract>
 		<DataInputs>
 			<Input maxOccurs="1" minOccurs="1">
 				<ows:Identifier>inputObservations</ows:Identifier>
@@ -28,6 +29,9 @@
 								<Schema>
 									http://schemas.opengis.net/gml/3.1.0/base/feature.xsd
 								</Schema>
+								</Format>
+								<Format>
+								<MimeType>application/json</MimeType>
 								</Format>
 						</Supported>
 					
@@ -57,6 +61,9 @@
 								<Schema>
 									http://schemas.opengis.net/gml/3.1.0/base/feature.xsd
 								</Schema>
+								</Format>
+								<Format>
+								<MimeType>application/json</MimeType>
 								</Format>
 						</Supported>
 					
@@ -99,6 +106,9 @@
 									http://schemas.opengis.net/gml/3.1.0/base/feature.xsd
 								</Schema>
 								</Format>
+								<Format>
+								<MimeType>application/json</MimeType>
+								</Format>
 		</Supported>
 		</ComplexOutput>
 	</Output>
@@ -127,6 +137,9 @@
 								<Schema>
 									http://schemas.opengis.net/gml/3.1.0/base/feature.xsd
 								</Schema>
+								</Format>
+								<Format>
+								<MimeType>application/json</MimeType>
 								</Format>
 		</Supported>
 		</ComplexOutput>

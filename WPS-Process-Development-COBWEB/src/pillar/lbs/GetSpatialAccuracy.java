@@ -192,11 +192,11 @@ public class GetSpatialAccuracy extends AbstractAlgorithm {
 			}
 			
 			if(acc >= minAcc){
-				resultFeatureBuilder.set("DQ_AbstractAccuracy", 1);
+				resultFeatureBuilder.set("DQ_AbstractAccuracy", 0);
 				LOG.warn("test " + 3);
 			}
 			if(acc < minAcc){
-				resultFeatureBuilder.set("DQ_AbstractAccuracy", 0);
+				resultFeatureBuilder.set("DQ_AbstractAccuracy", 1);
 				LOG.warn("test " + 4);
 			}
 			
@@ -207,7 +207,7 @@ public class GetSpatialAccuracy extends AbstractAlgorithm {
 			resultList.add(resultFeature);
 			
 			
-			if(acc >= minAcc){
+			if(acc <= minAcc){
 				if(numberSat >= minSatNum){
 				
 				qualResultList.add(resultFeature);

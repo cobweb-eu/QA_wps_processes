@@ -3,6 +3,7 @@
 <ProcessDescription statusSupported="true" storeSupported="true" wps:processVersion="1.0.0">
 	<ows:Identifier>pillar.authoritativedata.NumberOfNeighbourNamedFeatures</ows:Identifier>
 	<ows:Title>pillar.authoritativedata.NumberOfNeighbourNamedFeatures</ows:Title>
+	<ows:Abstract>Counts the number of features with a given name within a given radius. Returns features with binary quality measure DQ_SA_NamedF dependent on condition</ows:Abstract>
 		<DataInputs>
 			<Input maxOccurs="1" minOccurs="1">
 				<ows:Identifier>inputObservations</ows:Identifier>
@@ -28,7 +29,10 @@
 								<Schema>
 									http://schemas.opengis.net/gml/3.1.0/base/feature.xsd
 								</Schema>
-		</Format>
+								</Format>
+								<Format>
+								<MimeType>application/json</MimeType>
+								</Format>
 						</Supported>
 					
 					</ComplexData>
@@ -59,6 +63,9 @@
 									http://schemas.opengis.net/gml/3.1.0/base/feature.xsd
 								</Schema>
 					</Format>
+					<Format>
+								<MimeType>application/json</MimeType>
+								</Format>
 						</Supported>
 					
 					</ComplexData>
@@ -126,6 +133,9 @@
 									http://schemas.opengis.net/gml/3.1.0/base/feature.xsd
 								</Schema>
 		</Format>
+		<Format>
+								<MimeType>application/json</MimeType>
+								</Format>
 		</Supported>
 		</ComplexOutput>
 	</Output>
@@ -155,29 +165,13 @@
 									http://schemas.opengis.net/gml/3.1.0/base/feature.xsd
 								</Schema>
 		</Format>
+		<Format>
+								<MimeType>application/json</MimeType>
+								</Format>
 		</Supported>
 		</ComplexOutput>
 	</Output>
-	<Output>
-	<ows:Identifier>metadata</ows:Identifier>
-		<ows:Title>metadata</ows:Title>
-		<ows:Abstract>metadata</ows:Abstract>
-			<ComplexOutput>
-				<Default>
-				<Format>
-					<MimeType>text/plain</MimeType>
-			</Format>
-			</Default>
-			<Supported>
-				<Format>
-					<MimeType>text/xml</MimeType>
-				</Format>
-				<Format>
-					<MimeType>text/plain</MimeType>
-				</Format>
-			</Supported>
-		</ComplexOutput>
-		</Output>
+	
 		</ProcessOutputs>
 	</ProcessDescription>
 </wps:ProcessDescriptions>

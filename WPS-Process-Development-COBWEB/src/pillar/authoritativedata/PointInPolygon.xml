@@ -3,6 +3,7 @@
 <ProcessDescription statusSupported="true" storeSupported="true" wps:processVersion="1.0.0">
 	<ows:Identifier>pillar.authoritativedata.PointInPolygon</ows:Identifier>
 	<ows:Title>pillar.authoritativedata.PointInPolygon</ows:Title>
+	<ows:Abstract>Tests each observation for its location in relation to a polygon dataset. Returns binary output DQ_SA_RelativeAccuracy depending on whether the condition is met</ows:Abstract>
 		<DataInputs>
 			<Input maxOccurs="1" minOccurs="1">
 				<ows:Identifier>inputObservations</ows:Identifier>
@@ -22,6 +23,9 @@
 								<Schema>
 									http://schemas.opengis.net/gml/3.1.1/base/gml.xsd
 								</Schema>
+								</Format>
+								<Format>
+								<MimeType>application/json</MimeType>
 								</Format>
 								<Format>
 								<MimeType>text/xml; subtype=gml/3.1.0</MimeType>
@@ -51,6 +55,9 @@
 								<Schema>
 									http://schemas.opengis.net/gml/3.1.1/base/gml.xsd
 								</Schema>
+								</Format>
+								<Format>
+								<MimeType>application/json</MimeType>
 								</Format>
 								<Format>
 								<MimeType>text/xml; subtype=gml/3.1.0</MimeType>
@@ -90,7 +97,12 @@
 								<Schema>
 									http://schemas.opengis.net/gml/3.1.0/base/feature.xsd
 								</Schema>
+								
 								</Format>
+								<Format>
+								<MimeType>application/json</MimeType>
+								</Format>
+							
 		</Supported>
 		</ComplexOutput>
 	</Output>
@@ -119,6 +131,9 @@
 								<Schema>
 									http://schemas.opengis.net/gml/3.1.0/base/feature.xsd
 								</Schema>
+								</Format>
+								<Format>
+								<MimeType>application/json</MimeType>
 								</Format>
 		</Supported>
 		</ComplexOutput>

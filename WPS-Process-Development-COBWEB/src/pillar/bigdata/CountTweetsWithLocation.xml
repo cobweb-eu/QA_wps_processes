@@ -7,6 +7,7 @@
 		<Input maxOccurs="1" minOccurs="1">
 				<ows:Identifier>inputObservations</ows:Identifier>
 				<ows:Title>inputObservations</ows:Title>
+				<ows:Abstract>Counts Tweets from Twitter for a given hashtag, a threshold for number of Tweets, a latitude and longitude, and a radius.</ows:Abstract>
 					<ComplexData>
 						<Default>
 							<Format>
@@ -29,6 +30,9 @@
 								http://schemas.opengis.net/gml/3.1.0/base/feature.xsd
 							</Schema>
 						</Format>
+						<Format>
+								<MimeType>application/json</MimeType>
+								</Format>
 						</Supported>
 					
 					</ComplexData>
@@ -123,6 +127,9 @@
 								http://schemas.opengis.net/gml/3.1.0/base/feature.xsd
 							</Schema>
 						</Format>
+						<Format>
+								<MimeType>application/json</MimeType>
+								</Format>
 		</Supported>
 		</ComplexOutput>
 	</Output>
