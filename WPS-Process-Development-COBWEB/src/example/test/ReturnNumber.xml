@@ -1,0 +1,31 @@
+<wps:ProcessDescriptions xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ows="http://www.opengis.net/ows/1.1" xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsDescribeProcess_response.xsd" xml:lang="en-US" service="WPS" version="1.0.0">
+<script/>
+<ProcessDescription statusSupported="true" storeSupported="true" wps:processVersion="1.0.0">
+	<ows:Identifier>example.test.ReturnNumber</ows:Identifier>
+	<ows:Title>example.test.ReturnSOSData</ows:Title>
+		<DataInputs>
+			<Input maxOccurs="1" minOccurs="1">
+				<ows:Identifier>giveNumber</ows:Identifier>
+				<ows:Title>input</ows:Title>
+					<LiteralData>
+						<ows:DataType ows:reference="xs:integer"/>
+						<ows:AnyValue/>
+					</LiteralData>
+			</Input>
+			
+		</DataInputs>
+	<ProcessOutputs>
+		<Output>
+			<ows:Identifier>giveResult</ows:Identifier>
+			<ows:Title>result</ows:Title>
+				<LiteralOutput>
+						<ows:DataType ows:reference="xs:string"/>
+
+					</LiteralOutput>
+	</Output>
+	
+	
+	
+		</ProcessOutputs>
+	</ProcessDescription>
+</wps:ProcessDescriptions>

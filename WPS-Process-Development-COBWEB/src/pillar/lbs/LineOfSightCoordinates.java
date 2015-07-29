@@ -466,7 +466,7 @@ private static class GetHeightICanSee {
 								  double cellsize, int myx, int myy, double myHeight) {
 		double d = cellsize * 4 + 0.1; // enter number of cells to ignore here (if any).
 		                     // This is so that we ignore the cell we are 'in'.
-		double dincr = cellsize;
+		double dincr = cellsize/2;
 		xyTuple xy = null;
 		
 		
