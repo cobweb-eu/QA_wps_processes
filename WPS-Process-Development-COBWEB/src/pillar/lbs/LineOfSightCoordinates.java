@@ -56,6 +56,12 @@ import com.vividsolutions.jts.geom.Point;
 
 public class LineOfSightCoordinates extends AbstractAlgorithm {
 	
+	/**
+	 * @author Sam Meek
+	 * Process to produce the line of sight coordinates from the easting and northing, bearing, elevation and my height
+	 * Output is the input data with a spatial object of the line of sight coordinate
+	 */
+	
 	private final String inputObservations = "inputObservations";
 	private final String inputSurfaceModel = "inputSurfaceModelPath";
 	private final String inputBaringFieldName = "inputBaringFieldName";
@@ -90,18 +96,25 @@ public class LineOfSightCoordinates extends AbstractAlgorithm {
 		if(identifier.equalsIgnoreCase("result")){
 			return GTVectorDataBinding.class;
 		}
-		if(identifier.equalsIgnoreCase("qual_result")){
-			return GTVectorDataBinding.class;
-		}
-		
+
 		return null;
 	}
 
 	@Override
+	/**
+	 * inputData a HashMap of the input data:
+	 * @param inputObservations: the observations
+	 * @param inputSurfaceModel: a URL to the ESRI raster grid
+	 * @param inputBearingFieldName: the bearing field name
+	 * @param inputTiltFieldName: the tilt field name
+	 * @param inputUserHeight: the height of user
+	 * results a HashpMap of the results:
+	 * @result result: the input data with a spatial object replaced with the line of sight (-1,-1) for no LoS and missing the surface model
+	 */
 	public Map<String, IData> run(Map<String, List<IData>> inputData){
 	List<IData> inputObsList = inputData.get("inputObservations");
 	List<IData> inputSMPList = inputData.get("inputSurfaceModel");
-	List<IData> inputBarList = inputData.get("inputBaringFieldName");
+	List<IData> inputBarList = inputData.get("inputBearingFieldName");
 	List<IData> inputTiltList = inputData.get("inputTiltFieldName");
 	List<IData> inputUserList = inputData.get("inputUserHeight");
 	
@@ -198,6 +211,8 @@ public class LineOfSightCoordinates extends AbstractAlgorithm {
 				
 			}
 			
+			
+			
 			Geometry geom = (Geometry) tempFeature.getDefaultGeometry();
 			
 			
@@ -258,9 +273,9 @@ public class LineOfSightCoordinates extends AbstractAlgorithm {
 			
 			//SimpleFeature feature = tempFeature;
 			counter++;
-			if (easting != -1){
+			
 				list.add(feature);
-			}
+			
 			
 			
 		}
@@ -279,8 +294,8 @@ public class LineOfSightCoordinates extends AbstractAlgorithm {
 	
 	//output the same as input for chaining
 	
-	result.put("result", new GTVectorDataBinding(pointInputs));
-	result.put("qual_result", new GTVectorDataBinding(returnOutput));
+	//result.put("result", new GTVectorDataBinding(pointInputs));
+	result.put("result", new GTVectorDataBinding(returnOutput));
 	
 return result;
 }
@@ -426,9 +441,11 @@ private static class GetHeightICanSee {
 	}
 	
 	//convert bearing into direction
+	//changed to accommodate COBWEB 
 	private static double makeAngle(double degrees) {
 		double realDegrees = 360 - 
 			(degrees - 90); // to turn our bearing into a degree from y=0
+		//changed here:
 		return Math.toRadians(realDegrees);
 	}
 	

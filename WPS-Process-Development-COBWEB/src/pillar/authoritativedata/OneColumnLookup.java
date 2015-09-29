@@ -11,6 +11,11 @@ import org.n52.wps.server.ExceptionReport;
 //Process to compare the entry of one field to a list of authoritative data
 //could be used to compare plant names to a list of known species
 public class OneColumnLookup extends AbstractAlgorithm{
+	/**
+	 * @author Sam Meek
+	 * Process to match a field with another field (to be completed)
+	 * 
+	 */
 
 	@Override
 	public Map<String, IData> run(Map<String, List<IData>> inputData)
@@ -26,6 +31,9 @@ public class OneColumnLookup extends AbstractAlgorithm{
 	}
 
 	@Override
+	/**
+	 * @param inputObservations
+	 */
 	public Class<?> getInputDataType(String id) {
 		if (id.equalsIgnoreCase("inputObservations")){
 			return GTVectorDataBinding.class;

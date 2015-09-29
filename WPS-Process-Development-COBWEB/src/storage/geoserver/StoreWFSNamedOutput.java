@@ -45,10 +45,23 @@ import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.MultiPolygon;
 
 public class StoreWFSNamedOutput extends AbstractAlgorithm{
+	
+	/**
+	 * @author Sam Meek
+	 * Process to store outputs via Geoserver RESTapi (configured in the WPS config file)
+	 * The WPS does not return anything
+	 * 
+	 */
+	
 	private static String inputObservations;
 	private static String fileName;
 	private static String result;
 	Logger LOG = Logger.getLogger(StoreWFSNamedOutput.class);
+	
+	/**
+	 * @param inputObservations: the data to upload
+	 * @param fileName: the name of the uploaded layer that would appear in Geoserver
+	 */
 
 	@Override
 	public Map<String, IData> run(Map<String, List<IData>> inputData)

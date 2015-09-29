@@ -27,6 +27,10 @@ import com.vividsolutions.jts.geom.Geometry;
 
 
 public class PositionDistanceRange extends AbstractAlgorithm {
+	/**
+	 * @author Frances Moore
+	 * Javadoc needs completing.
+	 */
 	Logger LOGGER = Logger.getLogger(PositionDistanceRange.class);
 	
 	public List<String> getErrors() {

@@ -41,9 +41,17 @@ import org.opengis.referencing.crs.CoordinateReferenceSystem;
 import com.vividsolutions.jts.geom.Geometry;
 
 public class GetSpatialAccuracy extends AbstractAlgorithm {
+	
+	/**
+	 * @author Sam Meek
+	 * Process to assess the spatial accuracy of data from the phone
+	 * Output is the metadata field "DQ_SpatialAccuracy" which is 1 for pass criteria and 0 for not passing
+	 * and the metadata field "DQ_AbstractAccuracy"
+	 * result is observations with 1 or 0
+	 * qual_result is observations with only metadata 1s are returned
+	 */
 	Logger LOG = Logger.getLogger(GetSpatialAccuracy.class);
 	private final String inputObservations = "inputObservations";
-	
 	private final String inputSatelliteNumberField = "inputSatelliteNumberField";
 	private final String inputAccuracyField = "inputAccuracyField";
 	private final String minSatNum = "minSatNum";
@@ -86,6 +94,17 @@ public class GetSpatialAccuracy extends AbstractAlgorithm {
 	}
 
 	@Override
+	/**
+	 * inputData a HashMap of the input data:
+	 * @param inputObservations: the observations
+	 * @param inputSatelliteNumberField: the field containing the number of satellites used to take the position 
+	 * @param inputAccuracyField: the field containing the accuracy of the positioning technology
+	 * @param minSatNum: the number of satellites threshold
+	 * @param minAcc: the accuracy in metres as a maximum
+	 * results a HashMap of the results:
+	 * @result result: the input data with the "DQ_SpatialAccuracy" with a 1 or a 0 and "DQ_AbstractAccuracy" with a 1 or 0
+	 * @result qual_result: the "DQ_SpatialAccuracy" 1s are returned and "DQ_AbstractAccuracy"
+	 */
 	public Map<String, IData> run(Map<String, List<IData>> inputData)
 			throws ExceptionReport {
 

@@ -64,8 +64,8 @@
 					</ComplexData>
 			</Input>
 			<Input maxOccurs="1" minOccurs="1">
-				<ows:Identifier>inputBaringFieldName</ows:Identifier>
-				<ows:Title>inputBaringFieldName</ows:Title>
+				<ows:Identifier>inputBearingFieldName</ows:Identifier>
+				<ows:Title>inputBearingFieldName</ows:Title>
 					<LiteralData>
 						<ows:DataType ows:reference="xs:string"/>
 						<ows:AnyValue/>	

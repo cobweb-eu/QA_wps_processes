@@ -44,6 +44,14 @@ import com.vividsolutions.jts.geom.Geometry;
 
 
 public class AttributeRange extends AbstractAlgorithm {
+	/**
+	 * @author Sam Meek
+	 * Process to assess the range of an attribute given a minimum and maximum threshold
+	 * Output is the metadata field "DQ_QuantitativeAttributeAccuracy" which is 1 for pass criteria and 0 for not passing
+	 * result is observations with 1 or 0
+	 * qual_result is observations with only metadata 1s are returned
+	 */
+	
 	Logger LOG = Logger.getLogger(AttributeRange.class);
 	
 	private final String inputObservations = "inputObservations";
@@ -52,6 +60,18 @@ public class AttributeRange extends AbstractAlgorithm {
 	private final String attributeName = "attributeName";
 
 	@Override
+	
+	/**
+	 * inputData a HashMap of the input data:
+	 * @param inputObservations: the observations
+	 * @param attributeName: the field name containing the values 
+	 * @param maxRange: the maximum number for the range
+	 * @param minRange: the minimum number for the range
+	 * results a HashpMap of the results:
+	 * @result result: the input data with the "Obs_Usability" with a 1 or a 0
+	 * @result qual_result: the "Obs_Usability" 1s are returned
+	 */
+	
 	public Class<?> getInputDataType(String identifier) {
 		if(identifier.equalsIgnoreCase("inputObservations")){
 			return GTVectorDataBinding.class;

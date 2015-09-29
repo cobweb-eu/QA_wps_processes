@@ -13,6 +13,12 @@ import org.n52.wps.server.ExceptionReport;
 
 public class PositionRange extends AbstractAlgorithm{
 	
+	/**
+	 * @author Sam Meek
+	 * Process unfinished
+	 * 
+	 */
+	
 	private final String inputObservations = "inputObservations";
 	private final String inputDistance = "inputDistance";
 	

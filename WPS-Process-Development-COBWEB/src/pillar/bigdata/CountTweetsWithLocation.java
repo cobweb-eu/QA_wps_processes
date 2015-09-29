@@ -27,6 +27,13 @@ import twitter4j.Query.Unit;
 import twitter4j.conf.ConfigurationBuilder;
 
 public class CountTweetsWithLocation extends AbstractAlgorithm {
+	/**
+	 * @author Sam Meek
+	 * Process to count tweets with a given hashtag within a radius of a given lat/long. Should be replaced by UCD work
+	 * Currently no output
+	 * result is observations with 1 or 0
+	 * qual_result is observations with only metadata 1s are returned
+	 */
 
 	private final String inputLocation = "inputLocation";
 	private final String dateSince = "dateSince";
@@ -35,6 +42,17 @@ public class CountTweetsWithLocation extends AbstractAlgorithm {
 	private final String inputObservations = "inputObservations";
 	Logger LOG = Logger.getLogger(CountTweetsWithLocation.class);
 	@Override
+	/**
+	 * inputData a HashMap of the input data:
+	 * @param inputObservations: the observations
+	 * @param inputLocation: a lat/long
+	 * @param dateSince: in YYYY-MM-DD format
+	 * @param searchTerm: a hashtag
+	 * @param inputDistance: a radius in degrees
+	 * results a HashpMap of the results:
+	 * @result result: the input data with the "Obs_Usability" with a 1 or a 0
+	 * @result qual_result: the "Obs_Usability" 1s are returned
+	 */
 	public Class<?> getInputDataType(String identifier) {
 	
 		

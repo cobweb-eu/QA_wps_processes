@@ -40,6 +40,13 @@ import com.vividsolutions.jts.geom.Geometry;
 //metadata ThematicAccuracy
 
 public class NumberOfNeighbourSimilarFeatures extends AbstractAlgorithm{
+	/**
+	 * @author Sam Meek
+	 * Process to match the number of features of defined type within a given radius with a threshold
+	 * Output is the metadata field "DQ_SA_SimilarF" which is 1 for pass criteria and 0 for not passing
+	 * result is observations with 1 or 0
+	 * qual_result is observations with only metadata 1s are returned
+	 */
 	
 	Logger LOG = Logger.getLogger(NumberOfNeighbourSimilarFeatures.class);
 	
@@ -87,6 +94,17 @@ public class NumberOfNeighbourSimilarFeatures extends AbstractAlgorithm{
 	}
 
 	@Override
+	/**
+	 * @param inputData a HashMap of the input data:
+	 * inputObservations: the observations
+	 * inputAuthoritativeData: the authoritative points
+	 * inputDistance: the distance threshold
+	 * minNumber: the minimum number of named features to pass
+	 * fieldName: the name of the field within the observations to match
+	 * @result results a HashpMap of the results:
+	 * result: the input data with the polygon attributes attached, null values for no match
+	 * qual_result: the matched input only data with polygon attributes attached
+	 */
 	public Map<String, IData> run(Map<String, List<IData>> inputData)
 			throws ExceptionReport {
 		
@@ -95,9 +113,7 @@ public class NumberOfNeighbourSimilarFeatures extends AbstractAlgorithm{
 		List distList = inputData.get("inputDistance");
 		List minList = inputData.get("minNumber");
 		List fieldList = inputData.get("fieldName");
-		
-		
-		
+
 		FeatureCollection obsFc = ((GTVectorDataBinding) obsList.get(0)).getPayload();
 		FeatureCollection authFc = ((GTVectorDataBinding) authList.get(0)).getPayload();
 		double dist = ((LiteralDoubleBinding)distList.get(0)).getPayload();

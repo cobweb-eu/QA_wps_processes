@@ -46,23 +46,17 @@ import org.opengis.referencing.crs.CoordinateReferenceSystem;
 import com.vividsolutions.jts.geom.Geometry;
 
 
-//Does not work in JBPM Workflow:
-
-/** Caused by: java.lang.NullPointerException: source crs
-	at org.geotools.data.store.ReprojectingFeatureCollection.&lt;init>(ReprojectingFeatureCollection.java:111)
-	at org.geotools.data.store.ReprojectingFeatureCollection.&lt;init>(ReprojectingFeatureCollection.java:94)
-	at org.geotools.data.store.ReprojectingFeatureCollection.&lt;init>(ReprojectingFeatureCollection.java:90)
-	at pillar.authoritativedata.PointInBuffer.run(PointInBuffer.java:108)
-	at org.n52.wps.server.request.ExecuteRequest.call(ExecuteRequest.java:685)**/
-
-//to solve, get input data, test for CRS, if null create a new featurecollection with
-//simplefeaturetype of inputcollection and set srs on the simplefeaturetype
-//maybe put all this on a start process that checks data integrity?
-
 public class PointInBuffer extends AbstractAlgorithm{
 
-	Logger LOG = Logger.getLogger(PointInBuffer.class);
+	/**
+	 * @author Sam Meek
+	 * Process to match the observations to an authoritative polygon dataset with a buffer
+	 * Output is the metadata field "DQ_TopolocialConsistency" which is 1 for pass criteria and 0 for not passing
+	 * result is observations with 1 or 0
+	 * qual_result is observations with only metadata 1s are returned
+	 */
 	
+	Logger LOG = Logger.getLogger(PointInBuffer.class);
 	private final String inputObservations = "inputObservations";
 	private final String inputAuthoritativeData = "inputAuthoritativeData";
 	private final String inputBufferDistance = "inputBufferDistance";
@@ -95,6 +89,16 @@ public class PointInBuffer extends AbstractAlgorithm{
 	}
 
 	@Override
+	/**
+	 * inputData a HashMap of the input data:
+	 * @param inputObservations: the observations
+	 * @param inputAuthoritativeData: the authoritative points
+	 * @param inputBufferDistance: the distance threshold
+	 * results a HashpMap of the results:
+	 * @result result: the input data with the "DQ_TopolocialConsistency" with a 1 or a 0
+	 * @result qual_result: the "DQ_TopolocialConsistency" 1s returned
+	 */
+	
 	public Map<String, IData> run(Map<String, List<IData>> inputData)
 			throws ExceptionReport {
 		
@@ -145,9 +149,7 @@ public class PointInBuffer extends AbstractAlgorithm{
 				LOG.error("property error " + e);
 			}
 		}
-		
-		//add DQ_Field
-		
+				
 		resultTypeBuilder.add("DQ_TopolocialConsistency", Double.class);
 		
 		SimpleFeatureType typeF = resultTypeBuilder.buildFeatureType();
@@ -240,7 +242,6 @@ public class PointInBuffer extends AbstractAlgorithm{
 	
 	@Override
 	public List<String> getErrors() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

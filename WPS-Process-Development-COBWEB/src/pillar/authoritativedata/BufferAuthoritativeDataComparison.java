@@ -42,6 +42,14 @@ import com.vividsolutions.jts.geom.Geometry;
 @Algorithm(version = "1.0.0", abstrakt = "Checks for an intersection between a buffered observation and an authoritative dataset")
 public class BufferAuthoritativeDataComparison extends AbstractAnnotatedAlgorithm{
 	
+
+	/**
+	 * @author Sam Meek
+	 * Process to compare observations with authoritative polygon data with a buffer (point in polygon)
+	 * Output is the observations with the fields of the matched buffered authoritative data (point in polygon)
+	 * 
+	 */
+	
 	
 	public BufferAuthoritativeDataComparison(){
 		super();
@@ -92,6 +100,16 @@ public class BufferAuthoritativeDataComparison extends AbstractAnnotatedAlgorith
 	 }
 	  
 	 @Execute
+	 /**
+		 * inputData a HashMap of the input data:
+		 * @param inputObservations: the observations
+		 * @param inputAuthoritativeData: the polygons
+		 * @param bufferSize: the size of the buffer in the same units as the input data (degrees for lat/long)
+		 * results a HashpMap of the results:
+		 * @result result: the input data with the polygon attributes attached, null values for no match
+		 * @result qual_result: the matched input only data with polygon attributes attached
+		 * @result metadata: an unused output that was supposed to return an XML document for GeoNetwork
+		 */
 	 public void runBuffer(){
 		 
 		 Logger LOGGER = Logger.getLogger(BufferAuthoritativeDataComparison.class);

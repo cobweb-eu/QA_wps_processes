@@ -28,6 +28,12 @@ import org.n52.wps.server.ExceptionReport;
 import org.opengis.feature.simple.SimpleFeature;
 
 public class GetDatasetSpatialAccuracy extends AbstractAlgorithm {
+	/**
+	 * @author Sam Meek
+	 * Process designed to access the spatial accuracy of a dataset, means outputting metadata to GeoNetwork
+	 * Process unfinished
+	 * 
+	 */
 Logger LOGGER = Logger.getLogger(GetDatasetSpatialAccuracy.class);
 	@Override
 	public Map<String, IData> run(Map<String, List<IData>> inputData)

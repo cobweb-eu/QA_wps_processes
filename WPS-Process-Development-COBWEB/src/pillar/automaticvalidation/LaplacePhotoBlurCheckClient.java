@@ -39,9 +39,26 @@ import org.n52.wps.io.data.binding.literal.LiteralStringBinding;
 
 public class LaplacePhotoBlurCheckClient extends AbstractAlgorithm{
 	static Logger LOG = Logger.getLogger(LaplacePhotoBlurCheckClient.class);
-	
+	/**
+	 * @author Sam Meek
+	 * Process to check whether a photo is blurry by using a Laplace transform on a histogram stretched version of the black and white image. Designed for the client. Unfinished.
+	 * Output is the metadata field "Obs_Usability" which is 1 for pass criteria and 0 for not passing
+	 * result is observations with 1 or 0
+	 * qual_result is observations with only metadata 1s are returned
+	 */
 	
 	@Override
+	/**
+	 * inputData a HashMap of the input data:
+	 * this is designed to get images from PCAPI with a reference
+	 * @param urlPrefix: a prefix to any extracted URL (can be null)
+	 * @param inputObservations: the observations
+	 * @param threshold: between 0 - 255
+	 * @param urlFieldName: the name of the field containing the URLs
+	 * results a HashpMap of the results:
+	 * @result result: the input data with the "Obs_Usability" with a 1 or a 0
+	 * @result qual_result: the "Obs_Usability" 1s are returned
+	 */
 	public Map<String, IData> run(Map<String, List<IData>> inputData)
 			throws ExceptionReport {
 

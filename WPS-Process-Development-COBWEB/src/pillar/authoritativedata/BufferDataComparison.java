@@ -42,6 +42,13 @@ import com.vividsolutions.jts.geom.Geometry;
 
 public class BufferDataComparison extends AbstractSelfDescribingAlgorithm{
 Logger LOGGER = Logger.getLogger(BufferDataComparison.class);
+
+/**
+ * @author Sam Meek
+ * Process to compare observations with buffered authoritative polygon data (point in polygon)
+ * Output is the observations with the fields of the matched authoritative data (point in polygon)
+ * 
+ */
 	@Override
 	public Class<?> getInputDataType(String identifier) {
 		if(identifier.equalsIgnoreCase("inputObservations")){
@@ -76,6 +83,15 @@ Logger LOGGER = Logger.getLogger(BufferDataComparison.class);
 	}
 
 	@Override
+	/**
+	 * inputData a HashMap of the input data:
+	 * @param inputObservations: the observations
+	 * @param inputAuthoritativeData: the polygons
+	 * @param bufferSize: the size of the buffer around the polygons
+	 * results a HashpMap of the results:
+	 * @result result: the input data with the polygon attributes attached, null values for no match
+	 * @result qual_result: the matched input only data with polygon attributes attached
+	 */
 	public Map<String, IData> run(Map<String, List<IData>> inputData)
 			throws ExceptionReport {
 		

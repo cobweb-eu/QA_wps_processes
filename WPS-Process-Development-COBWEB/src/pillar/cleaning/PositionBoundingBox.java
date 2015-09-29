@@ -29,6 +29,15 @@ import com.vividsolutions.jts.geom.Geometry;
 
 //check if within a bounding box
 public class PositionBoundingBox extends AbstractAlgorithm {
+
+	/**
+	 * @author Sam Meek
+	 * Process to filter out or mark in the metadata based upon a bounding box
+	 * Output is the metadata field "DQ_ThematicAccuracy" which is 1 for pass criteria and 0 for not passing
+	 * result is the observations
+	 * qual_result observations within the bounding box
+	 * metadata unused
+	 */
 	
 	private final String inputObservations = "inputObservations";
 	private final String minX = "minX";
@@ -73,6 +82,18 @@ public class PositionBoundingBox extends AbstractAlgorithm {
 	}
 
 	@Override
+	/**
+	 * inputData a HashMap of the input data:
+	 * @param inputObservations: the observations
+	 * @param minX: minimum X value
+	 * @param minY: minimum Y value
+	 * @param maxX: maximum X value
+	 * @param maxY: maximum Y value
+	 * results a HashpMap of the results:
+	 * @result result: the input data
+	 * @result qual_result: the input data within the bounding box only
+	 * @result metadata: unused
+	 */
 	public Map<String, IData> run(Map<String, List<IData>> inputData)
 			throws ExceptionReport {
 		List obsList = inputData.get("inputObservations");

@@ -46,6 +46,13 @@ import com.vividsolutions.jts.geom.Geometry;
 public class AuthoritativeDataComparison extends AbstractSelfDescribingAlgorithm {
 	Logger LOGGER = Logger.getLogger(AuthoritativeDataComparison.class);
 	
+	/**
+	 * @author Sam Meek
+	 * Process to compare observations with authoritative polygon data (point in polygon)
+	 * Output is the observations with the fields of the matched authoritative data (point in polygon)
+	 * 
+	 */
+	
 	@Override
 	public Class<?> getInputDataType(String identifier) {
 		// TODO Auto-generated method stub
@@ -77,7 +84,17 @@ public class AuthoritativeDataComparison extends AbstractSelfDescribingAlgorithm
 		return null;
 	}
 
+	
 	@Override
+	/**
+	 * inputData a HashMap of the input data:
+	 * @param inputObservations: the observations
+	 * @param inputAuthoritativeData: the polygons
+	 * results a HashpMap of the results:
+	 * @result result: the input data with the polygon attributes attached, null values for no match
+	 * @result qual_result: the matched input only data with polygon attributes attached
+	 * @result metadata: an unused output that was supposed to return an XML document for GeoNetwork
+	 */
 	public Map<String, IData> run(Map<String, List<IData>> inputData)
 			throws ExceptionReport {
 		

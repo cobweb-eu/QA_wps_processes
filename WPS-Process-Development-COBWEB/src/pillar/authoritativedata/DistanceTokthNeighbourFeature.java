@@ -76,6 +76,12 @@ import com.vividsolutions.jts.geom.Geometry;
 
 public class DistanceTokthNeighbourFeature extends AbstractAlgorithm {
 	
+	/**
+	 * @author Didier Leibovici 
+	 * Description needed
+	 * 
+	 */
+	
 	Logger LOG = Logger.getLogger(DistanceTokthNeighbourFeature.class);
 	
 	private final String inputObservations = "inputObservations";
@@ -124,6 +130,7 @@ public class DistanceTokthNeighbourFeature extends AbstractAlgorithm {
 	}
 
 	private FeatureCollection ConvertCoordinates(FeatureCollection origColl)
+	
 	{
 		CoordinateReferenceSystem sourceCRS = null;
 		CoordinateReferenceSystem projectCRS = null;

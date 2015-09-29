@@ -34,10 +34,28 @@ import org.opengis.feature.simple.SimpleFeatureType;
 import org.opengis.feature.type.PropertyType;
 
 public class TwoColumnLookup extends AbstractAlgorithm{
+	
+	/**
+	 * @author Sam Meek
+	 * Process to match the observations to an authoritative polygon dataset
+	 * Output is the metadata field "DQ_Match" which is 1 for pass criteria and 0 for not passing
+	 * result is observations with 1 or 0
+	 * qual_result is observations with only metadata 1s are returned
+	 */
 
 	Logger LOG = Logger.getLogger(TwoColumnLookup.class);
 	
 	@Override
+	/**
+	 * inputData a HashMap of the input data:
+	 * @param inputObservations: the observations
+	 * @param obsFieldName1: the fieldName to match from the observations
+	 * @param obsFieldName2: the fieldName to match from the authoritative list
+	 * @param inputAuthoritativeData: the path to an authoritative CSV file
+	 * results a HashpMap of the results:
+	 * @result result: the input data with the "DQ_Match" with a 1 or a 0
+	 * @result qual_result: the "DQ_Match" 1s are returned
+	 */
 	public Map<String, IData> run(Map<String, List<IData>> inputData)
 			throws ExceptionReport {
 		

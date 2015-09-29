@@ -40,6 +40,15 @@ import org.opengis.referencing.crs.CoordinateReferenceSystem;
 import com.vividsolutions.jts.geom.Geometry;
 
 public class PointInPolygon extends AbstractAlgorithm {
+	
+	/**
+	 * @author Sam Meek
+	 * Process to match the observations to an authoritative polygon dataset
+	 * Output is the metadata field "DQ_SA_RelativeAccuracy" which is 1 for pass criteria and 0 for not passing
+	 * result is observations with 1 or 0
+	 * qual_result is observations with only metadata 1s are returned
+	 */
+	
 	Logger LOG = Logger.getLogger(PointInPolygon.class);
 	
 	private final String inputObservations = "inputObservations";
@@ -71,6 +80,14 @@ public class PointInPolygon extends AbstractAlgorithm {
 	}
 
 	@Override
+	/**
+	 * inputData a HashMap of the input data:
+	 * @param inputObservations: the observations
+	 * @param inputAuthoritativeData: the authoritative points
+	 * results a HashpMap of the results:
+	 * @result result: the input data with the "DQ_SA_RelativeAccuracy" with a 1 or a 0
+	 * @result qual_result: the "DQ_SA_RelativeAccuracy" 1s are returned
+	 */
 	public Map<String, IData> run(Map<String, List<IData>> inputData)
 			throws ExceptionReport {
 		

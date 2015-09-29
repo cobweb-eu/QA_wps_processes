@@ -41,6 +41,14 @@ import com.vividsolutions.jts.geom.Geometry;
 
 public class NumberOfNeighbourNamedFeatures extends AbstractAlgorithm{
 	
+	/**
+	 * @author Sam Meek
+	 * Process to match the number of features of defined type within a given radius with a threshold
+	 * Output is the metadata field "DQ_SA_NamedF" which is 1 for pass criteria and 0 for not passing
+	 * result is observations with 1 or 0
+	 * qual_result is observations with only metadata 1s are returned
+	 */
+	
 	Logger LOG = Logger.getLogger(NumberOfNeighbourNamedFeatures.class);
 	private final String inputObservations = "inputObservations";
 	private final String inputAuthoritativeData = "inputAuthoritativeData";
@@ -75,6 +83,7 @@ public class NumberOfNeighbourNamedFeatures extends AbstractAlgorithm{
 	}
 
 	@Override
+
 	public Class<?> getOutputDataType(String identifier) {
 		if (identifier.equalsIgnoreCase("result")){
 			return GTVectorDataBinding.class;
@@ -86,6 +95,19 @@ public class NumberOfNeighbourNamedFeatures extends AbstractAlgorithm{
 	}
 
 	@Override
+	/**
+	 * @param inputData a HashMap of the input data:
+	 * inputObservations: the observations
+	 * inputAuthoritativeData: the authoritative points
+	 * inputDistance: the distance threshold
+	 * minNumber: the minimum number of named features to pass
+	 * fieldName: the name of the field within the observations to match
+	 * featureName: the named of the feature of interest
+	 * @result results a HashpMap of the results:
+	 * result: the input data with the polygon attributes attached, null values for no match
+	 * qual_result: the matched input only data with polygon attributes attached
+	 */
+	
 	public Map<String, IData> run(Map<String, List<IData>> inputData)
 			throws ExceptionReport {
 		

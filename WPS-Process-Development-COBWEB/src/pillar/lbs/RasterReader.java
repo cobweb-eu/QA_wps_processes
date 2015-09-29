@@ -5,10 +5,17 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class RasterReader {
-	//RASTER MUST BE A SQUARE
+	
+	/**
+	 * @author Sam Meek
+	 * Process to assess parse a raster in the ESRI grid format
+	 * Output is a 2 dimensional array 
+	 */
+	
 	String fileName;
 	static double [] headerData = new double[6];
 	double [][]ASCIIData;
+	
 	
 	public RasterReader(String fileName){
 		
@@ -17,13 +24,8 @@ public class RasterReader {
 		headerData = getRasterHeader(fileName);
 		ASCIIData = new double[(int)headerData[0]][(int)headerData[1]];
 		ASCIIData = inputASCIIData(fileName);
-		
-		
 	}
 	
-	
-	
-		
 	//eMod and nMod are the numbers the raster start and finish should be modified by
 	//i.e. 5m resolution raster but taken starting with an E of 1 would be eMod 1;
 	

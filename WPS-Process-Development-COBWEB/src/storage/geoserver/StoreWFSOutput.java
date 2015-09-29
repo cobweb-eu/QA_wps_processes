@@ -16,6 +16,13 @@ import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
 
 public class StoreWFSOutput extends AbstractAlgorithm {
+	
+	/**
+	 * @author Sam Meek
+	 * Process to store outputs via Geoserver RESTapi (configured in the WPS config file)
+	 * The WPS does not return anything
+	 * 
+	 */
 
 	private final String inputObservations = "inputObservations";
 	@Override
@@ -35,6 +42,9 @@ public class StoreWFSOutput extends AbstractAlgorithm {
 	}
 
 	@Override
+	/**
+	 * @param inputObservations: the data to upload
+	 */
 	public Map<String, IData> run(Map<String, List<IData>> inputData)
 			throws ExceptionReport {
 		List<IData> obsList = inputData.get(inputObservations);

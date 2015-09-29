@@ -29,6 +29,15 @@ import org.opengis.referencing.crs.CoordinateReferenceSystem;
 import com.vividsolutions.jts.geom.Geometry;
 
 public class FilterOnAttribute extends AbstractAlgorithm{
+	
+	/**
+	 * @author Sam Meek
+	 * Process to filter out or mark in the metadata based upon a given attribute within a given field
+	 * Output is the metadata field "DQ_ThematicAccuracy" which is 1 for pass criteria and 0 for not passing
+	 * result is observations with 1 or 0
+	 * qual_result is observations with only metadata 1s are returned
+	 */
+	
 	Logger LOG = Logger.getLogger(FilterOnAttribute.class);
 	private final String inputObservations = "inputObservations";
 	private final String fieldName = "fieldName";
@@ -53,6 +62,7 @@ public class FilterOnAttribute extends AbstractAlgorithm{
 	}
 
 	@Override
+	
 	public Class<?> getOutputDataType(String identifier) {
 		if(identifier.equalsIgnoreCase("result")){
 			return GTVectorDataBinding.class;
@@ -65,6 +75,16 @@ public class FilterOnAttribute extends AbstractAlgorithm{
 	}
 
 	@Override
+	/**
+	 * inputData a HashMap of the input data:
+	 * @param inputObservations: the observations
+	 * @param fieldName: the name of the field containing the attribute of interest 
+	 * @param featureName: the name of the feature contained within the field
+	 * @param include: boolean, true to keep the feature of interest, false to exclude the feature of interest
+	 * results a HashpMap of the results:
+	 * @result result: the input data with the "DQ_ThematicAccuracy" with a 1 or a 0
+	 * @result qual_result: the "DQ_ThematicAccuracy" 1s are returned
+	 */
 	public Map<String, IData> run(Map<String, List<IData>> inputData)
 			throws ExceptionReport {
 		
