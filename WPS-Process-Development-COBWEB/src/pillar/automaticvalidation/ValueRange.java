@@ -119,7 +119,7 @@ public class ValueRange extends AbstractAlgorithm {
 		
 		// Iterate through the properties, adding them to the type builder
 		Iterator<Property> pItObs = obsProp.iterator();
-		while (pItObs.hasNext()){
+		while (pItObs.hasNext()) {
 			try {
 				Property tempProp = pItObs.next();
 			
