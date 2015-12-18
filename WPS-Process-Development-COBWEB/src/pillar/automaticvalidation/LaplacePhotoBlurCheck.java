@@ -152,7 +152,7 @@ public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
 					LOG.error(e.getMessage() + " : " + urlBase+urlS);
 					errors.add(e.getMessage());
 				}		
-				
+		
 				// Do the check and set usability accordingly
 				BlurCheckRunnable blurChecker = new BlurCheckAwt(original, threshold, false);
 				blurChecker.run();	// This should probably run on a thread! 

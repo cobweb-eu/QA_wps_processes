@@ -3,6 +3,7 @@
 	<name>WPS-Process-Development-COBWEB</name>
 	<comment></comment>
 	<projects>
+		<project>cobweb-qa</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

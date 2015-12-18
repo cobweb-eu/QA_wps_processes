@@ -164,7 +164,7 @@ public class ValueRange extends AbstractAlgorithm {
 				SimpleFeature tempSf = obsIt2.next();
 				
 				// Copy feature properties to include in output
-				for (Property obsProperty : tempSf.getProperties()){	
+				for (Property obsProperty : tempSf.getProperties()) {	
 					String name = obsProperty.getName().toString();
 					Object value = obsProperty.getValue();
 					resultFeatureBuilder.set(name, value);
