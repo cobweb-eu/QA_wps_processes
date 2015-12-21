@@ -3,6 +3,7 @@ package pillar.automaticvalidation;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -19,24 +20,26 @@ import org.geotools.feature.FeatureCollection;
 import org.geotools.feature.simple.SimpleFeatureBuilder;
 import org.geotools.feature.simple.SimpleFeatureTypeBuilder;
 import org.n52.wps.io.data.IData;
-import org.n52.wps.server.AbstractAlgorithm;
-import org.n52.wps.server.ExceptionReport;
 import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
 import org.n52.wps.io.data.binding.literal.LiteralDoubleBinding;
 import org.n52.wps.io.data.binding.literal.LiteralIntBinding;
 import org.n52.wps.io.data.binding.literal.LiteralStringBinding;
+import org.n52.wps.server.AbstractAlgorithm;
+import org.n52.wps.server.ExceptionReport;
 import org.opengis.feature.Property;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
 import org.opengis.feature.type.PropertyType;
 
-import eu.cobwebproject.qa.automaticvalidation.BlurCheckRunnable; 	// interface
 import eu.cobwebproject.qa.automaticvalidation.BlurCheckAwt;		// implementation
+import eu.cobwebproject.qa.automaticvalidation.BlurCheckRunnable; 	// interface
 
 
 
 public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
 	static Logger LOG = Logger.getLogger(LaplacePhotoBlurCheck.class);
+	
+	public static final long MAX_IMG_SIZE = 6000000;
 	
 	private ArrayList<String> errors;
 	
@@ -128,7 +131,6 @@ public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
 		sfi = (SimpleFeatureIterator) obsFc.features();
 		String urlS = null;
 		
-		
 		try {
 			while (sfi.hasNext()) {
 				SimpleFeature tempSf = sfi.next();	
@@ -146,8 +148,10 @@ public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
 				
 				try {
 					url = new URL(urlBase+urlS);
+					if(imageIsTooBig(url, MAX_IMG_SIZE)) {
+						throw new IOException("Image is bigger than max allowable size (or we can't tell how big it is)");
+					}
 					original = ImageIO.read(url);
-					LOG.warn("image size = " + original.getWidth() + " " + original.getHeight());
 				} catch (IOException e) {
 					LOG.error(e.getMessage() + " : " + urlBase+urlS);
 					errors.add(e.getMessage());
@@ -216,5 +220,12 @@ public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
 		}
 		return null;
 		
-	} 
+	}
+	
+	private boolean imageIsTooBig(URL imageUrl, long maxImageSize) throws IOException {
+		URLConnection c = imageUrl.openConnection();
+		long imgSize = c.getContentLengthLong();
+		LOG.warn("image file size: " + String.valueOf(imgSize));
+		return imgSize > maxImageSize || imgSize == -1;
+	}
  }

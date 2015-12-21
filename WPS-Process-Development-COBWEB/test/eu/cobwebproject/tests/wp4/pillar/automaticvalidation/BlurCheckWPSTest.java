@@ -183,9 +183,9 @@ public class BlurCheckWPSTest extends TestCase {
 	 */
 	private boolean executeRequestCheckResponse(ExecuteDocument request, String desiredUsability) throws WPSClientException {
 		Object response = wpsClient.execute(wpsLocation, request);
+		if(DEBUG) System.out.println(response);
 		assertTrue(response instanceof ExecuteResponseDocument);		
 		ExecuteResponseDocument responseDocument = (ExecuteResponseDocument) response;
-		if(DEBUG) System.out.println(responseDocument);
 		// Return whether usability matches expected
 		XmlObject[] usabilityTags = responseDocument.execQuery(xPathBlurryUsability);
 		assertTrue(usabilityTags.length == 1);
