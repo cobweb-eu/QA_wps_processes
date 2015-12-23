@@ -4,7 +4,7 @@ Quality Assurance Web Processing Services using 52North WPS. Quality tests are i
 
 To install Java processes:
 
-1. Building conbweb-qa jar (e.g. using gradle)
+1. Build cobweb-qa jar (e.g. using gradle)
 
 2. Integrate cobweb-qa library into pom.xml. E.g. at terminal:
 ``mvn install:install-file -Dfile=./cobweb-qa-0.2.0.2.jar -DgroupId=eu.cobwebproject.qa -DartifactId=cobweb-qa-lib -Dversion=0.2.0.2 -Dpackaging=jar -DgeneratePom=true``
