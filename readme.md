@@ -1,8 +1,6 @@
 # Web Processing Service for COBWEB-QA#
 
-##Quality Assurance Web Processing Service using 52North WPS
-
-Quality tests are implemented as either Java or R processes.
+Quality Assurance Web Processing Services using 52North WPS. Quality tests are implemented as either Java or R processes.
 
 To install Java processes:
 
