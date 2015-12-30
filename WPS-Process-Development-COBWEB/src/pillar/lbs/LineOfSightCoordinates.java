@@ -62,32 +62,26 @@ public class LineOfSightCoordinates extends AbstractAlgorithm {
 	 * Output is the input data with a spatial object of the line of sight coordinate
 	 */
 	
-	private final String inputObservations = "inputObservations";
-	private final String inputSurfaceModel = "inputSurfaceModelPath";
-	private final String inputBaringFieldName = "inputBaringFieldName";
-	private final String inputTiltFieldName = "inputTiltFieldName";
-	private final String inputUserHeight = "inputUserHeight";
+	private static final String INPUT_OBS = "inputObservations";
+	private static final String INPUT_SURFACEMODEL = "inputSurfaceModelPath";
+	private static final String INPUT_BEARING = "inputBaringFieldName";
+	private static final String INPUT_TILT = "inputTiltFieldName";
+	private static final String INPUT_USERHEIGHT = "inputUserHeight";
 	
 	Logger LOGGER = Logger.getLogger(LineOfSightCoordinates.class);
 	
 	@Override
 	public Class<?> getInputDataType(String identifier) {
-		if (identifier.equalsIgnoreCase("inputObservations")){
+		if(identifier.equalsIgnoreCase(INPUT_OBS))
 			return GTVectorDataBinding.class;
-		}
-		if (identifier.equalsIgnoreCase("inputSurfaceModel")){
+		if(identifier.equalsIgnoreCase(INPUT_SURFACEMODEL))
 			return GenericFileDataBinding.class;
-		}
-		if (identifier.equalsIgnoreCase("inputBaringFieldName")){
+		if(identifier.equalsIgnoreCase(INPUT_BEARING))
 			return LiteralStringBinding.class;
-		}
-		if (identifier.equalsIgnoreCase("inputTiltFieldName")){
+		if(identifier.equalsIgnoreCase(INPUT_TILT))
 			return LiteralStringBinding.class;
-		}
-		if (identifier.equalsIgnoreCase("inputUserHeight")){
+		if(identifier.equalsIgnoreCase(INPUT_USERHEIGHT))
 			return LiteralDoubleBinding.class;
-		}	
-		
 		return null;
 	}
 
@@ -112,11 +106,11 @@ public class LineOfSightCoordinates extends AbstractAlgorithm {
 	 * @result result: the input data with a spatial object replaced with the line of sight (-1,-1) for no LoS and missing the surface model
 	 */
 	public Map<String, IData> run(Map<String, List<IData>> inputData){
-	List<IData> inputObsList = inputData.get("inputObservations");
-	List<IData> inputSMPList = inputData.get("inputSurfaceModel");
-	List<IData> inputBarList = inputData.get("inputBearingFieldName");
-	List<IData> inputTiltList = inputData.get("inputTiltFieldName");
-	List<IData> inputUserList = inputData.get("inputUserHeight");
+	List<IData> inputObsList = inputData.get(INPUT_OBS);
+	List<IData> inputSMPList = inputData.get(INPUT_SURFACEMODEL);
+	List<IData> inputBarList = inputData.get(INPUT_BEARING);
+	List<IData> inputTiltList = inputData.get(INPUT_TILT);
+	List<IData> inputUserList = inputData.get(INPUT_USERHEIGHT);
 	
 	System.setProperty("org.geotools.referencing.forceXY", "true");
 	FeatureCollection pointInputs = ((GTVectorDataBinding) inputObsList.get(0)).getPayload();
