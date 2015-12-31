@@ -123,12 +123,14 @@ public class GetLineOfSight extends AbstractAlgorithm {
 					northing = -1;
 				}
 				
+				// Set results as result feature geometry
 				GeometryFactory gf = new GeometryFactory();
 				Point point = gf.createPoint(new Coordinate(easting, northing));
 				
 				SimpleFeature feature = builder.buildFeature(String.valueOf(counter));
 				feature.setDefaultGeometry(point);
 				
+				// add to feature list
 				featureList.add(feature);
 				counter++;
 			}
@@ -136,6 +138,7 @@ public class GetLineOfSight extends AbstractAlgorithm {
 			iterator.close();
 		}
 		
+		// return outputs as FeatureCollection
 		FeatureCollection returnOutput = new ListFeatureCollection(outType, featureList);
 		HashMap<String, IData> result = new HashMap<String, IData>();
 		result.put("result", new GTVectorDataBinding(returnOutput));

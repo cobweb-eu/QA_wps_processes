@@ -36,7 +36,7 @@ import eu.cobwebproject.qa.automaticvalidation.BlurCheckRunnable; 	// interface
 
 
 
-public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
+public class LaplacePhotoBlurCheck extends AbstractAlgorithm {
 	static Logger LOG = Logger.getLogger(LaplacePhotoBlurCheck.class);
 	
 	public static final long MAX_IMG_SIZE = 6000000;
