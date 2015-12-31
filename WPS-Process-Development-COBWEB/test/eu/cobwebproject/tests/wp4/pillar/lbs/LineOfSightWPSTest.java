@@ -51,6 +51,7 @@ public class LineOfSightWPSTest extends TestCase {
 		wpsClient = WPSClientSession.getInstance();
 		assertTrue(wpsClient.connect(wpsLocation));
 		String instanceResourceFileName = this.getClass().getResource(surfaceModelFile).getFile().toString(); 
+		System.out.println(instanceResourceFileName);
 		surfaceModel = readFileToString(instanceResourceFileName);
 	}
 	
@@ -85,10 +86,9 @@ public class LineOfSightWPSTest extends TestCase {
 	private ExecuteDocument buildRequest(String url) throws IOException {
 		ProcessDescriptionType procDesc = wpsClient.getProcessDescription(wpsLocation, processID);
 		ExecuteRequestBuilder reqBuilder = new ExecuteRequestBuilder(procDesc);
-		reqBuilder.addComplexDataReference("inputObservations", url, refSchema, null, refMimeType);
+		reqBuilder.addComplexDataReference(GetLineOfSight.INPUT_OBS, url, refSchema, null, refMimeType);
 		reqBuilder.addLiteralData(GetLineOfSight.INPUT_SURFACEMODEL, surfaceModel);
 		reqBuilder.addLiteralData(GetLineOfSight.INPUT_BEARINGNAME, "bearing");
-		reqBuilder.addLiteralData(GetLineOfSight.INPUT_TILTNAME, "tilt");
 		reqBuilder.addLiteralData(GetLineOfSight.INPUT_TILTNAME, "tilt");
 		reqBuilder.addLiteralData(GetLineOfSight.INPUT_USERHEIGHT, "1.5");
 		reqBuilder.setSchemaForOutput(refSchema, "result");	
