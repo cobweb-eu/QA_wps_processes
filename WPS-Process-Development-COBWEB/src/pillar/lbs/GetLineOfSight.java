@@ -42,11 +42,11 @@ import eu.cobwebproject.qa.lbs.Raster;
  */
 public class GetLineOfSight extends AbstractAlgorithm {
 	
-	private static final String INPUT_OBS = "inputObservations";
-	private static final String INPUT_SURFACEMODEL = "inputSurfaceModelPath";
-	private static final String INPUT_BEARING = "inputBaringFieldName";
-	private static final String INPUT_TILT = "inputTiltFieldName";
-	private static final String INPUT_USERHEIGHT = "inputUserHeight";
+	public static final String INPUT_OBS = "inputObservations";
+	public static final String INPUT_SURFACEMODEL = "inputSurfaceModelPath";
+	public static final String INPUT_BEARINGNAME = "inputBaringFieldName";
+	public static final String INPUT_TILTNAME = "inputTiltFieldName";
+	public static final String INPUT_USERHEIGHT = "inputUserHeight";
 	
 	Logger LOGGER = Logger.getLogger(LineOfSightCoordinates.class);
 	
@@ -70,8 +70,8 @@ public class GetLineOfSight extends AbstractAlgorithm {
 		// get params from WPS
 		pointInputs = ((GTVectorDataBinding) inputData.get(INPUT_OBS).get(0)).getPayload();
 		surfaceModel = ((GenericFileDataBinding) inputData.get(INPUT_SURFACEMODEL).get(0)).getPayload();
-		bearingFieldName = ((LiteralStringBinding) inputData.get(INPUT_BEARING).get(0)).getPayload();
-		tiltFieldName = ((LiteralStringBinding) inputData.get(INPUT_TILT).get(0)).getPayload();
+		bearingFieldName = ((LiteralStringBinding) inputData.get(INPUT_BEARINGNAME).get(0)).getPayload();
+		tiltFieldName = ((LiteralStringBinding) inputData.get(INPUT_TILTNAME).get(0)).getPayload();
 		userHeight = ((LiteralDoubleBinding) inputData.get(INPUT_USERHEIGHT).get(0)).getPayload();
 		
 		// Try and read the raster
@@ -119,6 +119,7 @@ public class GetLineOfSight extends AbstractAlgorithm {
 					easting = result[2];
 					northing = result[3];
 				} catch(IntersectionException e) {
+					LOGGER.warn("No intersection with heightmap: " + e.getMessage());
 					easting = -1;
 					northing = -1;
 				}
@@ -193,9 +194,9 @@ public class GetLineOfSight extends AbstractAlgorithm {
 			return GTVectorDataBinding.class;
 		if(identifier.equalsIgnoreCase(INPUT_SURFACEMODEL))
 			return GenericFileDataBinding.class;
-		if(identifier.equalsIgnoreCase(INPUT_BEARING))
+		if(identifier.equalsIgnoreCase(INPUT_BEARINGNAME))
 			return LiteralStringBinding.class;
-		if(identifier.equalsIgnoreCase(INPUT_TILT))
+		if(identifier.equalsIgnoreCase(INPUT_TILTNAME))
 			return LiteralStringBinding.class;
 		if(identifier.equalsIgnoreCase(INPUT_USERHEIGHT))
 			return LiteralDoubleBinding.class;
