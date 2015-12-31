@@ -43,7 +43,7 @@ import eu.cobwebproject.qa.lbs.Raster;
 public class GetLineOfSight extends AbstractAlgorithm {
 	
 	public static final String INPUT_OBS = "inputObservations";
-	public static final String INPUT_SURFACEMODEL = "inputSurfaceModelPath";
+	public static final String INPUT_SURFACEMODEL = "inputSurfaceModel";
 	public static final String INPUT_BEARINGNAME = "inputBaringFieldName";
 	public static final String INPUT_TILTNAME = "inputTiltFieldName";
 	public static final String INPUT_USERHEIGHT = "inputUserHeight";
