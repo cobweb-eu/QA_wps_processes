@@ -26,4 +26,4 @@ To install R processes:
 
 ## Troubleshooting
 
-* Certain processing (e.g. blur checking of high-resolution photographs and R scripts with complex geometric inputs) may require increases in Tomcat heap size.
+* Certain processing (such as blur checking of high-resolution photographs and R scripts with complex geometric inputs) may require increases in Tomcat heap size. E.g. modify ``JAVA_OPTS="-Djava.awt.headless=true`` to something like ``-Xmx1024m`` for 1024mb of heap space.
