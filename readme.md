@@ -13,3 +13,17 @@ or using Eclipse M2E
 3. Deploy and register processes in WPS.
 
 4. Run unit tests from Maven. E.g. Run As -> mvn test
+
+
+To install R processes:
+
+1. Ensure the WPS4R extension to the 52North WPS is installed and working correctly.
+
+2. Add scripts from ``WPS-R-Process-Development-COBWEB`` directory to the ``wps\R\scripts`` directory in the WPS installation location.
+
+3. Register scripts with the WPS according to the 52North instructions.
+
+
+## Troubleshooting
+
+* Certain processing (e.g. blur checking of high-resolution photographs and R scripts with complex geometric inputs) may require increases in Tomcat heap size.
