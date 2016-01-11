@@ -60,6 +60,9 @@ public class BlurCheckWPSTest extends TestCase {
 	@Before
 	public void setUp() throws WPSClientException {
 		wpsClient = WPSClientSession.getInstance();
+		if(wpsClient == null) {
+			System.out.println("wtf");
+		}
 		assertTrue(wpsClient.connect(wpsLocation));
 	}
 	

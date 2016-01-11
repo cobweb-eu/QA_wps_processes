@@ -51,8 +51,9 @@ public class LineOfSightWPSTest extends TestCase {
 		wpsClient = WPSClientSession.getInstance();
 		assertTrue(wpsClient.connect(wpsLocation));
 		String instanceResourceFileName = this.getClass().getResource(surfaceModelFile).getFile().toString(); 
-		System.out.println(instanceResourceFileName);
-		surfaceModel = readFileToString(instanceResourceFileName);
+		//surfaceModel = readFileToString(instanceResourceFileName);
+		this.surfaceModel = instanceResourceFileName;
+		//System.out.println("Surface model length: " + surfaceModel.length());
 	}
 	
 	/**
@@ -67,7 +68,7 @@ public class LineOfSightWPSTest extends TestCase {
 	
 	@Test
 	public void testBasic() throws IOException, WPSClientException {
-		ExecuteDocument request = this.buildRequest(testObservationHoneysuckle);
+		ExecuteDocument request = buildRequest(testObservationHoneysuckle);
 		Object response = wpsClient.execute(wpsLocation, request);
 		System.out.println(response);
 		assertTrue(response instanceof ExecuteResponseDocument);		
@@ -87,7 +88,8 @@ public class LineOfSightWPSTest extends TestCase {
 		ProcessDescriptionType procDesc = wpsClient.getProcessDescription(wpsLocation, processID);
 		ExecuteRequestBuilder reqBuilder = new ExecuteRequestBuilder(procDesc);
 		reqBuilder.addComplexDataReference(GetLineOfSight.INPUT_OBS, url, refSchema, null, refMimeType);
-		reqBuilder.addLiteralData(GetLineOfSight.INPUT_SURFACEMODEL, surfaceModel);
+		//reqBuilder.addLiteralData(GetLineOfSight.INPUT_SURFACEMODEL, surfaceModel);
+		reqBuilder.addComplexDataReference(GetLineOfSight.INPUT_SURFACEMODEL, surfaceModel, refSchema, null, refMimeType);
 		reqBuilder.addLiteralData(GetLineOfSight.INPUT_BEARINGNAME, "bearing");
 		reqBuilder.addLiteralData(GetLineOfSight.INPUT_TILTNAME, "tilt");
 		reqBuilder.addLiteralData(GetLineOfSight.INPUT_USERHEIGHT, "1.5");
@@ -104,7 +106,7 @@ public class LineOfSightWPSTest extends TestCase {
 		try {
 		    StringBuilder sb = new StringBuilder();
 		    String line = br.readLine();
-
+		    System.out.println("Read first line: " + line);
 		    while (line != null) {
 		        sb.append(line);
 		        sb.append(System.lineSeparator());

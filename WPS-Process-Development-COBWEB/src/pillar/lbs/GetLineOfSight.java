@@ -44,7 +44,7 @@ public class GetLineOfSight extends AbstractAlgorithm {
 	
 	public static final String INPUT_OBS = "inputObservations";
 	public static final String INPUT_SURFACEMODEL = "inputSurfaceModel";
-	public static final String INPUT_BEARINGNAME = "inputBaringFieldName";
+	public static final String INPUT_BEARINGNAME = "inputBearingFieldName";
 	public static final String INPUT_TILTNAME = "inputTiltFieldName";
 	public static final String INPUT_USERHEIGHT = "inputUserHeight";
 	
@@ -216,7 +216,4 @@ public class GetLineOfSight extends AbstractAlgorithm {
 	public List<String> getErrors() {
 		return errorList;
 	}
-	
-	
-	
 }
