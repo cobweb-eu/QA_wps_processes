@@ -67,16 +67,17 @@ public class GetLineOfSight extends AbstractAlgorithm {
 		String bearingFieldName, tiltFieldName;
 		double userHeight;
 		
+		
 		// get params from WPS
 		pointInputs = ((GTVectorDataBinding) inputData.get(INPUT_OBS).get(0)).getPayload();
-		surfaceModel = ((GenericFileDataBinding) inputData.get(INPUT_SURFACEMODEL).get(0)).getPayload();
-		bearingFieldName = ((LiteralStringBinding) inputData.get(INPUT_BEARINGNAME).get(0)).getPayload();
+		surfaceModel = ((GenericFileDataBinding) inputData.get(INPUT_SURFACEMODEL).get(0)).getPayload();		
+		bearingFieldName = ((LiteralStringBinding) inputData.get(INPUT_BEARINGNAME).get(0)).getPayload();		
 		tiltFieldName = ((LiteralStringBinding) inputData.get(INPUT_TILTNAME).get(0)).getPayload();
 		userHeight = ((LiteralDoubleBinding) inputData.get(INPUT_USERHEIGHT).get(0)).getPayload();
 		
 		// Try and read the raster
 		Raster heightMap = null;
-		try {
+		try {		
 			heightMap = new Raster(surfaceModel.getBaseFile(true).getAbsolutePath());
 		} catch (IOException e) {
 			LOGGER.error("Could not read from provided surface model", e);
@@ -119,7 +120,7 @@ public class GetLineOfSight extends AbstractAlgorithm {
 					easting = result[2];
 					northing = result[3];
 				} catch(IntersectionException e) {
-					LOGGER.warn("No intersection with heightmap: " + e.getMessage());
+					LOGGER.warn("No intersection with heightmap (" + e.getClass().getSimpleName() + "): " + e.getMessage());
 					easting = -1;
 					northing = -1;
 				}
@@ -178,7 +179,7 @@ public class GetLineOfSight extends AbstractAlgorithm {
 			Class<String> valueClass = (Class<String>) tempProp.getType().getBinding();
 			
 			builder.add(name, valueClass);
-			LOGGER.warn ("Obs property " + name + " " + valueClass);	
+			
 		}
 		
 		builder.add("easting", Double.class);

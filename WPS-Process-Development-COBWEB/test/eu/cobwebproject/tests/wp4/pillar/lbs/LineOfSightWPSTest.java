@@ -24,19 +24,23 @@ import pillar.lbs.GetLineOfSight;
  * @author Sebastian Clarke - Environment Systems - sebastian.clarke@envsys.co.uk
  *
  */
-public class LineOfSightWPSTest extends TestCase {
-	// Configuration parameters
+public class LineOfSightWPSTest extends TestCase {	
+	private static final String XPATH_GEOMETRY = "//*:Point/*:pos/text()";
 	private static final boolean DEBUG = false;
+	
+	// Configuration parameters
 	private final String wpsLocation = "http://localhost:8080/wps/WebProcessingService";	// The WPS is installed here
 	private final String processID = "pillar.lbs.GetLineOfSight";	// The process we are testing
-	private final String testObservationHoneysuckle = "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:SampleData&outputFormat=gml3&featureId=SampleData.4";
+	private final String testObservationHoneysuckle = "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:SampleData&outputFormat=gml3&featureId=SampleData.61&srsName=EPSG:27700";
 	
 	private final String refSchema = "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd";
 	private final String refMimeType = "text/xml; subtype=gml/3.1.0";
-	private final String surfaceModelFile = "/resources/surface/surfaceModel.txt";
+	 
+	// urls to hosted surface models
+	private final String testRemoteSurfaceModelObs = "http://www.envsys.co.uk/cobweb/surfaceModel_sn7698.txt";
+	private final String testRemoteSurfaceModel = "http://www.envsys.co.uk/cobweb/surfaceModel.txt";
 	
 	// instance members
-	private String surfaceModel;	
 	private WPSClientSession wpsClient; 
 	
 	/**
@@ -50,10 +54,6 @@ public class LineOfSightWPSTest extends TestCase {
 	public void setUp() throws WPSClientException, IOException {
 		wpsClient = WPSClientSession.getInstance();
 		assertTrue(wpsClient.connect(wpsLocation));
-		String instanceResourceFileName = this.getClass().getResource(surfaceModelFile).getFile().toString(); 
-		//surfaceModel = readFileToString(instanceResourceFileName);
-		this.surfaceModel = instanceResourceFileName;
-		//System.out.println("Surface model length: " + surfaceModel.length());
 	}
 	
 	/**
@@ -67,55 +67,57 @@ public class LineOfSightWPSTest extends TestCase {
 	}
 	
 	@Test
-	public void testBasic() throws IOException, WPSClientException {
-		ExecuteDocument request = buildRequest(testObservationHoneysuckle);
+	public void testObservationOutOfBounds() throws IOException, WPSClientException {
+		ExecuteDocument request = buildRequest(testObservationHoneysuckle, testRemoteSurfaceModel);
 		Object response = wpsClient.execute(wpsLocation, request);
-		System.out.println(response);
 		assertTrue(response instanceof ExecuteResponseDocument);		
 		ExecuteResponseDocument responseDocument = (ExecuteResponseDocument) response;
 		// Assert whether matches expected 
-		
+		XmlObject[] positionTags = responseDocument.execQuery(XPATH_GEOMETRY);
+		assertTrue("Too many results", positionTags.length <= 1);
+		assertTrue("No results found", positionTags.length == 1);
+		assertTrue(positionTags[0].newCursor().getTextValue().equals("-1.0 -1.0"));
 	}
 	
+	@Test
+	public void testObservationWithCustomHeightmap() throws IOException, WPSClientException {
+		ExecuteDocument request = buildRequest(testObservationHoneysuckle, testRemoteSurfaceModelObs);
+		Object response = wpsClient.execute(wpsLocation, request);
+		assertTrue(response instanceof ExecuteResponseDocument);		
+		ExecuteResponseDocument responseDocument = (ExecuteResponseDocument) response;
+		// Assert whether matches expected 
+		XmlObject[] positionTags = responseDocument.execQuery(XPATH_GEOMETRY);
+		assertTrue("Too many results", positionTags.length <= 1);
+		assertTrue("No results found", positionTags.length == 1);
+		assertTrue(positionTags[0].newCursor().getTextValue().equals("276283.41790517466 298378.18305935315"));
+	}
 	
 	/**
-	 * Helper function to build a PhotoBlurCheck WPS Request to QA Check image
-	 * @param url: To the feature to check
+	 * Helper function to build a Line of sight WPS request
+	 * @param url: To the feature to run LOS on
+	 * @param surfaceModel: url to the surface model to check against
 	 * @return An execute document encoding the request
 	 * @throws IOException 
 	 */
-	private ExecuteDocument buildRequest(String url) throws IOException {
+	private ExecuteDocument buildRequest(String url, String surfaceModel) throws IOException {
 		ProcessDescriptionType procDesc = wpsClient.getProcessDescription(wpsLocation, processID);
 		ExecuteRequestBuilder reqBuilder = new ExecuteRequestBuilder(procDesc);
 		reqBuilder.addComplexDataReference(GetLineOfSight.INPUT_OBS, url, refSchema, null, refMimeType);
-		//reqBuilder.addLiteralData(GetLineOfSight.INPUT_SURFACEMODEL, surfaceModel);
-		reqBuilder.addComplexDataReference(GetLineOfSight.INPUT_SURFACEMODEL, surfaceModel, refSchema, null, refMimeType);
+		reqBuilder.addComplexDataReference(GetLineOfSight.INPUT_SURFACEMODEL, surfaceModel, null, null, null);
 		reqBuilder.addLiteralData(GetLineOfSight.INPUT_BEARINGNAME, "bearing");
 		reqBuilder.addLiteralData(GetLineOfSight.INPUT_TILTNAME, "tilt");
 		reqBuilder.addLiteralData(GetLineOfSight.INPUT_USERHEIGHT, "1.5");
 		reqBuilder.setSchemaForOutput(refSchema, "result");	
 		reqBuilder.setMimeTypeForOutput(refMimeType, "result");
 		
+		if(DEBUG) {
+			System.out.println("--- Building request ---");
+			System.out.println("\t Observation: \t" + url);
+			System.out.println("\t Surface Model: \t" + surfaceModel);
+		}
+		
 		// Check the execute request we are about to build and return
 		assertTrue(reqBuilder.isExecuteValid());
 		return reqBuilder.getExecute();
-	}
-	
-	private static String readFileToString(String fileName) throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(fileName));
-		try {
-		    StringBuilder sb = new StringBuilder();
-		    String line = br.readLine();
-		    System.out.println("Read first line: " + line);
-		    while (line != null) {
-		        sb.append(line);
-		        sb.append(System.lineSeparator());
-		        line = br.readLine();
-		    }
-		    
-		    return sb.toString();
-		} finally {
-		    br.close();
-		}
 	}
 }
