@@ -96,7 +96,7 @@
         <dependency>
         	<groupId>eu.cobwebproject.qa</groupId>
         	<artifactId>cobweb-qa-lib</artifactId>
-        	<version>0.3</version>
+        	<version>0.3.1</version>
         </dependency>
 
         <dependency>
