@@ -92,7 +92,6 @@
 	<artifactId>commons-math3</artifactId>
 	<version>3.0</version>
 </dependency>
-
         <dependency>
         	<groupId>eu.cobwebproject.qa</groupId>
         	<artifactId>cobweb-qa-lib</artifactId>

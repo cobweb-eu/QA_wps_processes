@@ -48,7 +48,7 @@ public class GetLineOfSight extends AbstractAlgorithm {
 	public static final String INPUT_TILTNAME = "inputTiltFieldName";
 	public static final String INPUT_USERHEIGHT = "inputUserHeight";
 	
-	Logger LOGGER = Logger.getLogger(LineOfSightCoordinates.class);
+	Logger LOGGER = Logger.getLogger(GetLineOfSight.class);
 	
 	private ArrayList<String> errorList;
 	

@@ -29,7 +29,7 @@ public class LineOfSightWPSTest extends TestCase {
 	private static final boolean DEBUG = false;
 	
 	// Configuration parameters
-	private final String wpsLocation = "http://localhost:8080/wps/WebProcessingService";	// The WPS is installed here
+	private final String wpsLocation = "http://localhost:8010/wps/WebProcessingService";	// The WPS is installed here
 	private final String processID = "pillar.lbs.GetLineOfSight";	// The process we are testing
 	private final String testObservationHoneysuckle = "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:SampleData&outputFormat=gml3&featureId=SampleData.61&srsName=EPSG:27700";
 	
