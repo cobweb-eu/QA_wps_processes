@@ -27,8 +27,8 @@ import org.n52.wps.client.WPSClientSession;
 public class BlurCheckWPSTest extends TestCase {
 	// Configuration parameters
 	private static final boolean DEBUG = false;
-	private final String wpsLocation = "http://localhost:8080/wps/WebProcessingService";	// The WPS is installed here
-	private final String imageBase = "http://localhost/img/";								// Test images served from here
+	private final String wpsLocation = "http://localhost:8010/wps/WebProcessingService";	// The WPS is installed here
+	private final String imageBase = "http://localhost:8010/wps/img/";								// Test images served from here
 	private final String processID = "pillar.automaticvalidation.LaplacePhotoBlurCheck";	// The process we are testing
 	
 	private final String refSchema = "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd";
@@ -60,6 +60,9 @@ public class BlurCheckWPSTest extends TestCase {
 	@Before
 	public void setUp() throws WPSClientException {
 		wpsClient = WPSClientSession.getInstance();
+		if(wpsClient == null) {
+			System.out.println("wtf");
+		}
 		assertTrue(wpsClient.connect(wpsLocation));
 	}
 	
