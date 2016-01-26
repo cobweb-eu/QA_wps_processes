@@ -65,7 +65,7 @@ public class GetLineOfSight extends AbstractAlgorithm {
 		FeatureCollection pointInputs;
 		GenericFileData surfaceModel;
 		String bearingFieldName, tiltFieldName;
-		double userHeight;
+		double userHeight = 1.5;
 		
 		
 		// get params from WPS
@@ -91,7 +91,7 @@ public class GetLineOfSight extends AbstractAlgorithm {
 		// Get ready to loop through all features
 		SimpleFeatureIterator iterator = (SimpleFeatureIterator) pointInputs.features();
 		ArrayList<SimpleFeature> featureList = new ArrayList<SimpleFeature>();
-		LineOfSight los = new LineOfSight(heightMap, 0, 0, 0, 0, 1.5);
+		LineOfSight los = new LineOfSight(heightMap, 0, 0, 0, 0, userHeight);
 		int counter = 0;
 		
 		try {
