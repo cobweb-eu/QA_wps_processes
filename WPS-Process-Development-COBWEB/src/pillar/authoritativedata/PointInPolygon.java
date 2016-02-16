@@ -213,9 +213,7 @@ public class PointInPolygon extends AbstractAlgorithm {
 			}
 			
 			authIt.close();
-		
-			
-			
+					
 			
 		}
 		obsIt2.close();
@@ -228,7 +226,6 @@ public class PointInPolygon extends AbstractAlgorithm {
 		HashMap<String, IData> results = new HashMap<String, IData>();
 		results.put("result", new GTVectorDataBinding((FeatureCollection)resultFeatureCollection));
 		results.put("qual_result", new GTVectorDataBinding((FeatureCollection)qual_resultFeatureCollection));
-		
 		
 		
 		
