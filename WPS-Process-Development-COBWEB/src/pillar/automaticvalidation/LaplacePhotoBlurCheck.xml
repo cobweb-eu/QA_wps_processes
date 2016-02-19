@@ -45,7 +45,7 @@
 						<ows:AnyValue/>
 					</LiteralData>
 			</Input>
-			<Input maxOccurs="1" minOccurs="1">
+			<Input maxOccurs="1" minOccurs="0">
 				<ows:Identifier>urlPrefix</ows:Identifier>
 				<ows:Title>urlPrefix</ows:Title>
 					<LiteralData>
