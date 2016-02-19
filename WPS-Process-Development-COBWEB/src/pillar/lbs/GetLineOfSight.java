@@ -50,14 +50,14 @@ import eu.cobwebproject.qa.lbs.Raster;
  */
 public class GetLineOfSight extends AbstractAlgorithm {
 	
-	
+	/*
 	public static void main(String[] args) {
 		double obsDistance = 4; //ie. will be the mean in distribution test.   
 		double CEP68_SDev = 2;  // ie. the accuracy of the mobile phone.
 		double XYAccuracyOfDem_SDev = 2; //ie. the horiz accuracy of the DEM. 
 		double thresholdLoSDistance= 0.2; // threshold for stat test.		
 		double[] accuracyMedata = computeAccuracyMetadata(obsDistance,CEP68_SDev,XYAccuracyOfDem_SDev,thresholdLoSDistance);
-	}
+	}*/
 	
 	
 	public double DQ_UsabilityElement = (double) -999;

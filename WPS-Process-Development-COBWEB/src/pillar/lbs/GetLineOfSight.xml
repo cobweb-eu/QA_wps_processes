@@ -96,39 +96,6 @@
 				<ComplexOutput>
 					<Default>
 						<Format>
-								<MimeType>application/wfs</MimeType>
-							
-								</Format>
-		</Default>
-		<Supported>
-		<Format>
-								<MimeType>text/xml; subtype=gml/3.1.1</MimeType>
-								<Schema>
-									http://schemas.opengis.net/gml/3.1.1/base/gml.xsd
-								</Schema>
-								</Format>
-								<Format>
-								<MimeType>text/xml; subtype=gml/3.1.0</MimeType>
-								<Schema>
-									http://schemas.opengis.net/gml/3.1.0/base/feature.xsd
-								</Schema>
-								</Format>
-								<Format>
-								<MimeType>application/json</MimeType>
-								</Format>
-								<Format>
-								<MimeType>application/wfs</MimeType>
-								</Format>
-		</Supported>
-		</ComplexOutput>
-	</Output>
-	
-	<Output>
-			<ows:Identifier>qual_result</ows:Identifier>
-			<ows:Title>result</ows:Title>
-				<ComplexOutput>
-					<Default>
-						<Format>
 								<MimeType>text/xml; subtype=gml/3.1.1</MimeType>
 								<Schema>
 									http://schemas.opengis.net/gml/3.1.1/base/gml.xsd
@@ -152,12 +119,8 @@
 								<MimeType>application/json</MimeType>
 								</Format>
 								<Format>
-								<MimeType>application/x-zipped-shp</MimeType>
-								</Format>
-								<Format>
 								<MimeType>application/wfs</MimeType>
 								</Format>
-								
 		</Supported>
 		</ComplexOutput>
 	</Output>
