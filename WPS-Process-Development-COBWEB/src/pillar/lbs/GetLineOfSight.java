@@ -17,6 +17,7 @@ import org.geotools.data.simple.SimpleFeatureIterator;
 import org.geotools.feature.FeatureCollection;
 import org.geotools.feature.simple.SimpleFeatureBuilder;
 import org.geotools.feature.simple.SimpleFeatureTypeBuilder;
+import org.geotools.referencing.crs.DefaultGeographicCRS;
 import org.n52.wps.io.data.GenericFileData;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
@@ -28,6 +29,7 @@ import org.n52.wps.server.ExceptionReport;
 import org.opengis.feature.Property;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
+import org.opengis.referencing.crs.CoordinateReferenceSystem;
 
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Geometry;
@@ -37,8 +39,6 @@ import com.vividsolutions.jts.geom.Point;
 import eu.cobwebproject.qa.lbs.IntersectionException;
 import eu.cobwebproject.qa.lbs.LineOfSight;
 import eu.cobwebproject.qa.lbs.Raster;
-
-
 
 
 
@@ -119,6 +119,11 @@ public class GetLineOfSight extends AbstractAlgorithm {
 		SimpleFeatureType outType = buildFeatureType(pointInputs);
 		SimpleFeatureBuilder builder = new SimpleFeatureBuilder(outType);
 		
+	
+		//CoordinateReferenceSystem inputCRS = outType.getCoordinateReferenceSystem();
+		//System.out.println("Input points CRS: " + inputCRS.toWKT());
+		
+		
 		// Get ready to loop through all features
 		SimpleFeatureIterator iterator = (SimpleFeatureIterator) pointInputs.features();
 		ArrayList<SimpleFeature> featureList = new ArrayList<SimpleFeature>();
@@ -136,12 +141,14 @@ public class GetLineOfSight extends AbstractAlgorithm {
 				
 				// Get position and orientation from feature
 				Coordinate position = ((Geometry) inputFeature.getDefaultGeometry()).getCoordinate();
+				
 				double tilt = Double.valueOf(inputFeature.getAttribute(tiltFieldName).toString());
 				double compass = Double.valueOf(inputFeature.getAttribute(bearingFieldName).toString());
 				
 				// Run line of sight calculation for position defined in feature
 				double easting, northing;
-				double horizontalDistance;
+				double horizontalDistance;								
+
 				try {
 					los.setBearing(compass);
 					los.setTilt(tilt);
@@ -152,8 +159,10 @@ public class GetLineOfSight extends AbstractAlgorithm {
 
 					easting = result[2];
 					northing = result[3];
-					
 					horizontalDistance = result[0];
+					
+					
+					//Set the metadata values
 					double[] accuracyMedata = computeAccuracyMetadata(horizontalDistance,CEP68_SDev,XYAccuracyOfDem_SDev,thresholdLoSDistance);
 					DQ_UsabilityElement = accuracyMedata[0];
 					DQ_TopologicalConsistency = accuracyMedata[1];
@@ -164,7 +173,12 @@ public class GetLineOfSight extends AbstractAlgorithm {
 					easting = -1;
 					northing = -1;
 					
-					horizontalDistance = -1;
+					horizontalDistance = -1;										
+					
+					//Set the metadata values  
+					DQ_UsabilityElement = 0;
+					DQ_TopologicalConsistency = 0;
+					DQ_AbsoluteExternalPositionalAccuracy = 0;
 				}
 				
 				// Set results as result feature geometry
@@ -204,6 +218,17 @@ public class GetLineOfSight extends AbstractAlgorithm {
 		SimpleFeatureTypeBuilder builder = new SimpleFeatureTypeBuilder();
 		builder.setName("LineOfSight Output");
 
+		
+		//Need to make sure we define the CRS properly. 
+		//GeoTools will try and default to WGS84 but we need to have the same output as input (e.g. projected coords). 
+        if (inputs.getSchema().getCoordinateReferenceSystem() == null) { 
+        		System.out.println("CRS not defined. Defaulting to WGS84");
+	            builder.setCRS(DefaultGeographicCRS.WGS84); 
+	    } else { 	    		
+	            builder.setCRS(inputs.getSchema().getCoordinateReferenceSystem());
+	            System.out.println("CRS defined. Defining with: " + inputs.getSchema().getCoordinateReferenceSystem().toWKT());
+	    } 
+
 		// Get sample feature from collection
 		SimpleFeatureIterator sfi = (SimpleFeatureIterator) inputs.features();
 		SimpleFeature sample = null;
@@ -242,12 +267,16 @@ public class GetLineOfSight extends AbstractAlgorithm {
 	/**
 	 * Compute accuracy details for metadata
 	 * 
-	 * Uses the first feature in the list as a template, and adds output fields
+	 * Uses the observed distance from los, device accuracy (CEP68), 
+	 * dem planimetric acc, and a user defined threshold for determining accuracy metadata.
+	 * To do: DQ_TopologicalConsistency value  
 	 * @param observedDistance, phoneAccuracy (CEP68), DEM accuracy, threshold.
-	 * @return some accuracy metadata to get bunged in with the obs 
+	 * @return some accuracy metadata to get bunged in with the obs:
+	 * 				array(Dq_usability,  DQ_TopologicalConsistency, DQ_AbsoluteExternalPositionalAccuracy)
+	 * 
 	 */
 	private static double[] computeAccuracyMetadata(double obsDistance,double CEP68_SDev, double XYAccuracyOfDem_SDev,double thresholdLoSDistance) {		
-		/*
+		/* prototype R code
 		DQUsa = 1-p
 				where
 				p = P(D>t)

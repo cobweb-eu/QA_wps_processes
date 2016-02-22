@@ -30,6 +30,7 @@ import org.opengis.feature.Property;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
 import org.opengis.feature.type.PropertyType;
+import org.opengis.referencing.crs.CoordinateReferenceSystem;
 
 import eu.cobwebproject.qa.automaticvalidation.BlurCheckAwt;		// implementation
 import eu.cobwebproject.qa.automaticvalidation.BlurCheckRunnable; 	// interface
@@ -88,6 +89,7 @@ public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
 		
 		// Use the first feature from the feature collection as template for output...
 		SimpleFeatureIterator sfi = (SimpleFeatureIterator) obsFc.features();
+		CoordinateReferenceSystem inputObsCrs = obsFc.getSchema().getCoordinateReferenceSystem();
 		SimpleFeature tempPropFeature = null;		// temporary feature from which to extract properties
 		try {		
 			tempPropFeature = sfi.next();
@@ -99,6 +101,10 @@ public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
 		Collection<Property> obsProp = tempPropFeature.getProperties();
 		SimpleFeatureTypeBuilder resultTypeBuilder = new SimpleFeatureTypeBuilder();
 		resultTypeBuilder.setName("typeBuilder");
+		
+		//Set crs to match the input
+		resultTypeBuilder.setCRS(inputObsCrs);
+		
 		
 		ArrayList<SimpleFeature> resultArrayList = new ArrayList<SimpleFeature>(); 
 		ArrayList<SimpleFeature> qual_resultArrayList = new ArrayList<SimpleFeature>();
