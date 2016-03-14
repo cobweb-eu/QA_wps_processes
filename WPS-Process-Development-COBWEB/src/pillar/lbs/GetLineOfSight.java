@@ -245,10 +245,10 @@ public class GetLineOfSight extends AbstractAlgorithm {
 		while (propertiesIter.hasNext()) {
 			Property tempProp = propertiesIter.next();
 			String name = tempProp.getDescriptor().getType().getName().getLocalPart();
-			Class<String> valueClass = (Class<String>) tempProp.getType().getBinding();
 			
-			builder.add(name, valueClass);
-			
+			System.out.println("Building feature from property: " + name);			
+			Class<String> valueClass = (Class<String>) tempProp.getType().getBinding();			
+			builder.add(name, valueClass);			
 		}
 		
 		builder.add("easting", Double.class);

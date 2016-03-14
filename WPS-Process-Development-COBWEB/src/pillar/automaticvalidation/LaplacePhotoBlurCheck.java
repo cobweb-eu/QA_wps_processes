@@ -146,6 +146,9 @@ public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
 				for (Property obsProperty : tempSf.getProperties()) {
 					String name = obsProperty.getName().toString();
 					Object value = obsProperty.getValue();
+					
+					LOG.warn ("Adding property " + " name " +  name + " value " + value);
+					
 					if(obsProperty.getName().toString().equalsIgnoreCase(fieldName)){
 						urlS = obsProperty.getValue().toString();
 					}
@@ -189,6 +192,27 @@ public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
 		FeatureCollection resultFeatureCollection = new ListFeatureCollection(typeF, resultArrayList);
 		FeatureCollection qual_resultFeatureCollection = new ListFeatureCollection(typeF, qual_resultArrayList);
 
+		
+		// Use the first feature from the feature collection as template for output...
+		SimpleFeatureIterator fi = (SimpleFeatureIterator) resultFeatureCollection.features();
+		CoordinateReferenceSystem tempCrs = resultFeatureCollection.getSchema().getCoordinateReferenceSystem();
+		SimpleFeature tempFeature = null;		// temporary feature from which to extract properties
+		try {		
+			while (fi.hasNext()) {
+				tempPropFeature = fi.next();
+				for (Property obsProperty : tempPropFeature.getProperties()) {
+					String name = obsProperty.getName().toString();
+					Object value = obsProperty.getValue();					
+					LOG.warn ("FC property " + " name " +  name + " value " + value);				
+				}
+			}
+		} finally {
+			// ensure we release resources to the OS
+			fi.close();			
+		}
+		
+		
+		
 		HashMap<String, IData> results = new HashMap<String, IData>();
 		results.put("result", new GTVectorDataBinding((FeatureCollection)resultFeatureCollection));
 		results.put("qual_result", new GTVectorDataBinding((FeatureCollection)qual_resultFeatureCollection));
