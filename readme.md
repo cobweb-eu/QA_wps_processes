@@ -38,4 +38,4 @@ To install R processes:
 
 * Java errors similar ``Unsupported major.minor version 52.0`` indicate that a Java process may be compiled and run with different versions. Avoid this issue by compiling on the runtime machine and/or specifying source & target Java versions e.g. ``javac -Xlint -cp "../../../lib/*" -source 1.7 -target 1.7 GetLineOfSight.java``
 
-
+* R processes that use the RGDAL library (rather than maptools) for reading observations will fail when points are in a multipoint data structure, which some java processes generate for some reason. This is because readOGR doesn't support multipoint structures (https://stat.ethz.ch/pipermail/r-sig-geo/2011-July/012416.html).
