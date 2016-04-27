@@ -85,6 +85,9 @@ public class GetLineOfSight extends AbstractAlgorithm {
 	public Map<String, IData> run(Map<String, List<IData>> inputData) throws ExceptionReport {
 		System.setProperty("org.geotools.referencing.forceXY", "true");
 		
+		LOGGER.debug("Starting web process...");
+		
+		
 		// hold inputs from WPS
 		FeatureCollection pointInputs;
 		GenericFileData surfaceModel;
@@ -99,12 +102,25 @@ public class GetLineOfSight extends AbstractAlgorithm {
 		double thresholdLoSDistance= 0.2; // threshold for stat test.
 		
 		
+		
+		LOGGER.warn("Getting web process params...");
+		LOGGER.warn("surfaceModel:");
+		LOGGER.warn(inputData.get(INPUT_SURFACEMODEL).get(0).toString());
+		LOGGER.warn(inputData.get(INPUT_SURFACEMODEL).toString());
+		LOGGER.warn(inputData.toString());
+		LOGGER.warn(inputData.get(INPUT_SURFACEMODEL));
+		LOGGER.warn(inputData.get(INPUT_SURFACEMODEL).get(0).getPayload());
+		LOGGER.warn(inputData.get(INPUT_SURFACEMODEL).get(0).getPayload().toString());
+		
 		// get params from WPS
 		pointInputs = ((GTVectorDataBinding) inputData.get(INPUT_OBS).get(0)).getPayload();
 		surfaceModel = ((GenericFileDataBinding) inputData.get(INPUT_SURFACEMODEL).get(0)).getPayload();		
 		bearingFieldName = ((LiteralStringBinding) inputData.get(INPUT_BEARINGNAME).get(0)).getPayload();		
 		tiltFieldName = ((LiteralStringBinding) inputData.get(INPUT_TILTNAME).get(0)).getPayload();
 		userHeight = ((LiteralDoubleBinding) inputData.get(INPUT_USERHEIGHT).get(0)).getPayload();
+		
+		
+		
 		
 		// Try and read the raster
 		Raster heightMap = null;

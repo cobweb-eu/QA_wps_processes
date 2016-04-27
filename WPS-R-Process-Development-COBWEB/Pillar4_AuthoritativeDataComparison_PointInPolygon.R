@@ -15,8 +15,8 @@
 ################################################################
 # pillar4.AuthoritativeDataComparison.PointInPolygon 
 ################################################################
-#    Check knowing the position uncertainty (if given)  if a point belongs to a polygon then concluding
-#       on relative position accuracy and 'relative' semantic therefore usability and attibute accuracies.
+#    given the position and its uncertainty checking if a point(or polygon in fact) belongs to one of the polygons of the authoritative data then concluding on relative position accuracy and 'relative' semantic therefore usability and attribute accuracies
+#
 # The DQ produced or updated if already existing are:
 # DQGVQCSQ:("DQ_UsabilityElement","DQ_ThematicClassificationCorrectness",
 # "DQ_NonQuantitativeAttributeCorrectness","DQ_QuantitativeAttributeAccuracy","DQ_DomainConsistency",
@@ -26,20 +26,15 @@
 # "CSQ_Trust","CSQ_NbContributions")  
 #################################################################
 # depending on the attiribute type (if used)  c(1, 4 or 5 or 6, 8, 14, 16) c(14,16,17,18) c(19:25)
-####### codelist initialisation if needed
 
-
-
-#1=getNodeSet(xx,"//gmd:DQ_DataQuality[.//gmd:MD_ScopeCode[@codeListValue='dataset'] ]//gmd:DQ_RelativeInternalPositionalAccuracy[.//gmd:measureDescription/gco:CharacterString/text()='geographic']//gco:Record")
 ##################################################################
 #describtion set for WPS4R
 # input  set for 52North WPS4R
 # output set for 52North WPS4R
 
-# wps.des: id = Pillar4.AuthoritativeDataComparison.PointInPolygon , title = Pillar4.AuthoritativeDataComparison.PointInPolygon , abstract = QC checking (given position uncertainties) if a point belongs to a polygon then concluding on relative position accuracy and 'relative' semantic therefore usability. DQGVQCSQ:("DQ_UsabilityElement" "DQ_ThematicClassificationCorrectness" "DQ_NonQuantitativeAttributeCorrectness" "DQ_QuantitativeAttributeAccuracy" "DQ_AbsoluteExternalPositionalAccuracy" "DQ_RelativeInternalPositionalAccuracy" "GVQ_PositiveFeedback" "GVQ_NegativeFeedback" "CSQ_Judgement" "CSQ_Reliability" "CSQ_Validity" "CSQ_Trust" "CSQ_NbContributions");
+# wps.des: pillar4.AuthoritativeDataComparison.PointInPolygon, title = Pillar 4 AuthoritativeDataComparison PointInPolygon, abstract = QC checking (given position uncertainties) if a point (or polygon in fact) belongs to one of the polygons of the authoritative data then concluding on relative position accuracy and relative semantic therefore usability;
 
-
-# wps.in: inputObservations, shp_x, title = Observation(s) input, abstract= gml or shp of the citizen observations ; 
+# wps.in: inputObservations, shp_x, title = Observation(s) input, abstract= gml or shp of the citizen observations; 
 # wps.in: UUIDFieldName, string, title = the ID fieldname of the volunteer which will be also in ObsMeta if not NULL and VolMeta,  abstract = record identifier in the inputObservations ; 
 
 # wps.in: inputAuthoritativeData, shp_x, title = Authoritative data polygons, abstract= gml or shp of the polygon thematic data ; 
@@ -49,7 +44,7 @@
 # wps.in: ThematicAgreement, boolean, value= 0, title = Agreement or Disagreement,  abstract = Agreement or Disagreement of thematic layer and citizen observations i.e. if being in the polygon is increasing the accuracy /quality  (agreement) or not  ;
 # wps.in: ScopeLevel, string, value= feature, title= scope as dataset or feature, abstract= if quality is given at feature level for the authoritative data use " feature";
 
-# wps.in: AuthMeta, string, value= NULL, title = modelled habitat metadata, abstract= modelled habitat metadata which can be  NULL, xml file or same as inputModData; 
+# wps.in: AuthMeta, string, value= NULL, title = modelled habitat metadata, abstract= modelled habitat metadata which can be  NULL or xml file or same as inputModData; 
 # wps.in: ObsMeta, string, value= NULL,title = Observation metadata, abstract= can be NULL in an xml file or as inputObservations. If given will update the metadata record(s) ; 
 # wps.in: VolMeta, string, value= NULL,title = Volunteer metadata, abstract= can be NULL in an xml file or as inputObservations. If given will update the metadata record(s); 
 
@@ -57,11 +52,7 @@
 # wps.in: ObsAttrType, string, value= c("classification"_"quantitative"), title = type of the attibutes in the record , abstract = list of types present in the records mathing the three postential different types of quality for attribute c("classification"_"non-quantitative"_"quantitative");
 #########################
 
-
-
-
-
-
+####### codelist initialisation if needed
 
 
 #####################ISO10157#############
@@ -141,7 +132,7 @@ pillar4.PointInPolygon <-function(Obs.i, Auth.i, ThemaAg){
 	 	 ObsMetaQ[i,"DQ_08"]<<- (ObsMetaQ[i,"DQ_08"]+1)/2
 	 	 ObsMetaQ[i,"DQ_01"]<<- (ObsMetaQ[i,"DQ_01"]+1)/2
 	 	 	if(any(AuthMetaQ[,"DQ_16"]!=888)) {    #suppose in fact if exists it exists for all
-	  		ObsMetaQ[i,"DQ_16"]=mean(c(ObsMetaQ[i,"DQ_16"],AuthMetaQ[neaRestAuth(Obs[i,],Auth),"DQ_16"]),na.rm=TRUE)
+	  		ObsMetaQ[i,"DQ_16"]<<-mean(c(ObsMetaQ[i,"DQ_16"],AuthMetaQ[neaRestAuth(Obs[i,],Auth),"DQ_16"]),na.rm=TRUE)
 	 		}			
 	    
 	   }
@@ -166,8 +157,8 @@ pillar4.PointInPolygon <-function(Obs.i, Auth.i, ThemaAg){
 	 	
 	 	}
 	 		#AuthMetaQ
-	 	if(ObsMetaQ[i,"DQ_01"]>=0.80) AuthMetaQ[Auth.i,"GVQ_01"]=AuthMetaQ[Auth.i,"GVQ_01"]+1 # nb tot of feedback is the sum
-		if(ObsMetaQ[i,"DQ_01"]<=0.20) AuthMetaQ[Auth.i,"GVQ_02"]=AuthMetaQ[Auth.i,"GVQ_02"]+1
+	 	if(ObsMetaQ[i,"DQ_01"]>=0.80) AuthMetaQ[Auth.i,"GVQ_01"]<<-AuthMetaQ[Auth.i,"GVQ_01"]+1 # nb tot of feedback is the sum
+		if(ObsMetaQ[i,"DQ_01"]<=0.20) AuthMetaQ[Auth.i,"GVQ_02"]<<-AuthMetaQ[Auth.i,"GVQ_02"]+1
 		
 	} #in
 	
@@ -177,7 +168,7 @@ pillar4.PointInPolygon <-function(Obs.i, Auth.i, ThemaAg){
 			VolMetaQ[i,"CSQ_04"]<<-VolMetaQ[i,"CSQ_04"]*VolMetaQ[i,"CSQ_03"]
 				
 #return(list("ObsMetaQ"=ObsMetaQ, "ModMetaQ"=ModMetaQ, "VolMetaQ"=VolMetaQ))	
-}# end of pillar4.PointInPolygon
+}# end of pillar4.PointInPolygon 
 
 ### 
 ##
@@ -211,6 +202,8 @@ return(outlist)
 } 
 # #
 getdsn<-function(tt){
+	fin=substr(tt,nchar(tt)-3,nchar(tt))
+	if(fin==".gml")return(tt)
 	dd=strsplit(tt,"/")[[1]]
 	if(length(dd)==1)return(".")
 	else return(sub(dd[length(dd)],"",tt,fixed=TRUE))
@@ -260,8 +253,9 @@ GetSetMetaQ<-function(Meta,listQ=c(1,3), Idrecords=NULL,scope=NULL){
 		MetaQ=as.data.frame(MetaQ)
 		colnames(MetaQ)= DQlookup[listQ,1] # 1 is DQ_01 etc 2 is DQ_UsabilityElement etc ..
 		if(!is.null(Idrecords)) rownames(MetaQ)=Idrecords
-		
-	if(is.null(Meta) || Meta=="NULL"|| Meta=="") return(defaultMeta(MetaQ))
+	
+	MetaQ=defaultMeta(MetaQ)
+	if(is.null(Meta) || Meta=="NULL"|| Meta=="") return(MetaQ)
 		
 	if(is.object(Meta) ){ # Meta already read by readOGR simple gml or shp
 		if(class(Meta)[1] %in% c("SpatialPointsDataFrame","SpatialPolygonsDataFrame","SpatialLinesDataFrame","SpatialGridDataFrame"))Meta=Meta@data
@@ -274,7 +268,7 @@ GetSetMetaQ<-function(Meta,listQ=c(1,3), Idrecords=NULL,scope=NULL){
 	else {
 		library(XML); #library(XML2R) # XML2R needs an url
 		## putting  DQ_ elements (CSQ or GVQ)	
-			 Meta.all <- xmlParse(Meta, isURL= isUrl(Meta))
+			 Meta.all <- xmlParse(Meta, isURL=TRUE) #, isURL= isUrl(Meta))
 			for (j in listQ){ 
 				q=DQlookup[j,2];q1=DQlookup[j,1]
 				scopeSelect=""
@@ -330,14 +324,18 @@ bboxAsPol <-function(obj){
     return(bb)
 }#bboxasPol
 
-
-
+ ##################################################################
+#
+#  
 #wps.off
 testInit <-function(){
 	#setwd("/Users/lgzdl/Documents/Dids/DidsE/COBWEB/Co-Design/JKW knotweed (Snodonian)/DidData/")
-	setwd("C:\\Users\\ezzjfr\\Documents\\R_scripts\\JKWData4Pillar5_proxmitySuitabilityPOlygonScore\\")
+	#inputObservations<<- "SnowdoniaNationalParkJapaneseKnotweedSurvey.shp"#"SnowJKW.shp" #shp Snow is smaller
+    
+  setwd("C:\\Users\\ezzjfr\\Documents\\R_scripts\\JKWData4Pillar5_proxmitySuitabilityPOlygonScore\\")
+  inputObservations<<- "SnowdoniaNationalParkJapaneseKnotweedSurvey.shp"#"SnowJKW.shp"#shp Snow is smaller
+	
   
-	inputObservations<<- "SnowdoniaNationalParkJapaneseKnotweedSurvey_pillar5_ProximitySuitabilityPolygonScore.shp"#"SnowJKW.shp" #shp Snow is smaller
 	UUIDFieldName<<-"Iden"     #string 
 	ObsAttrType <<-c("classification","non-quantitative")
 	inputAuthoritativeData<<-"Woodland.shp"     #shp or gml or woodland.shp (selected) was not projected
@@ -350,12 +348,13 @@ testInit <-function(){
 	ObsMeta<<-inputObservations
 	VolMeta<<-NULL	
 }
-#wps.on  Obse=readOGR(".",layer="SnowdoniaNationalParkJapaneseKnotweedSurvey_pillar5.ProximitySuitabilityPolygonScore")
+
+
 #################################################################
 #libraries to read gml  or shapefile or geoJSON or ....
 # see possible file formats  ogrDrivers()   ...
 # wps.off
-testInit() # to be commented when in the WPS
+#testInit() # to be commented when in the WPS
 # wps.on
 ######
 #names(UsaThresh)=c("DQ_04","DQ_14","DQ_16")
@@ -364,19 +363,49 @@ library(XML)
 library(rgdal)
 library(rgeos)
 
- Obsdsn=getdsn(inputObservations) #"." 
- Authdsn=getdsn(inputAuthoritativeData)  #"."
-  inputObservations=sub(Obsdsn,"",sub(".gml","",sub(".shp","", inputObservations,fixed=TRUE),fixed=TRUE),fixed=TRUE)#no .shp can be gml etc..
-  inputAuthoritativeData =sub(Authdsn,"",sub(".gml","",sub(".shp","", inputAuthoritativeData,fixed=TRUE),fixed=TRUE),fixed=TRUE)
 
-Obs <-readOGR(Obsdsn,layer= inputObservations)
-Auth <-readOGR(Authdsn,layer=inputAuthoritativeData) 
-         # supposed to be only one geometry corresponding to the location of the Vol
-		 # the query has been done before ? or do we need to do the query in the WPS
-		 # this may not be easy to do in BPMN as then the location is parametrised
+
+#bngProj = 'PROJCS["British_National_Grid",GEOGCS["GCS_OSGB_1936",DATUM["OSGB_1936",SPHEROID["Airy_1830",6377563.396,299.3249646]],PRIMEM["Greenwich",0.0],UNIT["Degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",400000.0],PARAMETER["False_Northing",-100000.0],PARAMETER["Central_Meridian",-2.0],PARAMETER["Scale_Factor",0.9996012717],PARAMETER["Latitude_Of_Origin",49.0],UNIT["Meter",1.0]]'
+#write(bngProj, paste0(authLayername,".prj")
+#write(bngProj, paste0(layername,".prj")        
+          
+
+
+#julian readOGR
+layername <- sub(".shp","", inputObservations) # just use the file name as the layer name
+Obsdsn = inputObservations
+Obs <- readOGR(dsn = Obsdsn, layer = layername)
+
+authLayername <- sub(".shp","", inputAuthoritativeData) # just use the file name as the layer name
+Authdsn = inputAuthoritativeData
+Auth <- readOGR(dsn = Authdsn, layer = authLayername)
+
+# Manually assign projection
+proj4string(Auth) <- CRS("+init=epsg:27700")
+proj4string(Obs) <- CRS("+init=epsg:27700")
+
+
+
+#Didier readOGR
+#  Obsdsn= inputObservations #getdsn(inputObservations) #"." 
+#  Authdsn= inputAuthoritativeData #getdsn(inputAuthoritativeData)  #"."
+#   
+# inputObservations=ogrListLayers(Obsdsn)[1] # supposd only one layer
+# inputAuthoritativeData =ogrListLayers(Authdsn)[1] # supposd only one layer
+# 
+# GML=attr(ogrListLayers(Obsdsn),"driver")=="GML"
+# 
+# Obs <-readOGR(Obsdsn,layer= inputObservations)
+# Auth <-readOGR(Authdsn,layer=inputAuthoritativeData) 
+#          # supposed to be only one geometry corresponding to the location of the Vol
+# 		 # the query has been done before ? or do we need to do the query in the WPS
+# 		 # this may not be easy to do in BPMN as then the location is parametrised
+
+
+
 
 # kind of clip Auth to buffer obs
-clipDist=1600
+clipDist=800
 RectObs=gBuffer(bboxAsPol(Obs),width=clipDist)
 LesAuth=gBinarySTRtreeQuery(geometry(Auth),RectObs)[[1]]
 Auth=Auth[LesAuth,]	#eg pour Woodland on passe de 58480 à 618 useful
@@ -399,10 +428,10 @@ AuthMetaQ=AuthMeta
 VolMetaQ=VolMeta # "string names"
 #then
 
-if(!is.null(ObsMeta) && ObsMeta == inputObservations)ObsMetaQ=Obs@data
+if(!is.null(ObsMeta) && ObsMeta == Obsdsn)ObsMetaQ=Obs@data
  # shp or gml idem otherwise will be xml from a CSW
-if(!is.null(VolMeta) && VolMeta == inputObservations)VolMetaQ=Obs@data
-if(!is.null(AuthMeta) && AuthMeta == inputAuthoritativeData)AuthMetaQ=Auth@data
+if(!is.null(VolMeta) && VolMeta == Obsdsn)VolMetaQ=Obs@data
+if(!is.null(AuthMeta) && AuthMeta == Authdsn)AuthMetaQ=Auth@data
 
 ## depending on the attribute type (if used)  c(1, 4 or 5 or 6, 8, 14, 16) c(14,16,17,18) c(19:25)
  obslist=1;Authlist=NULL
@@ -415,19 +444,22 @@ ObsMetaQ= GetSetMetaQ(ObsMetaQ,listQ=obslist ,Idrecords= Obs@data[,UUIDFieldName
 AuthMetaQ= GetSetMetaQ(AuthMetaQ,listQ=c(Authlist,14, 16, 17,18), Idrecords = Auth@data[,AuthUUIDFieldName])
 VolMetaQ= GetSetMetaQ(VolMetaQ,listQ=c(19, 21,22,24, 25), Idrecords =Obs@data[,UUIDFieldName],scope='volunteer')
 
-
 ## Main loop for each citizen data
-for (i in 1:dim(Obs@data)[1]){
-	bufferS= 0.01
-	AuthDQ_14=0
-	if(any(AuthMetaQ[,"DQ_14"]!=888)) AuthDQ_14=mean(c(AuthMetaQ[AuthMetaQ[,"DQ_14"]!=888,"DQ_14"]),na.rm=TRUE)
- 	if(AuthDQ_14!=0) Auth.i=gBinarySTRtreeQuery(gBuffer(geometry(Auth),byid=TRUE,width=AuthDQ_14),gBuffer(geometry(Obs[i,]),width=bufferS))[[1]]
-	if(AuthDQ_14==0)Auth.i=gBinarySTRtreeQuery(geometry(Auth),gBuffer(geometry(Obs[i,]),width=bufferS))[[1]]
- 	
-	Res=pillar4.PointInPolygon(i,Auth.i,ThematicAgreement)
-
-	#ObsMetaQ AuthMetaQ and VolMetaQ updated from within pillar4.PointInPolygon
+#for (i in 1:dim(Obs@data)[1]){
+for (i in 1:10){
+  bufferS= 0.01
+  AuthDQ_14=0
+  if(any(AuthMetaQ[,"DQ_14"]!=888)) AuthDQ_14=mean(c(AuthMetaQ[AuthMetaQ[,"DQ_14"]!=888,"DQ_14"]),na.rm=TRUE)
+  if(AuthDQ_14!=0) Auth.i=gBinarySTRtreeQuery(gBuffer(geometry(Auth),byid=TRUE,width=AuthDQ_14),gBuffer(geometry(Obs[i,]),width=bufferS))[[1]]
+  if(AuthDQ_14==0)Auth.i=gBinarySTRtreeQuery(geometry(Auth),gBuffer(geometry(Obs[i,]),width=bufferS))[[1]]
+  
+  Res=pillar4.PointInPolygon(Obs[i,],Auth.i,ThematicAgreement)
+  
+  #ObsMetaQ AuthMetaQ and VolMetaQ updated from within pillar4.PointInPolygon 
 }#for
+
+
+
 ####### metadata of data quality ouput
 ##	
 
@@ -459,23 +491,10 @@ if(outputForma=="CSW"||outputForma=="SOS" ){
 	#
 }
 
-#
-#output as
-UpdatedObs=NULL
-if(nchar(inputObservations)>=33)inputObservations=paste(strtrim(inputObservations,22),sub(strtrim(inputObservations,nchar(inputObservations)-33),"", inputObservations),sep="_") 
+
+
+
+#out processing
+UpdatedObs=paste0(layername, "_outP4PIP.shp")
+writeOGR(Obs,UpdatedObs,"data","ESRI Shapefile")
 # wps.out: UpdatedObs, shp_x, returned geometry;
-
-
-localDir=getwd()
-if(is.null(UpdatedObs))UpdatedObs=paste(inputObservations,"outP4PIP",sep="")
-writeOGR(Obs,localDir, UpdatedObs, driver="ESRI Shapefile" ,overwrite_layer=TRUE)
-UpdatedObs=paste(UpdatedObs,".shp",sep="")
-cat(paste("Saved Destination: ", localDir, "/",UpdatedObs,sep=""), "\n" )
-
-
-
-# old out ObsMetaQ.output, xml, title = Observation metadata for quality updated, abstract= each feature in the collection; 
-# old out AuthMetaQ.output, xml, title = Auth metadata updated if asked for, abstract= each feature in the collection; 
-# old out UserMetaQ.ouput, xml, title = User metadata for quality updated, abstract= each feature in the collection; 
-
-# outputs  by WPS4R

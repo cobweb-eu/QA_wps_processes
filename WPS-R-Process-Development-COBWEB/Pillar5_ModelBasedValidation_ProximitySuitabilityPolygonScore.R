@@ -347,8 +347,12 @@ return(MetaQ)
 
 testInit <-function(){
   setwd("C:\\Users\\ezzjfr\\Documents\\R_scripts\\JKWData4Pillar5_proxmitySuitabilityPOlygonScore\\")
-	inputObservations<<-"SnowdoniaNationalParkJapaneseKnotweedSurvey.shp" #shp
-	UUIDFieldName<<-"Iden"     #string 
+  #setwd("C:\\Users\\ezzjfr\\Documents\\R_scripts\\JKWData4Pillar5_proxmitySuitabilityPOlygonScore\\single_obs\\")
+  
+	inputObservations<<-"SnowdoniaNationalParkJapaneseKnotweedSurvey_NewIdField.shp" #shp
+  #inputObservations<<-"temp.shp"
+  #inputObservations<<-"myMultiPointShapefile.shp" #shp
+	UUIDFieldName<<-"NewIden"     #string 
 	inputModData<<-"JKWrisk_10mSquares.shp"     #shp
   inputModData<<-"JKWrisk_10mSquares_subset_10_features.shp"     #shp
 	ModAttribFieldName<<-"GRIDCODE" # string
@@ -363,6 +367,7 @@ testInit <-function(){
 	AttrQuanti<<-TRUE
 	UsaThresh<<-"c(0.8_ 60_ 20)"	
 }
+
 
 #################################################################
 #libraries to read gml  or shapefile or geoJSON or ....
@@ -379,17 +384,40 @@ names(UsaThresh)=c("DQ_04","DQ_14","DQ_16")
 library(XML)
 library(rgdal)
 library(rgeos)
+library(maptools)
 
- Obsdsn=getdsn(inputObservations) #"." 
- Moddsn=getdsn(inputModData)  #"."
-  inputObservations=sub(Obsdsn,"",sub(".gml","",sub(".shp","", inputObservations,fixed=TRUE),fixed=TRUE),fixed=TRUE)#no .shp can be gml etc..
-  inputModData =sub(Moddsn,"",sub(".gml","",sub(".shp","", inputModData,fixed=TRUE),fixed=TRUE),fixed=TRUE)
-  
+Obsdsn=getdsn(inputObservations) #"." 
+Moddsn=getdsn(inputModData)  #"."
+
+
+inputObservations=sub(Obsdsn,"",sub(".gml","",sub(".shp","", inputObservations,fixed=TRUE),fixed=TRUE),fixed=TRUE)#no .shp can be gml etc..
+inputModData =sub(Moddsn,"",sub(".gml","",sub(".shp","", inputModData,fixed=TRUE),fixed=TRUE),fixed=TRUE)
+
  
-  
-Obs <-readOGR(Obsdsn,layer= inputObservations) # 
+
+readMultiPointAsOGR = function(filename) {  
+  library(maptools)
+  shape <- readShapePoints(filename)
+  writeOGR(shape, ".", "temp", driver="ESRI Shapefile")
+  ogrInfo(Obsdsn, "temp" )
+  tempObs <-readOGR(Obsdsn,layer= "temp") # 
+  return(tempObs)
+}
+
+
+#Obs <-readOGR(Obsdsn,layer= inputObservations) # 
+#Obs <- readShapePoints(inputObservations)
+Obs = readMultiPointAsOGR(inputObservations)
+
+
 Mod <-readOGR(Moddsn,layer=inputModData) # or use readShp
 #Mod <-readShapePoly(inputModData) #Can use this
+
+print("LOADED DATASETS. Printing projections...")
+print("Observations prj")
+print(Obs@proj4string)
+print("Model prj")
+print(Mod@proj4string) 
 
 
 ObsAttrib=Obs@data[,c(UUIDFieldName)] # ID attribute with UUID 
