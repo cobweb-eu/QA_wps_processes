@@ -38,7 +38,7 @@
 # input  set for 52North WPS4R
 # output set for 52North WPS4R
 
-# wps.des: Pillar4.AuthoritativeDataComparison.ProximitySuitabilityScore , title = Pillar 4 AuthoritativeDataComparison.ProximitySuitabilityScore , abstract = QC scoring classification correctness in relation to geometry proximity for the Obs to given authoritative data polygons or points of species. DQGVQCSQ:DQ_UsabilityElement DQ_DomainConsistency DQ_ThematicClassificationCorrectness DQ_NonQuantitativeAttributeCorrectness DQ_AbsoluteExternalPositionalAccuracy DQ_RelativeInternalPositionalAccuracy GVQ_PositiveFeedback GVQ_NegativeFeedback CSQ_Judgement CSQ_Reliability CSQ_Validity CSQ_Trust CSQ_NbContributions;
+# wps.des: pillar4.AuthoritativeDataComparison.ProximitySuitabilityScore , title = Pillar 4 AuthoritativeDataComparison.ProximitySuitabilityScore , abstract = QC scoring classification correctness in relation to geometry proximity for the Obs to given authoritative data polygons or points of species. DQGVQCSQ:DQ_UsabilityElement DQ_DomainConsistency DQ_ThematicClassificationCorrectness DQ_NonQuantitativeAttributeCorrectness DQ_AbsoluteExternalPositionalAccuracy DQ_RelativeInternalPositionalAccuracy GVQ_PositiveFeedback GVQ_NegativeFeedback CSQ_Judgement CSQ_Reliability CSQ_Validity CSQ_Trust CSQ_NbContributions;
 
 # wps.in: inputObservations, shp, title = Observation(s) input, abstract= gml or shp of the citizen observations;
 # wps.in: UUIDFieldName, string, title = the ID fieldname of the volunteer which will be also in ObsMeta if not NULL and VolMeta,  abstract = record identifier in the inputObservations;

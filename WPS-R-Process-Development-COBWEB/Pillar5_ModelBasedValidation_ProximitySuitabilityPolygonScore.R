@@ -29,7 +29,7 @@
 # input  set for 52North WPS4R
 # output set for 52North WPS4R
 
-# wps.des: id = Pillar5.ModelBasedValidation.ProximitySuitabilityPolygonScore, title = Pillar 5 ModelBasedValidation.ProximitySuitabilityPolygonScore, 
+# wps.des: id = pillar5.ModelBasedValidation.ProximitySuitabilityPolygonScore, title = Pillar 5 ModelBasedValidation.ProximitySuitabilityPolygonScore, 
 # abstract = QC scoring classification correctness in relation to geometry proximity for the Obs to given modelled polygons of habitat with likelihood associated for a given species. DQGVQCSQ:("DQ_UsabilityElement" "DQ_ThematicClassificationCorrectness" "DQ_AbsoluteExternalPositionalAccuracy" "DQ_RelativeInternalPositionalAccuracy" "GVQ_PositiveFeedback" "GVQ_NegativeFeedback" "CSQ_Judgement" "CSQ_Reliability" "CSQ_Validity" "CSQ_Trust" "CSQ_NbContributions");
 
 # wps.in: inputObservations, shp_x, title = Observation(s) input, abstract = gml or shp of the citizen observations; 
@@ -347,14 +347,17 @@ return(MetaQ)
 
 testInit <-function(){
   setwd("C:\\Users\\ezzjfr\\Documents\\R_scripts\\JKWData4Pillar5_proxmitySuitabilityPOlygonScore\\")
-  #setwd("C:\\Users\\ezzjfr\\Documents\\R_scripts\\JKWData4Pillar5_proxmitySuitabilityPOlygonScore\\single_obs\\")
+  #setwd("C:\\Users\\ezzjfr\\Documents\\R_scripts\\JKWData4Pillar5_proxmitySuitabilityPOlygonScore\\single_obs\\")  
+  setwd("C:\\Program Files\\Apache Software Foundation\\Tomcat 7.0\\temp\\wps4r-workspace-2016427-162943_9cffd284\\")
   
-	inputObservations<<-"SnowdoniaNationalParkJapaneseKnotweedSurvey_NewIdField.shp" #shp
+	inputObservations<<-"SnowdoniaNationalParkJapaneseKnotweedSurvey_IdAsString.shp" #shp
   #inputObservations<<-"temp.shp"
+  inputObservations<<-"7a3e63db-275a-467b-a4ca-863c69627702.shp"
   #inputObservations<<-"myMultiPointShapefile.shp" #shp
-	UUIDFieldName<<-"NewIden"     #string 
+	UUIDFieldName<<-"IdAsString"     #string 
 	inputModData<<-"JKWrisk_10mSquares.shp"     #shp
   inputModData<<-"JKWrisk_10mSquares_subset_10_features.shp"     #shp
+  inputModData<<-"029f1c56-da19-453e-80ed-2536f16d0008.shp"
 	ModAttribFieldName<<-"GRIDCODE" # string
 	ModUUIDFieldName<<-"ID"
 	Qual2QuantEncoding<<-"cbind(c(0_1_2_3)_ c(0.0 _0.25 _0.65 _0.90))"
@@ -386,30 +389,26 @@ library(rgdal)
 library(rgeos)
 library(maptools)
 
-Obsdsn=getdsn(inputObservations) #"." 
-Moddsn=getdsn(inputModData)  #"."
 
 
-inputObservations=sub(Obsdsn,"",sub(".gml","",sub(".shp","", inputObservations,fixed=TRUE),fixed=TRUE),fixed=TRUE)#no .shp can be gml etc..
-inputModData =sub(Moddsn,"",sub(".gml","",sub(".shp","", inputModData,fixed=TRUE),fixed=TRUE),fixed=TRUE)
-
- 
-
-readMultiPointAsOGR = function(filename) {  
+#julian readOGR of observations
+layername <- sub(".shp","", inputObservations) # just use the file name as the layer name
+Obsdsn = inputObservations
+#Obs <- readOGR(dsn = Obsdsn, layer = layername) # Broken for multi-point reading
+readMultiPointAsOGR = function(filename ) {  
   library(maptools)
   shape <- readShapePoints(filename)
   writeOGR(shape, ".", "temp", driver="ESRI Shapefile")
-  ogrInfo(Obsdsn, "temp" )
-  tempObs <-readOGR(Obsdsn,layer= "temp") # 
+  #ogrInfo(".", "temp" )
+  tempObs <-readOGR(".",layer= "temp") # 
   return(tempObs)
 }
+Obs = readMultiPointAsOGR(layername )
 
 
-#Obs <-readOGR(Obsdsn,layer= inputObservations) # 
-#Obs <- readShapePoints(inputObservations)
-Obs = readMultiPointAsOGR(inputObservations)
 
-
+Moddsn=getdsn(inputModData)  #"."
+inputModData =sub(Moddsn,"",sub(".gml","",sub(".shp","", inputModData,fixed=TRUE),fixed=TRUE),fixed=TRUE)
 Mod <-readOGR(Moddsn,layer=inputModData) # or use readShp
 #Mod <-readShapePoly(inputModData) #Can use this
 
@@ -476,7 +475,7 @@ if(outputForma=="allinWFS"){
 #UpdatedObs=paste(UpdatedObs,".shp",sep="")
 #cat(paste("Saved Destination: ", localDir, "/",UpdatedObs,sep=""), "\n" )
 
-UpdatedObs="out.shp"
+UpdatedObs="out_pillar5.shp"
 writeOGR(Obs,UpdatedObs,"data","ESRI Shapefile")
 
 #out processing
