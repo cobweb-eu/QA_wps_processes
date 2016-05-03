@@ -207,9 +207,7 @@ testInit<-function(){
   inputObservations<<- "SnowdoniaNationalParkJapaneseKnotweedSurvey.shp"
   
   #setwd("/Users/lgzdl/Documents/Dids/DidsE/COBWEB/Co-Design/JKW knotweed (Snodonian)/DidData/")	
-  #inputObservations<<-"SnowdoniaNationalParkJapaneseKnotweedSurvey_AllPoints_EnglishCleaned_final.shp"
-    
-
+  #inputObservations<<-"SnowdoniaNationalParkJapaneseKnotweedSurvey_AllPoints_EnglishCleaned_final.shp"   
   
   ObsAttribFieldName<<-"Roll"
   RangeOfAttribute<<-"c(-1_ 5)"
@@ -239,10 +237,22 @@ library(rgdal)
 
 RangeOfAttribute=eval(parse(text= gsub("_",",", RangeOfAttribute)))
 
-#julian readOGR
+
+#julian readOGR of observations
 layername <- sub(".shp","", inputObservations) # just use the file name as the layer name
 Obsdsn = inputObservations
-Obs <- readOGR(dsn = Obsdsn, layer = layername)
+#Obs <- readOGR(dsn = Obsdsn, layer = layername) # Broken for multi-point reading
+readMultiPointAsOGR = function(filename) {  
+  library(maptools)
+  shape <- readShapePoints(filename)
+  tempfilename = paste0(filename,"_tempfilenametemp")
+  writeOGR(shape, ".", tempfilename, driver="ESRI Shapefile")
+  #ogrInfo(".",tempfilename )
+  tempObs <-readOGR(".",layer= tempfilename) # 
+  return(tempObs)
+}
+Obs = readMultiPointAsOGR(layername )
+
 
 
 #Didier read OGR
@@ -259,17 +269,11 @@ VolMetaQ=VolMeta # "string names"
 #then 
 # metaQ as matrices/vector
 
-#if(!is.null(ObsMeta) && ObsMeta == Obsdsn)ObsMetaQ=Obs@data # shp or gml idem otherwise will be xml from a CSW
-#if(!is.null(VolMeta) && VolMeta == Obsdsn)VolMetaQ=Obs@data
-
 if(!is.null(ObsMeta) && ObsMeta == Obsdsn)ObsMetaQ=Obs@data # shp or gml idem otherwise will be xml from a CSW
 if(!is.null(VolMeta) && VolMeta == Obsdsn)VolMetaQ=Obs@data
 
-
 ObsMetaQ=Obs@data # shp or gml idem otherwise will be xml from a CSW
 VolMetaQ=Obs@data
-
-
 
 #obs c(1)Auth c() vol c(21:25)
 ObsMetaQ=GetSetMetaQ(ObsMetaQ,listQ=c(1),Idrecords= Obs@data[,UUIDFieldName])
@@ -282,8 +286,7 @@ VolMetaQ=GetSetMetaQ(VolMetaQ,listQ=c(21:25), Idrecords =Obs@data[,UUIDFieldName
 for (i in 1:dim(Obs@data)[1]){
 	 
 		Res=pillar3.AttributeRange(Obs@data[i, ObsAttribFieldName])
-	
-	#
+
 }
 
 #
@@ -312,7 +315,14 @@ if(outputForma=="CSW"||outputForma=="SOS" ){
 	#
 }
 
+
 #out processing
-UpdatedObs=paste0(layername, "out_outP3AR.shp")
+UpdatedObs=paste0(layername, "_outP3AR.shp")
 writeOGR(Obs,UpdatedObs,"data","ESRI Shapefile")
 # wps.out: UpdatedObs, shp_x, returned geometry;
+
+# old out ObsMetaQ.output, xml, title = Observation metadata for quality updated, abstract= each feature in the collection; 
+# old out AuthMetaQ.output, xml, title = Auth metadata updated if asked for, abstract= each feature in the collection; 
+# old out UserMetaQ.ouput, xml, title = User metadata for quality updated, abstract= each feature in the collection; 
+
+# outputs  by WPS4R

@@ -259,16 +259,16 @@ testInit <-function(){
 	#inputObservations<<- "SnowdoniaNationalParkJapaneseKnotweedSurvey_pillar5_ProximitySuitabilityPolygonScore.shp"#"SnowJKW.shp" #shp Snow is smaller
   
   setwd("C:\\Users\\ezzjfr\\Documents\\R_scripts\\JKWData4Pillar5_proxmitySuitabilityPOlygonScore\\")
-  inputObservations<<- "SnowdoniaNationalParkJapaneseKnotweedSurvey.shp"
+  inputObservations<<- "SnowdoniaNationalParkJapaneseKnotweedSurvey_IdAsString.shp"
   
-  setwd("C:\\Program Files\\Apache Software Foundation\\Tomcat 7.0\\temp\\wps4r-workspace-2016427-131918_3fbcec31")
-  
-	UUIDFieldName<<-"Iden"     #string 
+ # setwd("C:\\Program Files\\Apache Software Foundation\\Tomcat 7.0\\temp\\wps4r-workspace-2016427-131918_3fbcec31")
+ 
+	UUIDFieldName<<-"IdAsString"     #string 
 	ScopeLevel<<-"feature"
 	LBSmethod<<-c("WithinPoly","LoS")
     DQlevel<<-0.7
     PositionUncertainty<<-500
-	ObsMeta<<-inputObservations
+	ObsMeta<<-NULL
 	VolMeta<<-NULL	
 }
 
@@ -291,19 +291,21 @@ library(rgeos)
 
 
 
-#julian readOGR
+#julian readOGR of observations
 layername <- sub(".shp","", inputObservations) # just use the file name as the layer name
 Obsdsn = inputObservations
 #Obs <- readOGR(dsn = Obsdsn, layer = layername) # Broken for multi-point reading
-readMultiPointAsOGR = function(filename ) {  
+readMultiPointAsOGR = function(filename) {  
   library(maptools)
   shape <- readShapePoints(filename)
-  writeOGR(shape, ".", "temp", driver="ESRI Shapefile")
-  #ogrInfo(".", "temp" )
-  tempObs <-readOGR(".",layer= "temp") # 
+  tempfilename = paste0(filename,"_tempfilenametemp")
+  writeOGR(shape, ".", tempfilename, driver="ESRI Shapefile")
+  #ogrInfo(".",tempfilename )
+  tempObs <-readOGR(".",layer= tempfilename) # 
   return(tempObs)
 }
 Obs = readMultiPointAsOGR(layername )
+
 
 
 
@@ -384,7 +386,7 @@ if(outputForma=="CSW"||outputForma=="SOS" ){
 
 
 #out processing
-UpdatedObs=paste0(layername, "out_outP2LQ2_NEW.shp")
+UpdatedObs=paste0(layername, "_outP2LQ2.shp")
 writeOGR(Obs,UpdatedObs,"data","ESRI Shapefile")
 # wps.out: UpdatedObs, shp_x, returned geometry;
 
