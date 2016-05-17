@@ -46,16 +46,16 @@ import eu.cobwebproject.qa.lbs.Raster;
  * WPS Process to integrate with the cobweb-qa line of sight functionality
  * 
  * @author Sebastian Clarke - Environment Systems - sebastian.clarke@envsys.co.uk
- * @author Julian Rosser - UNott - Julian.Rosser@nottingham.ac.uk
+ * @author Julian Rosser - UNott - Julian.Rosser@nottingham.ac.uk 
  */
 public class GetLineOfSight extends AbstractAlgorithm {
 	
 	/*
 	public static void main(String[] args) {
-		double obsDistance = 4; //ie. will be the mean in distribution test.   
-		double CEP68_SDev = 2;  // ie. the accuracy of the mobile phone.
+		double obsDistance = 2; //ie. will be the mean in distribution test.   
+		double CEP68_SDev = 4;  // ie. the accuracy of the mobile phone.
 		double XYAccuracyOfDem_SDev = 2; //ie. the horiz accuracy of the DEM. 
-		double thresholdLoSDistance= 0.2; // threshold for stat test.		
+		double thresholdLoSDistance= 3; // threshold for statistical test.		
 		double[] accuracyMedata = computeAccuracyMetadata(obsDistance,CEP68_SDev,XYAccuracyOfDem_SDev,thresholdLoSDistance);
 	}*/
 	
@@ -203,9 +203,9 @@ public class GetLineOfSight extends AbstractAlgorithm {
 				
 				SimpleFeature feature = builder.buildFeature(String.valueOf(counter));
 				feature.setDefaultGeometry(point);
-				feature.setAttribute("DQ_UsabilityElement", DQ_UsabilityElement);
-				feature.setAttribute("DQ_TopologicalConsistency", DQ_TopologicalConsistency);
-				feature.setAttribute("DQ_AbsoluteExternalPositionalAccuracy", DQ_AbsoluteExternalPositionalAccuracy );
+				feature.setAttribute("DQ_01", DQ_UsabilityElement);
+				feature.setAttribute("DQ_10", DQ_TopologicalConsistency);
+				feature.setAttribute("DQ_14", DQ_AbsoluteExternalPositionalAccuracy );
 				// add to feature list
 				featureList.add(feature);
 				counter++;
@@ -283,12 +283,19 @@ public class GetLineOfSight extends AbstractAlgorithm {
 	/**
 	 * Compute accuracy details for metadata
 	 * 
-	 * Uses the observed distance from los, device accuracy (CEP68), 
+	 * Uses the observed distance from the los, device accuracy (CEP68), 
 	 * dem planimetric acc, and a user defined threshold for determining accuracy metadata.
-	 * To do: DQ_TopologicalConsistency value  
+	 * These resulting quality values are calculated from combinations of the input metadata. 
+	 * 
+	 * DQ_AbsoluteExternalPositionalAccuracy is based on DEM error and sensor error.	 
+	 * For DQ_usability and DQ_TopologicalConsistency (equal the same here), a distance threshold is used on 
+	 * the constructed distribution of the error values. Remember that a low sensor uncertainty does not  
+	 * correspond to a good DQ if it is outside the threshold! Conversely, a high sensor uncertainty with the observed distance 
+	 * outside the threshold is of better quality than a point that is more certainly outside the threshold!  
+	 *  
 	 * @param observedDistance, phoneAccuracy (CEP68), DEM accuracy, threshold.
 	 * @return some accuracy metadata to get bunged in with the obs:
-	 * 				array(Dq_usability,  DQ_TopologicalConsistency, DQ_AbsoluteExternalPositionalAccuracy)
+	 * 				array(DQ_usability,  DQ_TopologicalConsistency, DQ_AbsoluteExternalPositionalAccuracy)
 	 * 
 	 */
 	private static double[] computeAccuracyMetadata(double obsDistance,double CEP68_SDev, double XYAccuracyOfDem_SDev,double thresholdLoSDistance) {		
@@ -298,10 +305,9 @@ public class GetLineOfSight extends AbstractAlgorithm {
 				p = P(D>t)
 				and where D = N(Obs, Du)
 				and t =0.10 (user defined)
-				E.g.
-				pnorm(t = 0.10,mean=Obs,sd= Du ,lower.tail=FALSE)
+				E.g. in R
+				pnorm(q = t,mean=Obs,sd= Du ,lower.tail=FALSE)
 				*/				
-		System.out.println("testing...");
 		
 		//Compute the uncertainty of the LoS point. Intuitively, a function of the sensor and the DEM horizontal accuracies)
 		double LoS_uncert= Math.sqrt(Math.pow(CEP68_SDev,2)+Math.pow(XYAccuracyOfDem_SDev,2));
@@ -314,15 +320,14 @@ public class GetLineOfSight extends AbstractAlgorithm {
 		
 		//Construct a normal dist of the observed distance (mu) with the dist uncert (sigma).   
 		NormalDistribution d = new NormalDistribution(obsDistance, Dist_uncert, NormalDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
-		double cumulPrb = 1-d.cumulativeProbability(thresholdLoSDistance);
-		System.out.println("cumnulPrb: ");
-		System.out.println(cumulPrb);				
-
-		double[] currentResult = new double[]{cumulPrb, 0, LoS_uncert}; 
+	
+		//Then take probability that P(X <= threshold)
+		double cumulPrb = d.cumulativeProbability(thresholdLoSDistance);		
+		
+		double[] currentResult = new double[]{cumulPrb, cumulPrb, LoS_uncert}; 
 		return currentResult;			
 	}
-	
-	
+		
 	
 	@Override
 	public Class<?> getInputDataType(String identifier) {
