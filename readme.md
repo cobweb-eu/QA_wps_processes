@@ -30,6 +30,8 @@ To install R processes:
 
 ## Troubleshooting
 
+* Generating output data as GML can be problematic (WPS errors of something like ``inline: Complex Result could not be generated``) if the configuration has only been partially setup correctly. Check wps_config_geotools.xml ports match the web server. This is a common problem when testing a fresh installation.
+
 * Certain processing (such as blur checking of high-resolution photographs and R scripts with complex geometric inputs) may require increases in Tomcat heap size. E.g. modify ``JAVA_OPTS="-Djava.awt.headless=true`` to something like ``-Xmx1024m`` for 1024mb of heap space.
 
 * Incorrect execute requests made to processes can cause unexpected errors. E.g. ``Could not determine input format because none of the supported formats match the given schema ("null") and encoding ("null"). (A mimetype was not specified)`` can indicate that input data is completely missing (e.g. broken reference to WFS layer). 
@@ -41,9 +43,12 @@ and/or like ``ERROR org.n52.wps.server.handler.RequestHandler: exception handlin
 
 * An R proces returning error like ``Caused by: java.lang.StringIndexOutOfBoundsException: String index out of range: -1`` is usually because of issues with output variable creation or annotation.
 
-
 * Incorrectly compiled Java processes can cause unexpected errors. Check GetCapbilities requests execute correctly following addition of new processes. E.g. An error of ``ERR_INCOMPLETE_CHUNKED_ENCODING`` may occur if one process is not compiled or deployed correctly.
 
 * Java errors similar ``Unsupported major.minor version 52.0`` indicate that a Java process may be compiled and run with different versions. Avoid this issue by compiling on the runtime machine and/or specifying source & target Java versions e.g. ``javac -Xlint -cp "../../../lib/*" -source 1.7 -target 1.7 GetLineOfSight.java``
 
 * R processes that use the RGDAL library (rather than maptools) for reading observations will fail when points are in a multipoint data structure, which some java processes generate for some reason. This is because readOGR doesn't support multipoint structures (https://stat.ethz.ch/pipermail/r-sig-geo/2011-July/012416.html).
+
+## Other non-WPS issues
+
+* If Tomcat7 is not starting and it is not the WPS at fault, check that the JDK and JRE are configured correctly (i.e. us the JRE that ships with the JDK). This is common problem on fresh installations
