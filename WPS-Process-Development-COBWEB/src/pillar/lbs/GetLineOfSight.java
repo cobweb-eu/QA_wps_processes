@@ -60,9 +60,9 @@ public class GetLineOfSight extends AbstractAlgorithm {
 	}*/
 	
 	
-	public double DQ_UsabilityElement = (double) -999;
-	public double DQ_TopologicalConsistency = (double) -999;
-	public double DQ_AbsoluteExternalPositionalAccuracy = (double)-999; 		
+	public double DQ_UsabilityValue = (double) -999;
+	public double DQ_TopologicalConsistencyValue = (double) -999;
+	public double DQ_AbsoluteExternalPositionalAccuracyValue= (double)-999; 		
 	
 	public static final String INPUT_OBS = "inputObservations";
 	public static final String INPUT_SURFACEMODEL = "inputSurfaceModel";
@@ -178,9 +178,9 @@ public class GetLineOfSight extends AbstractAlgorithm {
 					
 					//Set the metadata values
 					double[] accuracyMedata = computeAccuracyMetadata(horizontalDistance,CEP68_SDev,XYAccuracyOfDem_SDev,thresholdLoSDistance);
-					DQ_UsabilityElement = accuracyMedata[0];
-					DQ_TopologicalConsistency = accuracyMedata[1];
-					DQ_AbsoluteExternalPositionalAccuracy =accuracyMedata[2]; 						
+					DQ_UsabilityValue = accuracyMedata[0];
+					DQ_TopologicalConsistencyValue = accuracyMedata[1];
+					DQ_AbsoluteExternalPositionalAccuracyValue=accuracyMedata[2]; 						
 					
 				} catch(IntersectionException e) {
 					LOGGER.warn("No intersection with heightmap (" + e.getClass().getSimpleName() + "): " + e.getMessage());
@@ -190,9 +190,9 @@ public class GetLineOfSight extends AbstractAlgorithm {
 					horizontalDistance = -1;										
 					
 					//Set the metadata values  
-					DQ_UsabilityElement = 0;
-					DQ_TopologicalConsistency = 0;
-					DQ_AbsoluteExternalPositionalAccuracy = 0;
+					DQ_UsabilityValue = 0;
+					DQ_TopologicalConsistencyValue = 0;
+					DQ_AbsoluteExternalPositionalAccuracyValue= 0;
 				}
 				
 				// Set results as result feature geometry
@@ -201,9 +201,9 @@ public class GetLineOfSight extends AbstractAlgorithm {
 				
 				SimpleFeature feature = builder.buildFeature(String.valueOf(counter));
 				feature.setDefaultGeometry(point);
-				feature.setAttribute("DQ_01", DQ_UsabilityElement);
-				feature.setAttribute("DQ_10", DQ_TopologicalConsistency);
-				feature.setAttribute("DQ_14", DQ_AbsoluteExternalPositionalAccuracy );
+				feature.setAttribute("DQ_01", DQ_UsabilityValue);
+				feature.setAttribute("DQ_10", DQ_TopologicalConsistencyValue);
+				feature.setAttribute("DQ_14", DQ_AbsoluteExternalPositionalAccuracyValue);
 				// add to feature list
 				featureList.add(feature);
 				counter++;
@@ -269,8 +269,8 @@ public class GetLineOfSight extends AbstractAlgorithm {
 		builder.add("northing", Double.class);
 		
 		//Metadata elements
-		builder.add("DQ_UsabilityElement", Double.class);
-		builder.add("DQ_TopologicalConsistency", Double.class);
+		builder.add("DQ_UsabilityValue", Double.class);
+		builder.add("DQ_TopologicalConsistencyValue", Double.class);
 		builder.add("DQ_AbsoluteExternalPositionalAccuracy", Double.class);
 						
 		return builder.buildFeatureType();
@@ -285,15 +285,15 @@ public class GetLineOfSight extends AbstractAlgorithm {
 	 * dem planimetric acc, and a user defined threshold for determining accuracy metadata.
 	 * These resulting quality values are calculated from combinations of the input metadata. 
 	 * 
-	 * DQ_AbsoluteExternalPositionalAccuracy is based on DEM error and sensor error.	 
-	 * For DQ_usability and DQ_TopologicalConsistency (equal the same here), a distance threshold is used on 
+	 * DQ_AbsoluteExternalPositionalAccuracyValue is based on DEM error and sensor error.	 
+	 * For DQ_usability and DQ_TopologicalConsistencyValue (equal the same here), a distance threshold is used on 
 	 * the constructed distribution of the error values. Remember that a low sensor uncertainty does not  
 	 * correspond to a good DQ if it is outside the threshold! Conversely, a high sensor uncertainty with the observed distance 
 	 * outside the threshold is of better quality than a point that is more certainly outside the threshold!  
 	 *  
 	 * @param observedDistance, phoneAccuracy (CEP68), DEM accuracy, threshold.
 	 * @return some accuracy metadata to get bunged in with the obs:
-	 * 				array(DQ_usability,  DQ_TopologicalConsistency, DQ_AbsoluteExternalPositionalAccuracy)
+	 * 				array(DQ_usability,  DQ_TopologicalConsistencyValue, DQ_AbsoluteExternalPositionalAccuracy)
 	 * 
 	 */
 	private static double[] computeAccuracyMetadata(double obsDistance,double CEP68_SDev, double XYAccuracyOfDem_SDev,double thresholdLoSDistance) {		
