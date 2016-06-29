@@ -181,12 +181,14 @@ public class AttributeRange extends AbstractAlgorithm {
 		SimpleFeatureIterator obsIt2 = (SimpleFeatureIterator) obsFc.features();
 		
 		int within = 0;
+		LOG.warn("Observation iterator while");
 		while (obsIt2.hasNext()==true){
+			
 			
 			SimpleFeature tempSf = obsIt2.next();	
 			within = 0;
 			for (Property obsProperty : tempSf.getProperties()){
-
+				LOG.warn("Current obs property: " + obsProperty.getName().toString());
 				
 				String name = obsProperty.getName().toString();
 				Object value = obsProperty.getValue();

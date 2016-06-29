@@ -30,6 +30,7 @@ import org.opengis.feature.Property;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
 import org.opengis.feature.type.PropertyType;
+import org.opengis.referencing.crs.CoordinateReferenceSystem;
 
 import eu.cobwebproject.qa.automaticvalidation.BlurCheckAwt;		// implementation
 import eu.cobwebproject.qa.automaticvalidation.BlurCheckRunnable; 	// interface
@@ -39,12 +40,15 @@ import eu.cobwebproject.qa.automaticvalidation.BlurCheckRunnable; 	// interface
 public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
 	static Logger LOG = Logger.getLogger(LaplacePhotoBlurCheck.class);
 	
+		
+
+	
 	public static final long MAX_IMG_SIZE = 6000000;
 	
 	private ArrayList<String> errors;
 	
 	/**
-	 * @author Sam Meek (unotts) and Seb Clarke (Environment Systems)
+	 * @author Sam Meek (unotts) and Seb Clarke (Environment Systems) and Julian Rosser (unotts)
 	 * Process to check whether a photo is blurry by using the functionality from cobweb-qa library by Michael K
 	 * Output is the metadata field "Obs_Usability" which is 1 for pass criteria and 0 for not passing
 	 * result is observations with 1 or 0
@@ -85,6 +89,7 @@ public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
 		
 		// Use the first feature from the feature collection as template for output...
 		SimpleFeatureIterator sfi = (SimpleFeatureIterator) obsFc.features();
+		CoordinateReferenceSystem inputObsCrs = obsFc.getSchema().getCoordinateReferenceSystem();
 		SimpleFeature tempPropFeature = null;		// temporary feature from which to extract properties
 		try {		
 			tempPropFeature = sfi.next();
@@ -96,6 +101,10 @@ public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
 		Collection<Property> obsProp = tempPropFeature.getProperties();
 		SimpleFeatureTypeBuilder resultTypeBuilder = new SimpleFeatureTypeBuilder();
 		resultTypeBuilder.setName("typeBuilder");
+		
+		//Set crs to match the input
+		resultTypeBuilder.setCRS(inputObsCrs);
+		
 		
 		ArrayList<SimpleFeature> resultArrayList = new ArrayList<SimpleFeature>(); 
 		ArrayList<SimpleFeature> qual_resultArrayList = new ArrayList<SimpleFeature>();
@@ -121,7 +130,7 @@ public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
 		}
 		
 		//add DQ_Field		
-		resultTypeBuilder.add("Obs_Usability", Integer.class);
+		resultTypeBuilder.add("Obs_Usability", Double.class);
 		
 		// Build the result feature type
 		SimpleFeatureType typeF = resultTypeBuilder.buildFeatureType();
@@ -137,6 +146,9 @@ public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
 				for (Property obsProperty : tempSf.getProperties()) {
 					String name = obsProperty.getName().toString();
 					Object value = obsProperty.getValue();
+					
+					LOG.warn ("Adding property " + " name " +  name + " value " + value);
+					
 					if(obsProperty.getName().toString().equalsIgnoreCase(fieldName)){
 						urlS = obsProperty.getValue().toString();
 					}
@@ -160,6 +172,9 @@ public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
 				// Do the check and set usability accordingly
 				BlurCheckRunnable blurChecker = new BlurCheckAwt(original, threshold, false);
 				blurChecker.run();	// This should probably run on a thread! 
+		
+				//Usability could be more than 0 or 1 with a ratio.
+				//I.e. If photoVariance < threshold then DQ = photoVariance / threshold
 				resultFeatureBuilder.set("Obs_Usability", blurChecker.pass?1:0);
 				
 				// Build result
@@ -177,6 +192,27 @@ public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
 		FeatureCollection resultFeatureCollection = new ListFeatureCollection(typeF, resultArrayList);
 		FeatureCollection qual_resultFeatureCollection = new ListFeatureCollection(typeF, qual_resultArrayList);
 
+		
+		// Use the first feature from the feature collection as template for output...
+		SimpleFeatureIterator fi = (SimpleFeatureIterator) resultFeatureCollection.features();
+		CoordinateReferenceSystem tempCrs = resultFeatureCollection.getSchema().getCoordinateReferenceSystem();
+		SimpleFeature tempFeature = null;		// temporary feature from which to extract properties
+		try {		
+			while (fi.hasNext()) {
+				tempPropFeature = fi.next();
+				for (Property obsProperty : tempPropFeature.getProperties()) {
+					String name = obsProperty.getName().toString();
+					Object value = obsProperty.getValue();					
+					LOG.warn ("FC property " + " name " +  name + " value " + value);				
+				}
+			}
+		} finally {
+			// ensure we release resources to the OS
+			fi.close();			
+		}
+		
+		
+		
 		HashMap<String, IData> results = new HashMap<String, IData>();
 		results.put("result", new GTVectorDataBinding((FeatureCollection)resultFeatureCollection));
 		results.put("qual_result", new GTVectorDataBinding((FeatureCollection)qual_resultFeatureCollection));
@@ -228,4 +264,6 @@ public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
 		LOG.warn("image file size: " + String.valueOf(imgSize));
 		return imgSize > maxImageSize || imgSize == -1;
 	}
+	
+
  }
