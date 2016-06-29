@@ -62,7 +62,9 @@ public class GetLineOfSight extends AbstractAlgorithm {
 	
 	public double DQ_UsabilityValue = (double) -999;
 	public double DQ_TopologicalConsistencyValue = (double) -999;
-	public double DQ_AbsoluteExternalPositionalAccuracyValue= (double)-999; 		
+	public double DQ_AbsoluteExternalPositionalAccuracyValue = (double)-999; 		
+	
+	
 	
 	public static final String INPUT_OBS = "inputObservations";
 	public static final String INPUT_SURFACEMODEL = "inputSurfaceModel";
@@ -94,7 +96,14 @@ public class GetLineOfSight extends AbstractAlgorithm {
 		
 		
 		//Default, test values
+		/*
 		double obsDistance = 4; //ie. will be the mean in distribution test.   
+		double CEP68_SDev = 2;  // ie. the accuracy of the mobile phone.
+		double XYAccuracyOfDem_SDev = 2; //ie. the horiz accuracy of the DEM. 
+		double thresholdLoSDistance= 0.2; // threshold for stat test.
+		*/
+		//Default, test values
+		double obsDistance = 0; //ie. will be the mean in distribution test.   
 		double CEP68_SDev = 2;  // ie. the accuracy of the mobile phone.
 		double XYAccuracyOfDem_SDev = 2; //ie. the horiz accuracy of the DEM. 
 		double thresholdLoSDistance= 0.2; // threshold for stat test.
@@ -116,14 +125,19 @@ public class GetLineOfSight extends AbstractAlgorithm {
 		bearingFieldName = ((LiteralStringBinding) inputData.get(INPUT_BEARINGNAME).get(0)).getPayload();		
 		tiltFieldName = ((LiteralStringBinding) inputData.get(INPUT_TILTNAME).get(0)).getPayload();
 		userHeight = ((LiteralDoubleBinding) inputData.get(INPUT_USERHEIGHT).get(0)).getPayload();
-		
+		//phoneAccuracyFieldName = ((LiteralStringBinding) inputData.get(INPUT_PHONEACCURACYNAME).get(0)).getPayload();
 		
 		
 		
 		// Try and read the raster
 		Raster heightMap = null;
 		try {		
-			heightMap = new Raster(surfaceModel.getBaseFile(true).getAbsolutePath());
+			LOGGER.warn("Reading raster: " + surfaceModel.getBaseFile(true).getAbsolutePath());
+			System.out.println("Reading raster: " + surfaceModel.getBaseFile(true).getAbsolutePath());
+		
+			//reading the raster, Raster class expects a Arc/Info ASCII Grid (AAIGrid in gdal), these get pretty big and need hefty memory.
+			heightMap = new Raster(surfaceModel.getBaseFile(true).getAbsolutePath()); //take the WPS input, points to WPS temp storage
+			//heightMap = new Raster("C:\\wales\\big_tiff_snow_crop.txt"); //Hard coded load for testing
 		} catch (IOException e) {
 			LOGGER.error("Could not read from provided surface model", e);
 			throw new ExceptionReport("Could not read from provided surface model: " + e.getMessage(), "IOException", e.getCause());
@@ -175,12 +189,12 @@ public class GetLineOfSight extends AbstractAlgorithm {
 					northing = result[3];
 					horizontalDistance = result[0];
 					
-					
+			
 					//Set the metadata values
 					double[] accuracyMedata = computeAccuracyMetadata(horizontalDistance,CEP68_SDev,XYAccuracyOfDem_SDev,thresholdLoSDistance);
 					DQ_UsabilityValue = accuracyMedata[0];
 					DQ_TopologicalConsistencyValue = accuracyMedata[1];
-					DQ_AbsoluteExternalPositionalAccuracyValue=accuracyMedata[2]; 						
+					DQ_AbsoluteExternalPositionalAccuracyValue =accuracyMedata[2]; 						
 					
 				} catch(IntersectionException e) {
 					LOGGER.warn("No intersection with heightmap (" + e.getClass().getSimpleName() + "): " + e.getMessage());
@@ -192,7 +206,7 @@ public class GetLineOfSight extends AbstractAlgorithm {
 					//Set the metadata values  
 					DQ_UsabilityValue = 0;
 					DQ_TopologicalConsistencyValue = 0;
-					DQ_AbsoluteExternalPositionalAccuracyValue= 0;
+					DQ_AbsoluteExternalPositionalAccuracyValue = 0;
 				}
 				
 				// Set results as result feature geometry
@@ -203,7 +217,7 @@ public class GetLineOfSight extends AbstractAlgorithm {
 				feature.setDefaultGeometry(point);
 				feature.setAttribute("DQ_01", DQ_UsabilityValue);
 				feature.setAttribute("DQ_10", DQ_TopologicalConsistencyValue);
-				feature.setAttribute("DQ_14", DQ_AbsoluteExternalPositionalAccuracyValue);
+				feature.setAttribute("DQ_14", DQ_AbsoluteExternalPositionalAccuracyValue );
 				// add to feature list
 				featureList.add(feature);
 				counter++;
@@ -269,9 +283,9 @@ public class GetLineOfSight extends AbstractAlgorithm {
 		builder.add("northing", Double.class);
 		
 		//Metadata elements
-		builder.add("DQ_UsabilityValue", Double.class);
-		builder.add("DQ_TopologicalConsistencyValue", Double.class);
-		builder.add("DQ_AbsoluteExternalPositionalAccuracy", Double.class);
+		builder.add("DQ_01", Double.class);
+		builder.add("DQ_10", Double.class);
+		builder.add("DQ_14", Double.class);
 						
 		return builder.buildFeatureType();
 	}
@@ -293,7 +307,7 @@ public class GetLineOfSight extends AbstractAlgorithm {
 	 *  
 	 * @param observedDistance, phoneAccuracy (CEP68), DEM accuracy, threshold.
 	 * @return some accuracy metadata to get bunged in with the obs:
-	 * 				array(DQ_usability,  DQ_TopologicalConsistencyValue, DQ_AbsoluteExternalPositionalAccuracy)
+	 * 				array(DQ_usability,  DQ_TopologicalConsistencyValue, DQ_AbsoluteExternalPositionalAccuracyValue)
 	 * 
 	 */
 	private static double[] computeAccuracyMetadata(double obsDistance,double CEP68_SDev, double XYAccuracyOfDem_SDev,double thresholdLoSDistance) {		
