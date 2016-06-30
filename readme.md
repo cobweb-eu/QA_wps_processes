@@ -21,8 +21,8 @@ The repository contains two dirs:
 * ``/WPS-R-Process-Development-COBWEB`` - contains R process implementations
 
 
-
-## Docker image installation
+## Installation
+### Docker image installation
 
 A Docker image with Tomcat, R, 52NorthWPS and the Quality Control processes is available. The image is forked from the 52North [tethys_docker](https://github.com/tethysplatform/tethys_docker) and is started in the same way with:
 
@@ -30,7 +30,7 @@ A Docker image with Tomcat, R, 52NorthWPS and the Quality Control processes is a
     
 
 
-## Full installation instructions
+### Full installation instructions
 
 1. Install 52North Web Processing Service (v3.4.0 and v3.3.0 have been tested). Instructions for achieving this are available from 52North.
 
