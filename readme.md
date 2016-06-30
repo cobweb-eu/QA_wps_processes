@@ -1,6 +1,6 @@
 # Web Processing Service for COBWEB-QA
 
-Quality Assurance Web Processing Services using 52North WPS. This repository contains quality tests (Quality Controls). The Quality Controls are implemented as Java and R processes which are registered within the WPS for use in geoprocessing workflows. There are several ways to install and run the WPS and associated processes. The core environment for running the WPS are an installation of:
+Quality Assurance Web Processing Services using 52North WPS. This repository contains quality tests (Quality Controls). The Quality Controls are implemented as Java and R processes which are registered within the WPS for use in geoprocessing workflows. The processes have been deployed on both Linux (Ubuntu) and Windows (7) environments. There are several ways to install and run the WPS and associated processes. The core environment for running the WPS are an installation of:
 
 1. [Tomcat](http://tomcat.apache.org/) 
 2. [GeoServer](http://geoserver.org/download/)
@@ -9,12 +9,17 @@ Quality Assurance Web Processing Services using 52North WPS. This repository con
 
 For the R processes, RServe is also required as are various R packages which should be installed from the R terminal as normal.
 
-Linux (Ubuntu v12.04) and Windows (7) environments have been tested.
+For convenience and rapid set up a Docker image has been made available. Alternatively the system may be compiled and deployed from source.
 
-A Docker image is in preparation for automated deployment of the WPS.
+## Docker image installation
+
+A Docker image with Tomcat, R, 52NorthWPS and the Quality Control processes is available. The image is forked from the 52North [tethys_docker](https://github.com/tethysplatform/tethys_docker) and is started in the same way with:
+
+    $ sudo docker run -d -p 8080:8080 --name n52wps maptopixel/n52wps-mvn-git
+    
 
 
-## Installation instructions
+## Full installation instructions
 
 1. Install 52North Web Processing Service (v3.4.0 and v3.3.0 have been tested). Instructions for achieving this are available from 52North.
 
