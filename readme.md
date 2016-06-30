@@ -2,9 +2,12 @@
 
 Quality Assurance Web Processing Services using 52North WPS. This repository contains quality tests (Quality Controls). The Quality Controls are implemented as Java and R processes which are registered within the WPS for use in geoprocessing workflows. There are several ways to install and run the WPS and associated processes. The core environment for running the WPS are an installation of:
 
-1. Tomcat
-2. GeoServer
-3. R and RServe package (if installing the R processes)
+1. [Tomcat](http://tomcat.apache.org/) 
+2. [GeoServer](http://geoserver.org/download/)
+3. [R](https://www.r-project.org/), if installing the R processes. 
+4. [52NorthWPS](http://52north.org/communities/geoprocessing/wps/) with GeoTools and WPS4R extensions.
+
+For the R processes, RServe is also required as are various R packages which should be installed from the R terminal as normal.
 
 Linux (Ubuntu v12.04) and Windows (7) environments have been tested.
 
