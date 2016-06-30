@@ -33,9 +33,9 @@ or using Eclipse M2E
 
 	3. Compile the Java processes in WPS-Process-Development-COBWEB as a Maven package. E.g. ``cd WPS-Process-Development-COBWEB`` and ``mvn clean package -Dmaven.test.skip=true``. Note that the tests must be skipped until they are compliled and registered.
 	
-	4. Copy the resulting ``.jar`` file from the previous step and copy to ``wps/WEB-INF/lib/``. The jar contains the compiled process and associated ProcessDescription definitions required for their deployment and invocation in the WPS.
+	4. Copy the compiled processes to the deployed WPS app (two possibilities here). Either copy the resulting ``.jar`` file from the previous step and copy to something like ``wps/WEB-INF/lib/``. The jar contains the compiled process and associated ProcessDescription definitions required for their deployment and invocation in the WPS. Or copy the bytecode files (e.g. ``cp -r /target/classes/pillar /usr/share/tomcat7-wps/wpshome/WEB-INF/classes/``)
 
-	5. Deploy and register processes in WPS wps_config_geotools.xml.
+	5. Register processes in the WPS by editing wps_config_geotools.xml. (e.g. in the Docker image this is ``/usr/share/tomcat7-wps/wpshome/config``).
 
 	6. The unit tests can now be run from Maven. E.g. ``cd WPS-Process-Development-COBWEB`` and ``mvn clean package -Dmaven.test.skip=false``
 
@@ -43,7 +43,7 @@ or using Eclipse M2E
 
 	1. Ensure the WPS4R extension to the 52North WPS is installed and is working correctly.
 
-	2. Add scripts from ``WPS-R-Process-Development-COBWEB`` directory to the ``wps\R\scripts`` directory in the WPS installation location.
+	2. Add scripts from ``WPS-R-Process-Development-COBWEB`` directory to the ``wps\R\scripts`` directory in the WPS installation location. ``(e.g. cp *R /usr/share/tomcat7-wps/wpshome/R/scripts/; chown tomcat7:tomcat7 *R)``
 
 	3. Register scripts with the WPS according to the 52North instructions.
 
