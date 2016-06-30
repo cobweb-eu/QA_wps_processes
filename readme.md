@@ -28,16 +28,17 @@ A Docker image is in preparation for automated deployment of the WPS.
 or using Eclipse M2E
 ``Run -> Run Configurations -> select Maven build -> enter details above (e.g. Goals = install:install-file and add parameters as in terminal above.``
 
-	3. Compile the Java processes in WPS-Process-Development-COBWEB as a Maven package. E.g. ``cd WPS-Process-Development-COBWEB`` and ``mvn clean package -Dmaven.test.skip=true``
+	3. Compile the Java processes in WPS-Process-Development-COBWEB as a Maven package. E.g. ``cd WPS-Process-Development-COBWEB`` and ``mvn clean package -Dmaven.test.skip=true``. Note that the tests must be skipped until they are compliled and registered.
+	
+	4. Copy the resulting ``.jar`` file from the previous step and copy to ``wps/WEB-INF/lib/``. The jar contains the compiled process and associated ProcessDescription definitions required for their deployment and invocation in the WPS.
 
-	4. Deploy and register processes in WPS 
+	5. Deploy and register processes in WPS wps_config_geotools.xml.
 
-	4. Run unit tests from Maven. E.g. Run As -> mvn test
-
+	6. The unit tests can now be run from Maven. E.g. ``cd WPS-Process-Development-COBWEB`` and ``mvn clean package -Dmaven.test.skip=false``
 
 - To install R processes:
 
-	1. Ensure the WPS4R extension to the 52North WPS is installed and working correctly.
+	1. Ensure the WPS4R extension to the 52North WPS is installed and is working correctly.
 
 	2. Add scripts from ``WPS-R-Process-Development-COBWEB`` directory to the ``wps\R\scripts`` directory in the WPS installation location.
 
