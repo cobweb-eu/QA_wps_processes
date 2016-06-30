@@ -27,7 +27,7 @@ A Docker image is in preparation for automated deployment of the WPS.
 	1. Clone and build cobweb-qa jar (e.g. using gradle). Instructions on how to do this are available in the [cobweb-qa](https://github.com/cobweb-eu/cobweb-qa) repo.
 
 	2. Integrate cobweb-qa library (as a .jar) into your local Maven repository (pom.xml). E.g. at terminal:
-``mvn install:install-file -Dfile=./cobweb-qa-0.3.1.jar -DgroupId=eu.cobwebproject.qa -DartifactId=cobweb-qa-lib -Dversion=0.3.1 -Dpackaging=jar -DgeneratePom=true``
+``mvn install:install-file -Dfile=../../cobweb-qa/build/libs/cobweb-qa-0.3.1.jar -DgroupId=eu.cobwebproject.qa -DartifactId=cobweb-qa-lib -Dversion=0.3.1 -Dpackaging=jar -DgeneratePom=true``
 or using Eclipse M2E
 ``Run -> Run Configurations -> select Maven build -> enter details above (e.g. Goals = install:install-file and add parameters as in terminal above.``
 
