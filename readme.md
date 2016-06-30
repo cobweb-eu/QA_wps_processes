@@ -1,6 +1,9 @@
 # Web Processing Service for COBWEB-QA
 
-Quality Assurance Web Processing Services using 52North WPS. This repository contains quality tests (Quality Controls). The Quality Controls are implemented as Java and R processes which are registered within the WPS for use in geoprocessing workflows. The processes have been deployed on both Linux (Ubuntu) and Windows (7) environments. There are several ways to install and run the WPS and associated processes. The core environment for running the WPS are an installation of:
+Quality Assurance Web Processing Services using 52North WPS. 
+## Description
+
+This repository contains quality tests (Quality Controls). The Quality Controls are implemented as Java and R processes which are registered within the WPS for use in geoprocessing workflows. The processes have been deployed on both Linux (Ubuntu) and Windows (7) environments. There are several ways to install and run the WPS and associated processes. The core environment for running the WPS are an installation of:
 
 1. [Tomcat](http://tomcat.apache.org/) 
 2. [GeoServer](http://geoserver.org/download/)
@@ -10,6 +13,14 @@ Quality Assurance Web Processing Services using 52North WPS. This repository con
 For the R processes, RServe is also required as are various R packages which should be installed from the R terminal as normal.
 
 For convenience and rapid set up a Docker image has been made available. Alternatively the system may be compiled and deployed from source.
+
+## Structure
+
+The repository contains two dirs:
+* ``/WPS-Process-Development-COBWEB`` - contains Java process implementations
+* ``/WPS-R-Process-Development-COBWEB`` - contains R process implementations
+
+
 
 ## Docker image installation
 
