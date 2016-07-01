@@ -3,6 +3,9 @@
 	xsi:schemaLocation="http://n52.org/wps https://raw.githubusercontent.com/52North/wps-config/52n-wps-config-1.2.1/src/main/xsd/schema_v2.xsd" xmlns="http://n52.org/wps">
 	<Datahandlers>
 		<ParserList>
+		    <Parser name="GeoJSONParser" className="org.n52.wps.io.datahandler.parser.GeoJSONParser" active="true">
+				<Format mimetype="application/json"/>
+			</Parser>
 			<Parser name="GML3BasicParser"
 				className="org.n52.wps.io.datahandler.parser.GML3BasicParser"
 				active="true">
