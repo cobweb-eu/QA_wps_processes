@@ -617,6 +617,15 @@
 			<Property name="R_cacheProcesses" active="true">true</Property>
 			<Property name="R_session_memoryLimit" active="true">1000</Property>
 			<Property name="Algorithm" active="true">org.n52.wps.server.r.test.calculator</Property>
+		      <Property name="Algorithm" active="true">org.n52.wps.server.r.pillar2.Cleaning.AttributeRange</Property>
+		      <Property name="Algorithm" active="true">org.n52.wps.server.r.pillar2.Cleaning.LocationQuality</Property>
+		      <Property name="Algorithm" active="true">org.n52.wps.server.r.pillar2.Cleaning.UsabilityFilterOut</Property>
+		      <Property name="Algorithm" active="true">org.n52.wps.server.r.pillar3.AutomaticValidation.AttributeRange</Property>
+		      <Property name="Algorithm" active="true">org.n52.wps.server.r.pillar4.AuthoritativeDataComparison.PointInPolygon</Property>
+		      <Property name="Algorithm" active="true">org.n52.wps.server.r.pillar4.AuthoritativeDataComparison.ProximitySuitabilityScore</Property>
+		      <Property name="Algorithm" active="true">org.n52.wps.server.r.pillar5.ModelBasedValidation.ProximitySuitabilityPolygonScore</Property>
+		      <Property name="Algorithm" active="true">org.n52.wps.server.r.pillar5.ModelBasedValidation.ReliabilityDistribution</Property>
+		      <Property name="Algorithm" active="true">org.n52.wps.server.r.read.From.PCAPI</Property>
 		</Repository>
 		<Repository name="LocalAlgorithmRepository"
 			className="org.n52.wps.server.LocalAlgorithmRepository" active="true">

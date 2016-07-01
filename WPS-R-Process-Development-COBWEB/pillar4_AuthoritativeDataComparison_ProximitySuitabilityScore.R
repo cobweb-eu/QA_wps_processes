@@ -59,6 +59,8 @@
 
 ####### codelist initialisation if needed
 
+####### codelist initialisation if needed
+
 #####################ISO10157#############
 DQ=c("DQ_UsabilityElement","DQ_CompletenessCommission","DQ_CompletenessOmission","DQ_ThematicClassificationCorrectness",
      "DQ_NonQuantitativeAttributeCorrectness","DQ_QuantitativeAttributeAccuracy","DQ_ConceptualConsistency","DQ_DomainConsistency","DQ_FormatConsistency","DQ_TopologicalConsistency","DQ_AccuracyOfATimeMeasurement","DQ_TemporalConsistency","DQ_TemporalValidity","DQ_AbsoluteExternalPositionalAccuracy","DQ_GriddedDataPositionalAccuracy","DQ_RelativeInternalPositionalAccuracy")
@@ -364,21 +366,21 @@ testInit <-function(){
   #setwd("C:\\Users\\ezzjfr\\Documents\\R_scripts\\JKWData4Pillar5_proxmitySuitabilityPOlygonScore\\JKWData\\")
   #inputObservations<<- "SnowdoniaNationalParkJapaneseKnotweedSurvey_AllPoints_EnglishCleaned_final.shp"
   setwd("C:\\Users\\ezzjfr\\Documents\\R_scripts\\JKWData4Pillar5_proxmitySuitabilityPOlygonScore\\")
-  inputObservations<<- "SnowdoniaNationalParkJapaneseKnotweedSurvey.shp"
+  inputObservations<<- "SnowdoniaNationalParkJapaneseKnotweedSurvey_IdAsString_out_outP2LQ2_pillar5_ProximitySuitabilityPolygonScore.shp"
   
   
   #setwd("/Users/lgzdl/Documents/Dids/DidsE/COBWEB/Co-Design/JKW knotweed (Snodonian)/DidData/")	
   #inputObservations<<-"SnowdoniaNationalParkJapaneseKnotweedSurvey_AllPoints_EnglishCleaned_final.shp"
     
-  UUIDFieldName<<-"Iden"     #string
-  UUIDFieldName<<-"timestamp"     #string
+  UUIDFieldName<<-"IdAsString"     #string
+  #UUIDFieldName<<-"timestamp"     #string
   
   inputAuthData <<-"JK_SNP_COFNOD.shp"     #shp
   AuthUUIDFieldName<<-"NULL"
   ScopeLevel<<-"feature"
   AuthMeta<<-NULL
-  ObsMeta<<-inputObservations
-  VolMeta<<-inputObservations
+  ObsMeta<<-NULL
+  VolMeta<<-NULL
   BufferSizeProx<<-88# 800 # as a test with the sigmoid distance weighting auth at 20% of 800=160 still have a full weigth 
   NbSpecies<<-1 # same or forced by InAttribFieldName=NULL
   sFUN<<-"max"
@@ -403,17 +405,42 @@ library(rgeos)
 library(sp)
 
 
-Obsdsn= inputObservations #getdsn(inputObservations) #"." 
-Authdsn = inputAuthData #getdsn(inputModData)  #"."
+
+#julian readOGR of observations
+layername <- sub(".shp","", inputObservations) # just use the file name as the layer name
+Obsdsn = inputObservations
+#Obs <- readOGR(dsn = Obsdsn, layer = layername) # Broken for multi-point reading
+readMultiPointAsOGR = function(filename) {  
+  library(maptools)
+  shape <- readShapePoints(filename)
+  tempfilename = paste0(filename,"_tempfilenametemp")
+  writeOGR(shape, ".", tempfilename, driver="ESRI Shapefile")
+  #ogrInfo(".",tempfilename )
+  tempObs <-readOGR(".",layer= tempfilename) # 
+  return(tempObs)
+}
+Obs = readMultiPointAsOGR(layername )
 
 
-inputObservations=ogrListLayers(Obsdsn)[1] # supposed only one layer
-inputAuthData =ogrListLayers(Authdsn)[1] # supposed only one layer
 
+
+Authdsn=getdsn(inputAuthData)  #"."
+inputAuthData =sub(Authdsn,"",sub(".gml","",sub(".shp","", inputAuthData,fixed=TRUE),fixed=TRUE),fixed=TRUE)
+Auth <-readOGR(Authdsn,layer=inputAuthData) # or use readShp
+
+
+
+#Didier readOGR
+#Obsdsn= inputObservations #getdsn(inputObservations) #"." 
+#Authdsn = inputAuthData #getdsn(inputModData)  #"."
+#inputObservations=ogrListLayers(Obsdsn)[1] # supposed only one layer
+#inputAuthData =ogrListLayers(Authdsn)[1] # supposed only one layer
+#Obs <-readOGR(Obsdsn,layer= inputObservations) # 
+#Auth <-readOGR(Authdsn,layer= inputAuthData) # or use readShp
 GML=attr(ogrListLayers(Obsdsn),"driver")=="GML" 
 
-Obs <-readOGR(Obsdsn,layer= inputObservations) # 
-Auth <-readOGR(Authdsn,layer= inputAuthData) # or use readShp
+
+
 
 #ObsAttrib=Obs@data[,c(UUIDFieldName)] # ID attribute with UUID 
 #ModAttrib=Mod@data[,c(ModUUIDFieldName ,ModAttribFieldName)]
@@ -492,10 +519,11 @@ if(outputForma=="CSW"||outputForma=="SOS" ){
 #
 #output as
 UpdatedObs=NULL
-if(nchar(inputObservations)>=33)inputObservations=paste(strtrim(inputObservations,22),sub(strtrim(inputObservations,nchar(inputObservations)-33),"", inputObservations),sep="_")
+#if(nchar(inputObservations)>=33)inputObservations=paste(strtrim(inputObservations,22),sub(strtrim(inputObservations,nchar(inputObservations)-33),"", inputObservations),sep="_")
 
 localDir=getwd()
-if(is.null(UpdatedObs))UpdatedObs=paste(inputObservations,"outP4PSPS",sep="")
+#if(is.null(UpdatedObs))UpdatedObs=paste(inputObservations,"_outP4PSPS",sep="")
+if(is.null(UpdatedObs))UpdatedObs=paste(layername,"_outP4PSPS",sep="")
 
 
 if(GML) writeOGR(Obs,localDir, layer=UpdatedObs, driver="GML" ,overwrite_layer=TRUE)
@@ -505,8 +533,7 @@ if(!GML) writeOGR(Obs,localDir, layer=UpdatedObs, driver="ESRI Shapefile" ,overw
 
 cat(paste("Saved Destination: ", localDir, "\n with \n",UpdatedObs, " .gml or .shp ",sep=""), "\n" )
 
-# wps.out: id=UpdatedObs, type=shp , title = Observation and metadata for quality updated, abstract= each feature in the collection ; 
-
+# wps.out: id=UpdatedObs, type=shp_x, title = Observation and metadata for quality updated, abstract= each feature in the collection; 
 
 # old out ObsMetaQ.output, xml, title = Observation metadata for quality updated, abstract= each feature in the collection 
 # old out AuthMetaQ.output, xml, title = Auth metadata updated if asked for, abstract= each feature in the collection

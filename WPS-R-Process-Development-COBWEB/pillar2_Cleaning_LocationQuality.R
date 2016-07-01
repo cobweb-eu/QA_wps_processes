@@ -389,9 +389,3 @@ if(outputForma=="CSW"||outputForma=="SOS" ){
 UpdatedObs=paste0(layername, "_outP2LQ2.shp")
 writeOGR(Obs,UpdatedObs,"data","ESRI Shapefile")
 # wps.out: UpdatedObs, shp_x, returned geometry;
-
-# old out ObsMetaQ.output, xml, title = Observation metadata for quality updated, abstract= each feature in the collection; 
-# old out AuthMetaQ.output, xml, title = Auth metadata updated if asked for, abstract= each feature in the collection; 
-# old out UserMetaQ.ouput, xml, title = User metadata for quality updated, abstract= each feature in the collection; 
-
-# outputs  by WPS4R
