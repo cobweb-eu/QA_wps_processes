@@ -1,4 +1,4 @@
-# Quality Assurance Web Processing Service (COBWEB-QA-WPS)
+# Quality Assurance Web Processing Service
 
 Quality Assurance Web Processing Services using 52North WPS. 
 ## Description
