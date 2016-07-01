@@ -1,7 +1,7 @@
 example.test
-pillar.authoritativedata
-pillar.automaticvalidation
-pillar.bigdata
-pillar.cleaning
-pillar.lbs
+pillar4.authoritativedata
+pillar3.automaticvalidation
+pillar6.bigdata
+pillar2.cleaning
+pillar1.lbs
 storage.geoserver

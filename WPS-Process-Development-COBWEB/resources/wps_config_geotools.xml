@@ -637,20 +637,20 @@
 			<Property name="Algorithm" active="true">org.n52.wps.server.algorithm.test.EchoProcess</Property>
 			<!-- COBWEB PROCESSES -->
 			<Property name="Algorithm" active="true">example.test.ReturnSOSData</Property>
-			<Property name="Algorithm" active="true">pillar.lbs.GetLineOfSight</Property>
-			<Property name="Algorithm" active="true">pillar.authoritativedata.PointInPolygon</Property>
-			<Property name="Algorithm" active="true">pillar.authoritativedata.PointInBuffer</Property>
-			<Property name="Algorithm" active="true">pillar.authoritativedata.NumberOfNeighbourNamedFeatures</Property>	
-			<Property name="Algorithm" active="true">pillar.authoritativedata.NumberOfNeighbourSimilarFeatures</Property>	
-			<!-- <Property name="Algorithm" active="true">pillar.authoritativedata.PositionDistanceRange</Property>	-->
-			<Property name="Algorithm" active="true">pillar.authoritativedata.TwoColumnLookup</Property>
-			<Property name="Algorithm" active="true">pillar.automaticvalidation.ValueRange</Property>
-			<Property name="Algorithm" active="true">pillar.bigdata.CountTweetsWithLocation</Property>
-			<Property name="Algorithm" active="true">pillar.cleaning.AttributeRange</Property>
-			<Property name="Algorithm" active="true">pillar.cleaning.FilterOnAttribute</Property>
-			<Property name="Algorithm" active="true">pillar.cleaning.PositionBoundingBox</Property>
-			<Property name="Algorithm" active="true">pillar.lbs.GetDatasetSpatialAccuracy</Property>
-			<Property name="Algorithm" active="true">pillar.lbs.GetSpatialAccuracy</Property>
+			<Property name="Algorithm" active="true">pillar1.lbs.GetLineOfSight</Property>
+			<Property name="Algorithm" active="true">pillar4.authoritativedata.PointInPolygon</Property>
+			<Property name="Algorithm" active="true">pillar4.authoritativedata.PointInBuffer</Property>
+			<Property name="Algorithm" active="true">pillar4.authoritativedata.NumberOfNeighbourNamedFeatures</Property>	
+			<Property name="Algorithm" active="true">pillar4.authoritativedata.NumberOfNeighbourSimilarFeatures</Property>	
+			<!-- <Property name="Algorithm" active="true">pillar4.authoritativedata.PositionDistanceRange</Property>	-->
+			<Property name="Algorithm" active="true">pillar4.authoritativedata.TwoColumnLookup</Property>
+			<Property name="Algorithm" active="true">pillar3.automaticvalidation.ValueRange</Property>
+			<Property name="Algorithm" active="true">pillar6.bigdata.CountTweetsWithLocation</Property>
+			<Property name="Algorithm" active="true">pillar2.cleaning.AttributeRange</Property>
+			<Property name="Algorithm" active="true">pillar2.cleaning.FilterOnAttribute</Property>
+			<Property name="Algorithm" active="true">pillar2.cleaning.PositionBoundingBox</Property>
+			<Property name="Algorithm" active="true">pillar1.lbs.GetDatasetSpatialAccuracy</Property>
+			<Property name="Algorithm" active="true">pillar1.lbs.GetSpatialAccuracy</Property>
 			
 		</Repository>
 		<Repository name="UploadedAlgorithmRepository"

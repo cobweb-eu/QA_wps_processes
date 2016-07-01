@@ -1,0 +1,48 @@
+<wps:ProcessDescriptions xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ows="http://www.opengis.net/ows/1.1" xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsDescribeProcess_response.xsd" xml:lang="en-US" service="WPS" version="1.0.0">
+<script/>
+<ProcessDescription statusSupported="true" storeSupported="true" wps:processVersion="1.0.0">
+	<ows:Identifier>pillar3.automaticvalidation.LaplacePhotoBlurCheck</ows:Identifier>
+	<ows:Title>pillar3.automaticvalidation.LaplacePhotoBlurCheck</ows:Title>
+	<ows:Abstract>Uses a Laplace filter and a threshold to provide an estimate of blurriness. Output is 1 for not blurry, 0 for blurry</ows:Abstract>
+		<DataInputs>
+				<Input maxOccurs="1" minOccurs="1">
+				<ows:Identifier>inputThreshold</ows:Identifier>
+				<ows:Title>threshold</ows:Title>
+					<LiteralData>
+						<ows:DataType ows:reference="xs:integer"/>
+						<ows:AnyValue/>
+					</LiteralData>
+			</Input>
+			<Input maxOccurs="1" minOccurs="1">
+			<ows:Identifier>inputImage</ows:Identifier>
+			<ows:Title>inputImage</ows:Title>
+			<ComplexData>
+			<Default>
+			<Format>
+			 <MimeType>image/jpg</MimeType>
+			</Format>
+			</Default>
+			<Supported>
+			<Format>
+			 <MimeType>image/jpg</MimeType>
+			</Format>
+			</Supported>
+			
+			</ComplexData>
+			</Input>
+			
+			
+		</DataInputs>
+	<ProcessOutputs>
+		<Output>
+			<ows:Identifier>result</ows:Identifier>
+			<ows:Title>result</ows:Title>
+				<LiteralOutput>
+				<ows:DataType ows:reference="xs:string" />
+				</LiteralOutput>
+		</Output>
+	
+	
+		</ProcessOutputs>
+	</ProcessDescription>
+</wps:ProcessDescriptions>
