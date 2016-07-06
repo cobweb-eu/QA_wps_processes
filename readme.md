@@ -72,6 +72,10 @@ or using Eclipse M2E
 
 * Generating output data as GML can be problematic (WPS errors of something like ``inline: Complex Result could not be generated``) if the configuration has only been partially setup correctly. Check wps_config_geotools.xml ports match the web server. This is a common problem when testing a fresh installation.
 
+* When executing a WPS request, the output format generators must be correctly set. E.g. an error like:  ``<ows:ExceptionText>
+org.n52.wps.server.ExceptionReport: Could not find an appropriate generator based on given mimetype/schema/encoding for output
+</ows:ExceptionText>`` means that a particular generator is missing. This is a common problem when testing a fresh installation. Check that the GeoJSON and GML Generators against the ``resources/wps_config_geotools.xml`` sample.
+
 * Certain processing (such as blur checking of high-resolution photographs and R scripts with complex geometric inputs) may require increases in Tomcat heap size. E.g. modify ``JAVA_OPTS="-Djava.awt.headless=true`` to something like ``-Xmx1024m`` for 1024mb of heap space.
 
 * Incorrect execute requests made to processes can cause unexpected errors. E.g. ``Could not determine input format because none of the supported formats match the given schema ("null") and encoding ("null"). (A mimetype was not specified)`` can indicate that input data is completely missing (e.g. broken reference to WFS layer). 
