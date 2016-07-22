@@ -29,13 +29,12 @@ public class LineOfSightWPSTest extends TestCase {
 	private static final boolean DEBUG = false;
 	
 	// Configuration parameters
-	private final String wpsLocation = "http://geoprocessing.nottingham.ac.uk:8010/wps/WebProcessingService";	// The WPS is installed here
+	private final String wpsLocation = "http://cwlight.envsys.co.uk:8080/wps/WebProcessingService";	// The WPS is installed here
 	private final String processID = "pillar1.lbs.GetLineOfSight";	// The process we are testing
-	private final String testObservationHoneysuckle = "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:SampleData&outputFormat=gml3&featureId=SampleData.61&srsName=EPSG:27700";
+	private final String testObservationHoneysuckle = "http://geo.envsys.co.uk:8080/geoserver/cobweb/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=cobweb:CobwebSampleData&outputFormat=gml3&featureId=CobwebSampleData.61&srsName=EPSG:27700";
 	
 	private final String refSchema = "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd";
 	private final String refMimeType = "text/xml; subtype=gml/3.1.0";
-	 
 	// urls to hosted surface models
 	private final String testRemoteSurfaceModelObs = "http://www.envsys.co.uk/cobweb/surfaceModel_sn7698.txt";
 	private final String testRemoteSurfaceModel = "http://www.envsys.co.uk/cobweb/surfaceModel.txt";
@@ -116,7 +115,7 @@ public class LineOfSightWPSTest extends TestCase {
 			System.out.println("\t Surface Model: \t" + surfaceModel);
 		}
 		
-		// Check the execute request we are about to build and return
+ 		// Check the execute request we are about to build and return
 		assertTrue(reqBuilder.isExecuteValid());
 		return reqBuilder.getExecute();
 	}

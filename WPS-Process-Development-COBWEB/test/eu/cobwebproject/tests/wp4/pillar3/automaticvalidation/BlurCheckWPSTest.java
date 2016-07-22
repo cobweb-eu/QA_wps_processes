@@ -27,9 +27,9 @@ import org.n52.wps.client.WPSClientSession;
 public class BlurCheckWPSTest extends TestCase {
 	// Configuration parameters
 	private static final boolean DEBUG = false;
-	private final String wpsLocation = "http://geoprocessing.nottingham.ac.uk:8010/wps/WebProcessingService";	// The WPS is installed here
-	private final String imageBase = "http://geoprocessing.nottingham.ac.uk:8010/wps/img/";								// Test images served from here
-	private final String processID = "pillar3.automaticvalidation.LaplacePhotoBlurCheck";	// The process we are testing
+	private final String wpsLocation = "http://cwlight.envsys.co.uk:8080/wps/WebProcessingService";	// The WPS is installed here
+	private final String imageBase = "http://cwlight.envsys.co.uk/img/";								// Test images served from here
+	private final String processID = "pillar3.automaticvalidation.LaplacePhotoBlurCheck";				// The process we are testing
 	
 	private final String refSchema = "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd";
 	private final String refMimeType = "text/xml; subtype=gml/3.1.0";
