@@ -30,7 +30,7 @@ public class LineOfSightWPSTest extends TestCase {
 	
 	// Configuration parameters
 
-	private final String wpsLocation = "http://cwlight.envsys.co.uk:8080/wps/WebProcessingService";	// The WPS is installed here
+	private final String wpsLocation = "http://localhost:8010/wps/WebProcessingService";	// The WPS is installed here
 	private final String processID = "pillar1.lbs.GetLineOfSight";	// The process we are testing
 	private final String testObservationHoneysuckle = "http://geo.envsys.co.uk:8080/geoserver/cobweb/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=cobweb:CobwebSampleData&outputFormat=gml3&featureId=CobwebSampleData.61&srsName=EPSG:27700";
 
