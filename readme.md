@@ -1,4 +1,4 @@
-# Web Processing Service for COBWEB-QA
+# Quality Assurance Web Processing Service
 
 Quality Assurance Web Processing Services using 52North WPS. 
 ## Description
@@ -42,11 +42,8 @@ A Docker image with Tomcat, R, 52NorthWPS and the Quality Control processes is a
 
 	1. Clone and build cobweb-qa jar (e.g. using gradle). Instructions on how to do this are available in the [cobweb-qa](https://github.com/cobweb-eu/cobweb-qa) repo.
 
-	2. Integrate cobweb-qa library (as a .jar) into your local Maven repository (pom.xml). E.g. at terminal:
-``mvn install:install-file -Dfile=../../cobweb-qa/build/libs/cobweb-qa-0.3.1.jar -DgroupId=eu.cobwebproject.qa -DartifactId=cobweb-qa-lib -Dversion=0.3.1 -Dpackaging=jar -DgeneratePom=true``
-or using Eclipse M2E
-``Run -> Run Configurations -> select Maven build -> enter details above (e.g. Goals = install:install-file and add parameters as in terminal above.``
-
+	2. Integrate cobweb-qa library (as a .jar) into your local Maven repository (pom.xml). E.g. at terminal: ``mvn install:install-file -Dfile=../../cobweb-qa/build/libs/cobweb-qa-0.3.1.jar -DgroupId=eu.cobwebproject.qa -DartifactId=cobweb-qa-lib -Dversion=0.3.1 -Dpackaging=jar -DgeneratePom=true`` or using Eclipse M2E: ``Run -> Run Configurations -> select Maven build -> enter details above (e.g. Goals = install:install-file and add parameters as in terminal above.``
+	
 	3. Compile the Java processes in WPS-Process-Development-COBWEB as a Maven package. E.g. ``cd WPS-Process-Development-COBWEB`` and ``mvn clean package -Dmaven.test.skip=true``. Note that the tests must be skipped until they are compliled and registered.
 	
 	4. Copy the compiled processes to the deployed WPS app (two possibilities here). Either copy the resulting ``.jar`` file from the previous step and copy to something like ``wps/WEB-INF/lib/``. The jar contains the compiled process and associated ProcessDescription definitions required for their deployment and invocation in the WPS. Or copy the bytecode files (e.g. ``cp -r /target/classes/pillar /usr/share/tomcat7-wps/wpshome/WEB-INF/classes/``)
@@ -71,6 +68,10 @@ or using Eclipse M2E
 ## Troubleshooting common issues
 
 * Generating output data as GML can be problematic (WPS errors of something like ``inline: Complex Result could not be generated``) if the configuration has only been partially setup correctly. Check wps_config_geotools.xml ports match the web server. This is a common problem when testing a fresh installation.
+
+* When executing a WPS request, the output format generators must be correctly set. E.g. an error like:  ``<ows:ExceptionText>
+org.n52.wps.server.ExceptionReport: Could not find an appropriate generator based on given mimetype/schema/encoding for output
+</ows:ExceptionText>`` means that a particular generator is missing. This is a common problem when testing a fresh installation. Check that the GeoJSON and GML Generators against the ``resources/wps_config_geotools.xml`` sample.
 
 * Certain processing (such as blur checking of high-resolution photographs and R scripts with complex geometric inputs) may require increases in Tomcat heap size. E.g. modify ``JAVA_OPTS="-Djava.awt.headless=true`` to something like ``-Xmx1024m`` for 1024mb of heap space.
 
