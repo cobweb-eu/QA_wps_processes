@@ -73,6 +73,8 @@ A Docker image with Tomcat, R, 52NorthWPS and the Quality Control processes is a
 org.n52.wps.server.ExceptionReport: Could not find an appropriate generator based on given mimetype/schema/encoding for output
 </ows:ExceptionText>`` means that a particular generator is missing. This is a common problem when testing a fresh installation. Check that the GeoJSON and GML Generators against the ``resources/wps_config_geotools.xml`` sample.
 
+* Errors with the image reading for the LaplaceBlurCheck can arise with incorrectly configured JavaIO library. E.g. ``java.util.ServiceConfigurationError: javax.imageio.spi.ImageInputStreamSpi: Provider`` 
+
 * Certain processing (such as blur checking of high-resolution photographs and R scripts with complex geometric inputs) may require increases in Tomcat heap size. E.g. modify ``JAVA_OPTS="-Djava.awt.headless=true`` to something like ``-Xmx1024m`` for 1024mb of heap space.
 
 * Incorrect execute requests made to processes can cause unexpected errors. E.g. ``Could not determine input format because none of the supported formats match the given schema ("null") and encoding ("null"). (A mimetype was not specified)`` can indicate that input data is completely missing (e.g. broken reference to WFS layer). 
