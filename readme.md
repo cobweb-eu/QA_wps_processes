@@ -48,7 +48,7 @@ A Docker image with Tomcat, R, 52NorthWPS and the Quality Control processes is a
 	
 	3. Compile the Java processes in WPS-Process-Development-COBWEB as a Maven package. E.g. ``cd WPS-Process-Development-COBWEB`` and ``mvn clean package -Dmaven.test.skip=true``. Note that the tests must be skipped until they are compliled and registered.
 	
-	4. Copy the compiled processes to the deployed WPS app (two possibilities here). Either copy the resulting ``.jar`` file from the previous step and copy to something like ``wps/WEB-INF/lib/``. The jar contains the compiled process and associated ProcessDescription definitions required for their deployment and invocation in the WPS. Or copy the bytecode files (e.g. ``cp -r /target/classes/pillar /usr/share/tomcat7-wps/wpshome/WEB-INF/classes/``)
+	4. Copy the compiled processes to the deployed WPS app (two possibilities here). Either copy the resulting ``.jar`` file from the previous step and copy to something like ``wps/WEB-INF/lib/``. The jar contains the compiled process and associated ProcessDescription definitions required for their deployment and invocation in the WPS. Or copy the bytecode files (e.g. ``cp -r target/classes/pillar /usr/share/tomcat7-wps/wpshome/WEB-INF/classes/``)
 
 	5. Register processes in the WPS by editing wps_config_geotools.xml. (e.g. in the Docker image this is ``/usr/share/tomcat7-wps/wpshome/config``).
 
@@ -76,6 +76,8 @@ org.n52.wps.server.ExceptionReport: Could not find an appropriate generator base
 </ows:ExceptionText>`` means that a particular generator is missing. This is a common problem when testing a fresh installation. Check that the GeoJSON and GML Generators against the ``resources/wps_config_geotools.xml`` sample.
 
 * Errors with the image reading for the LaplaceBlurCheck can arise with incorrectly configured JavaIO library. E.g. ``java.util.ServiceConfigurationError: javax.imageio.spi.ImageInputStreamSpi: Provider`` 
+
+* Errors when submitting execute requests can be due to incorrect XML formatting in the document. Check the XML structure if error is: ``org.n52.wps.server.request.strategy.WCS111XMLEmbeddedBase64OutputReferenceStrategy.isApplicable(WCS111XMLEmbeddedBase64OutputReferenceStrategy.java:63)``
 
 * Certain processing (such as blur checking of high-resolution photographs and R scripts with complex geometric inputs) may require increases in Tomcat heap size. E.g. modify ``JAVA_OPTS="-Djava.awt.headless=true`` to something like ``-Xmx1024m`` for 1024mb of heap space.
 
