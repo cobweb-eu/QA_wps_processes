@@ -20,6 +20,12 @@ The repository contains two dirs:
 * ``/WPS-Process-Development-COBWEB`` - contains Java process implementations
 * ``/WPS-R-Process-Development-COBWEB`` - contains R process implementations
 
+## Documentation
+A number of learning materials can be found in the [Documentation] (https://github.com/cobweb-eu/cobweb-qa/Documentation) folder:
+* video showing a [QA composition] (https://github.com/cobweb-eu/cobweb-qa/Documentation/QAwAT_jkw_qaqc_workflow_construction.mp4)
+* example of a [QA for an invasive species case study](https://github.com/cobweb-eu/cobweb-qa/Documentation/QAQC_JKW.png) 
+
+Further highligths of the QAwAT framework can be seen in the deliverables D4.6 and D4.7 of the [COBWEB project] (http://cobweb-project.eu).
 
 ## Installation
 ### Docker image installation
