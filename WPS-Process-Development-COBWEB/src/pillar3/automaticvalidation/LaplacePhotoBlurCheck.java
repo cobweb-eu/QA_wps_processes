@@ -38,6 +38,17 @@ import eu.cobwebproject.qa.automaticvalidation.BlurCheckRunnable; 	// interface
 
 
 public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
+	
+	/*
+	public static void main(String[] args) {
+		double threshold = 1500; //ie. will be the mean in distribution test.
+		long variance = 800; 
+		double[] dqResult = computeDataQualityMetadata(variance,threshold);
+		double  DQ_UsabilityValue = dqResult[0];
+		System.out.println(dqResult[0]);
+	}
+	*/
+	
 	static Logger LOG = Logger.getLogger(LaplacePhotoBlurCheck.class);
 	
 		
@@ -50,9 +61,8 @@ public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
 	/**
 	 * @author Sam Meek (unotts) and Seb Clarke (Environment Systems) and Julian Rosser (unotts)
 	 * Process to check whether a photo is blurry by using the functionality from cobweb-qa library by Michael K
-	 * Output is the metadata field "Obs_Usability" which is 1 for pass criteria and 0 for not passing
-	 * result is observations with 1 or 0
-	 * qual_result is observations with only metadata 1s are returned
+	 * Output is the metadata field "DQ_01" relating to Obs_Usability which is between 0 and 1 for ranging between 
+	 * not passing and passing result. qual_result is observations with only metadata 1s are returned.
 	 */
 	
 	public LaplacePhotoBlurCheck() {
@@ -130,7 +140,7 @@ public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
 		}
 		
 		//add DQ_Field		
-		resultTypeBuilder.add("Obs_Usability", Double.class);
+		resultTypeBuilder.add("DQ_01", Double.class);
 		
 		// Build the result feature type
 		SimpleFeatureType typeF = resultTypeBuilder.buildFeatureType();
@@ -170,12 +180,20 @@ public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
 				}		
 		
 				// Do the check and set usability accordingly
-				BlurCheckRunnable blurChecker = new BlurCheckAwt(original, threshold, false);
+				BlurCheckAwt blurChecker = new BlurCheckAwt(original, threshold, true);
+				
 				blurChecker.run();	// This should probably run on a thread! 
 		
-				//Usability could be more than 0 or 1 with a ratio.
+				//Usability is between 0 or 1 based on blurriness / threshold.
 				//I.e. If photoVariance < threshold then DQ = photoVariance / threshold
-				resultFeatureBuilder.set("Obs_Usability", blurChecker.pass?1:0);
+				// else = 1
+				LOG.warn ("blur check variance " + blurChecker.variance);
+				LOG.warn ("blur check pass " + blurChecker.pass);
+				
+				double[] dqResult = computeDataQualityMetadata(blurChecker.variance,threshold);
+				double  DQ_UsabilityValue = dqResult[0];
+				resultFeatureBuilder.set("DQ_01", DQ_UsabilityValue);		
+			
 				
 				// Build result
 				SimpleFeature tempResult = resultFeatureBuilder.buildFeature(tempSf.getID());
@@ -220,6 +238,35 @@ public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
 		return results;
 	}
 
+	
+	/**
+	 * Compute accuracy details for metadata
+	 * 
+	 * Uses the variance from the laplace blur check the user provdied threshold to give a DQ_01 / DQ_UsabilityElement
+	 * value between 0 and 1.
+	 * @param blurVariance, threshold.
+	 * @return some accuracy metadata to get bunged in with the obs:
+	 * 				array(DQ_usability)
+	 * 
+	 */
+	private static double[] computeDataQualityMetadata(long imageVariance, double threshold) {
+
+		
+		double DQ_UsabilityValue = 0;				
+		if (imageVariance < threshold && threshold != 0) {
+			System.out.println("variance less than the threshold");
+			DQ_UsabilityValue = imageVariance/threshold;
+		} else { 
+			System.out.println("variance is more than the threshold");
+			DQ_UsabilityValue =	1;
+		}
+		
+
+		double[] currentResult = new double[]{DQ_UsabilityValue}; 
+		return currentResult;			
+	}
+	
+	
 	@Override
 	public List<String> getErrors() {
 		return errors;
