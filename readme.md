@@ -20,6 +20,9 @@ The repository contains two dirs:
 * ``/WPS-Process-Development-COBWEB`` - contains Java process implementations
 * ``/WPS-R-Process-Development-COBWEB`` - contains R process implementations
 
+## Documentation
+Additional documentation and learning materials on using the Web Processing Service within the workflow editor can be found in the [QAwAT](https://github.com/cobweb-eu/workflow-at) repository and workflow [wiki](https://github.com/cobweb-eu/workflow-at/wiki).
+Further details of the software can be found in the COBWEB D4.6 and D4.7 deliverables.
 
 ## Installation
 ### Docker image installation
@@ -42,11 +45,15 @@ A Docker image with Tomcat, R, 52NorthWPS and the Quality Control processes is a
 
 	1. Clone and build cobweb-qa jar (e.g. using gradle). Instructions on how to do this are available in the [cobweb-qa](https://github.com/cobweb-eu/cobweb-qa) repo.
 
-	2. Integrate cobweb-qa library (as a .jar) into your local Maven repository (pom.xml). E.g. at terminal: ``mvn install:install-file -Dfile=../../cobweb-qa/build/libs/cobweb-qa-0.3.1.jar -DgroupId=eu.cobwebproject.qa -DartifactId=cobweb-qa-lib -Dversion=0.3.1 -Dpackaging=jar -DgeneratePom=true`` or using Eclipse M2E: ``Run -> Run Configurations -> select Maven build -> enter details above (e.g. Goals = install:install-file and add parameters as in terminal above.``
+	2. Integrate cobweb-qa library (as a .jar) into your local Maven repository (pom.xml). E.g. at terminal: 
+	``mvn install:install-file -Dfile=../../cobweb-qa/build/libs/cobweb-qa-0.3.1.jar -DgroupId=eu.cobwebproject.qa -DartifactId=cobweb-qa-lib -Dversion=0.3.1 -Dpackaging=jar -DgeneratePom=true`` 
+	or using Eclipse M2E: ``Run -> Run Configurations -> select Maven build -> enter details above (e.g. Goals = install:install-file and add parameters as in terminal above.``
 	
 	3. Compile the Java processes in WPS-Process-Development-COBWEB as a Maven package. E.g. ``cd WPS-Process-Development-COBWEB`` and ``mvn clean package -Dmaven.test.skip=true``. Note that the tests must be skipped until they are compliled and registered.
 	
-	4. Copy the compiled processes to the deployed WPS app (two possibilities here). Either copy the resulting ``.jar`` file from the previous step and copy to something like ``wps/WEB-INF/lib/``. The jar contains the compiled process and associated ProcessDescription definitions required for their deployment and invocation in the WPS. Or copy the bytecode files (e.g. ``cp -r /target/classes/pillar /usr/share/tomcat7-wps/wpshome/WEB-INF/classes/``)
+	4. Copy the compiled processes to the deployed WPS app (two possibilities here - don't mix these as dependency conflicts can occur). Either copy the resulting ``with-dependencies.jar`` file from the previous step and copy to something like ``wps/WEB-INF/lib/``. The jar contains the compiled process and associated ProcessDescription definitions required for their deployment and invocation in the WPS.
+	
+	OR copy the bytecode files (e.g. ``cp -r target/classes/pillar1 /usr/share/tomcat7-wps/wpshome/WEB-INF/classes/``)
 
 	5. Register processes in the WPS by editing wps_config_geotools.xml. (e.g. in the Docker image this is ``/usr/share/tomcat7-wps/wpshome/config``).
 
@@ -72,6 +79,10 @@ A Docker image with Tomcat, R, 52NorthWPS and the Quality Control processes is a
 * When executing a WPS request, the output format generators must be correctly set. E.g. an error like:  ``<ows:ExceptionText>
 org.n52.wps.server.ExceptionReport: Could not find an appropriate generator based on given mimetype/schema/encoding for output
 </ows:ExceptionText>`` means that a particular generator is missing. This is a common problem when testing a fresh installation. Check that the GeoJSON and GML Generators against the ``resources/wps_config_geotools.xml`` sample.
+
+* Errors with the image reading for the LaplaceBlurCheck can arise with incorrectly configured JavaIO library. E.g. ``java.util.ServiceConfigurationError: javax.imageio.spi.ImageInputStreamSpi: Provider``. This can occur if there is both bytecode and a mvn generated ``*-with-dependencies.jar`` are in the web app ``wps/WEB-INF/lib/``. 
+
+* Errors when submitting execute requests can be due to incorrect XML formatting in the document. Check the XML structure if error is: ``org.n52.wps.server.request.strategy.WCS111XMLEmbeddedBase64OutputReferenceStrategy.isApplicable(WCS111XMLEmbeddedBase64OutputReferenceStrategy.java:63)``
 
 * Certain processing (such as blur checking of high-resolution photographs and R scripts with complex geometric inputs) may require increases in Tomcat heap size. E.g. modify ``JAVA_OPTS="-Djava.awt.headless=true`` to something like ``-Xmx1024m`` for 1024mb of heap space.
 
