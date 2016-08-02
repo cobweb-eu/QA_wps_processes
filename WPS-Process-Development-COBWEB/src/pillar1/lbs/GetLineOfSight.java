@@ -50,14 +50,14 @@ import eu.cobwebproject.qa.lbs.Raster;
  */
 public class GetLineOfSight extends AbstractAlgorithm {
 	
-	/*
+	
 	public static void main(String[] args) {
 		double obsDistance = 2; //ie. will be the mean in distribution test.   
 		double CEP68_SDev = 4;  // ie. the accuracy of the mobile phone.
 		double XYAccuracyOfDem_SDev = 2; //ie. the horiz accuracy of the DEM. 
 		double thresholdLoSDistance= 3; // threshold for statistical test.		
 		double[] accuracyMedata = computeAccuracyMetadata(obsDistance,CEP68_SDev,XYAccuracyOfDem_SDev,thresholdLoSDistance);
-	}*/
+	}
 	
 	
 	public double DQ_UsabilityValue = (double) -999;
@@ -146,11 +146,9 @@ public class GetLineOfSight extends AbstractAlgorithm {
 		// Create FeatureBuilder for features based on provided features
 		SimpleFeatureType outType = buildFeatureType(pointInputs);
 		SimpleFeatureBuilder builder = new SimpleFeatureBuilder(outType);
-		
-	
+			
 		//CoordinateReferenceSystem inputCRS = outType.getCoordinateReferenceSystem();
 		//System.out.println("Input points CRS: " + inputCRS.toWKT());
-		
 		
 		// Get ready to loop through all features
 		SimpleFeatureIterator iterator = (SimpleFeatureIterator) pointInputs.features();

@@ -1,9 +1,15 @@
 package pillar3.automaticvalidation;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -39,21 +45,23 @@ import eu.cobwebproject.qa.automaticvalidation.BlurCheckRunnable; 	// interface
 
 public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
 	
+	
 	/*
 	public static void main(String[] args) {
-		double threshold = 1500; //ie. will be the mean in distribution test.
-		long variance = 800; 
+		
+		double threshold = 222; //ie. will be the mean in distribution test.
+		long variance = 222; 
 		double[] dqResult = computeDataQualityMetadata(variance,threshold);
 		double  DQ_UsabilityValue = dqResult[0];
 		System.out.println(dqResult[0]);
 	}
-	*/
+	
+*/
+	
+	
 	
 	static Logger LOG = Logger.getLogger(LaplacePhotoBlurCheck.class);
-	
 		
-
-	
 	public static final long MAX_IMG_SIZE = 6000000;
 	
 	private ArrayList<String> errors;
@@ -169,7 +177,9 @@ public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
 				URL url;
 				
 				try {
-					url = new URL(urlBase+urlS);
+					//Escape naughty spaces and illegal chars. 
+					url = convertToURLEscapingIllegalCharacters(urlBase+urlS); 	   				
+					LOG.warn ("Downloading image url: " + url);
 					if(imageIsTooBig(url, MAX_IMG_SIZE)) {
 						throw new IOException("Image is bigger than max allowable size (or we can't tell how big it is)");
 					}
@@ -250,7 +260,6 @@ public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
 	 * 
 	 */
 	private static double[] computeDataQualityMetadata(long imageVariance, double threshold) {
-
 		
 		double DQ_UsabilityValue = 0;				
 		if (imageVariance < threshold && threshold != 0) {
@@ -310,6 +319,25 @@ public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
 		long imgSize = c.getContentLengthLong();
 		LOG.warn("image file size: " + String.valueOf(imgSize));
 		return imgSize > maxImageSize || imgSize == -1;
+	}
+	
+	/**
+	 * Escape URL strings to produce a URL object without illegal chars e.g. spaces  
+	 * 
+	 * @param string,
+	 * @return URL
+	 * 
+	 */
+	public URL convertToURLEscapingIllegalCharacters(String string) {
+	    try {
+	        String decodedURL = URLDecoder.decode(string, "UTF-8");
+	        URL url = new URL(decodedURL);
+	        URI uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef()); 
+	        return uri.toURL(); 
+	    } catch (Exception ex) {
+	        ex.printStackTrace();
+	        return null;
+	    }
 	}
 	
 
