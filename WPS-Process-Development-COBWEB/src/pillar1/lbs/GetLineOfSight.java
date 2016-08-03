@@ -144,7 +144,9 @@ public class GetLineOfSight extends AbstractAlgorithm {
 		
 			//reading the raster, Raster class expects a Arc/Info ASCII Grid (AAIGrid in gdal), these get pretty big and need hefty memory.
 			heightMap = new Raster(surfaceModel.getBaseFile(true).getAbsolutePath()); //take the WPS input, points to WPS temp storage
-			//heightMap = new Raster("C:\\wales\\big_tiff_snow_crop.txt"); //Hard coded load for testing
+			//heightMap = new Raster("C:\\wales\\snowdonia_2m_dsm_bigtiff_with_overview.tif");//Hard coded load for testing
+			//heightMap = new Raster("C:\\wales\\snowdonia_2m_dsm_bigtiff_with_overview.tif");//Hard coded load for testing
+			//heightMap = new Raster("C:\\wales\\big_tiff_snow_crop_north_ver2.txt");
 		} catch (IOException e) {
 			LOGGER.error("Could not read from provided surface model", e);
 			throw new ExceptionReport("Could not read from provided surface model: " + e.getMessage(), "IOException", e.getCause());
@@ -181,7 +183,6 @@ public class GetLineOfSight extends AbstractAlgorithm {
 				// Run line of sight calculation for position defined in feature
 				double easting, northing;
 				double horizontalDistance;								
-
 								
 				//get the position accuracy of this point from the field
 				double positionalAccuracy = Double.valueOf(inputFeature.getAttribute(positionAccuracyFieldName).toString());
@@ -192,7 +193,7 @@ public class GetLineOfSight extends AbstractAlgorithm {
 				}				
 				LOGGER.warn("CEP68_SDev value for observation: " + CEP68_SDev);
 									
-								
+				String losExceptionName = null; 				
 				try {
 					los.setBearing(compass);
 					los.setTilt(tilt);
@@ -204,7 +205,6 @@ public class GetLineOfSight extends AbstractAlgorithm {
 					easting = result[2];
 					northing = result[3];
 					horizontalDistance = result[0];
-
 			
 					//Set the metadata values
 					double[] accuracyMedata = computeAccuracyMetadata(horizontalDistance,CEP68_SDev,XYAccuracyOfDem_SDev,thresholdLoSDistance);
@@ -212,8 +212,13 @@ public class GetLineOfSight extends AbstractAlgorithm {
 					DQ_TopologicalConsistencyValue = accuracyMedata[1];
 					DQ_AbsoluteExternalPositionalAccuracyValue =accuracyMedata[2]; 
 					
+					losExceptionName = "No Exception";
+					
 				} catch(IntersectionException e) {
 					LOGGER.warn("No intersection with heightmap (" + e.getClass().getSimpleName() + "): " + e.getMessage());
+					
+					
+					losExceptionName = e.getClass().getSimpleName();
 					
 					easting = -1;
 					northing = -1;
@@ -237,6 +242,10 @@ public class GetLineOfSight extends AbstractAlgorithm {
 				feature.setAttribute("DQ_01", DQ_UsabilityValue);
 				feature.setAttribute("DQ_10", DQ_TopologicalConsistencyValue);
 				feature.setAttribute("DQ_14", DQ_AbsoluteExternalPositionalAccuracyValue );
+				
+				//Add the los exception field 
+				feature.setAttribute("LOS_Exception", losExceptionName);
+				
 				// add to feature list
 				featureList.add(feature);
 				counter++;
@@ -305,7 +314,9 @@ public class GetLineOfSight extends AbstractAlgorithm {
 		builder.add("DQ_01", Double.class);
 		builder.add("DQ_10", Double.class);
 		builder.add("DQ_14", Double.class);
-						
+		
+		builder.add("LOS_Exception", String.class);
+		
 		return builder.buildFeatureType();
 	}
 	
