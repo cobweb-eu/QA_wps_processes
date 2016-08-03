@@ -44,8 +44,7 @@ import eu.cobwebproject.qa.automaticvalidation.BlurCheckRunnable; 	// interface
 
 
 public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
-	
-	
+		
 	/*
 	public static void main(String[] args) {
 		
@@ -56,9 +55,7 @@ public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
 		System.out.println(dqResult[0]);
 	}
 	
-*/
-	
-	
+*/	
 	
 	static Logger LOG = Logger.getLogger(LaplacePhotoBlurCheck.class);
 		

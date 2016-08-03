@@ -87,7 +87,14 @@
 						<ows:AnyValue/>	
 					</LiteralData>
 			</Input>
-			
+			<Input maxOccurs="1" minOccurs="0">
+				<ows:Identifier>positionAccuracyFieldName</ows:Identifier>
+				<ows:Title>positionAccuracyFieldName</ows:Title>
+					<LiteralData>
+						<ows:DataType ows:reference="xs:string"/>
+						<ows:AnyValue/>
+					</LiteralData>
+			</Input>
 		</DataInputs>
 	<ProcessOutputs>
 		<Output>

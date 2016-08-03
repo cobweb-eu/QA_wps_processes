@@ -50,15 +50,21 @@ import eu.cobwebproject.qa.lbs.Raster;
  */
 public class GetLineOfSight extends AbstractAlgorithm {
 	
-	
+	/*
 	public static void main(String[] args) {
 		double obsDistance = 2; //ie. will be the mean in distribution test.   
 		double CEP68_SDev = 4;  // ie. the accuracy of the mobile phone.
 		double XYAccuracyOfDem_SDev = 2; //ie. the horiz accuracy of the DEM. 
-		double thresholdLoSDistance= 3; // threshold for statistical test.		
+		double thresholdLoSDistance= 2; // threshold for statistical test.		
 		double[] accuracyMedata = computeAccuracyMetadata(obsDistance,CEP68_SDev,XYAccuracyOfDem_SDev,thresholdLoSDistance);
+					
+		obsDistance = 2; //ie. will be the mean in distribution test.   
+		CEP68_SDev = 4;  // ie. the accuracy of the mobile phone.
+		XYAccuracyOfDem_SDev = 2; //ie. the horiz accuracy of the DEM. 
+		thresholdLoSDistance= 5; // threshold for statistical test.		
+		accuracyMedata = computeAccuracyMetadata(obsDistance,CEP68_SDev,XYAccuracyOfDem_SDev,thresholdLoSDistance);		
 	}
-	
+	*/
 	
 	public double DQ_UsabilityValue = (double) -999;
 	public double DQ_TopologicalConsistencyValue = (double) -999;
@@ -71,6 +77,8 @@ public class GetLineOfSight extends AbstractAlgorithm {
 	public static final String INPUT_BEARINGNAME = "inputBearingFieldName";
 	public static final String INPUT_TILTNAME = "inputTiltFieldName";
 	public static final String INPUT_USERHEIGHT = "inputUserHeight";
+	public static final String INPUT_POSITIONACCURACYNAME = "positionAccuracyFieldName";
+	
 	
 	Logger LOGGER = Logger.getLogger(GetLineOfSight.class);
 	
@@ -91,8 +99,9 @@ public class GetLineOfSight extends AbstractAlgorithm {
 		// hold inputs from WPS
 		FeatureCollection pointInputs;
 		GenericFileData surfaceModel;
-		String bearingFieldName, tiltFieldName;
+		String bearingFieldName, tiltFieldName,positionAccuracyFieldName;
 		double userHeight = 1.5;
+
 		
 		
 		//Default, test values
@@ -102,13 +111,12 @@ public class GetLineOfSight extends AbstractAlgorithm {
 		double XYAccuracyOfDem_SDev = 2; //ie. the horiz accuracy of the DEM. 
 		double thresholdLoSDistance= 0.2; // threshold for stat test.
 		*/
-		//Default, test values
-		double obsDistance = 0; //ie. will be the mean in distribution test.   
+		
+		//Default values
 		double CEP68_SDev = 2;  // ie. the accuracy of the mobile phone.
 		double XYAccuracyOfDem_SDev = 2; //ie. the horiz accuracy of the DEM. 
-		double thresholdLoSDistance= 0.2; // threshold for stat test.
-		
-		
+		double thresholdLoSDistance = 5; // threshold for stat test.
+				
 		
 		LOGGER.warn("Getting web process params...");
 		LOGGER.warn("surfaceModel:");
@@ -125,10 +133,9 @@ public class GetLineOfSight extends AbstractAlgorithm {
 		bearingFieldName = ((LiteralStringBinding) inputData.get(INPUT_BEARINGNAME).get(0)).getPayload();		
 		tiltFieldName = ((LiteralStringBinding) inputData.get(INPUT_TILTNAME).get(0)).getPayload();
 		userHeight = ((LiteralDoubleBinding) inputData.get(INPUT_USERHEIGHT).get(0)).getPayload();
-		//phoneAccuracyFieldName = ((LiteralStringBinding) inputData.get(INPUT_PHONEACCURACYNAME).get(0)).getPayload();
+		positionAccuracyFieldName = ((LiteralStringBinding) inputData.get(INPUT_POSITIONACCURACYNAME).get(0)).getPayload();
 		
-		
-		
+				
 		// Try and read the raster
 		Raster heightMap = null;
 		try {		
@@ -175,6 +182,17 @@ public class GetLineOfSight extends AbstractAlgorithm {
 				double easting, northing;
 				double horizontalDistance;								
 
+								
+				//get the position accuracy of this point from the field
+				double positionalAccuracy = Double.valueOf(inputFeature.getAttribute(positionAccuracyFieldName).toString());
+				if (positionalAccuracy < 0) { //catch the negative values, e.g. -1
+					CEP68_SDev = 0;
+				} else {
+					CEP68_SDev = positionalAccuracy; 
+				}				
+				LOGGER.warn("CEP68_SDev value for observation: " + CEP68_SDev);
+									
+								
 				try {
 					los.setBearing(compass);
 					los.setTilt(tilt);
@@ -186,16 +204,17 @@ public class GetLineOfSight extends AbstractAlgorithm {
 					easting = result[2];
 					northing = result[3];
 					horizontalDistance = result[0];
-					
+
 			
 					//Set the metadata values
 					double[] accuracyMedata = computeAccuracyMetadata(horizontalDistance,CEP68_SDev,XYAccuracyOfDem_SDev,thresholdLoSDistance);
 					DQ_UsabilityValue = accuracyMedata[0];
 					DQ_TopologicalConsistencyValue = accuracyMedata[1];
-					DQ_AbsoluteExternalPositionalAccuracyValue =accuracyMedata[2]; 						
+					DQ_AbsoluteExternalPositionalAccuracyValue =accuracyMedata[2]; 
 					
 				} catch(IntersectionException e) {
 					LOGGER.warn("No intersection with heightmap (" + e.getClass().getSimpleName() + "): " + e.getMessage());
+					
 					easting = -1;
 					northing = -1;
 					
@@ -207,9 +226,11 @@ public class GetLineOfSight extends AbstractAlgorithm {
 					DQ_AbsoluteExternalPositionalAccuracyValue = 0;
 				}
 				
-				// Set results as result feature geometry
-				GeometryFactory gf = new GeometryFactory();
-				Point point = gf.createPoint(new Coordinate(easting, northing));
+				// Set results feautre gome
+				GeometryFactory gf = new GeometryFactory(); //
+				
+				//Point point = gf.createPoint(new Coordinate(easting, northing)); //Set as the line of sight as result feature geometry							
+				Point point = gf.createPoint(position);//set as the raw original reported position 
 				
 				SimpleFeature feature = builder.buildFeature(String.valueOf(counter));
 				feature.setDefaultGeometry(point);
@@ -292,7 +313,7 @@ public class GetLineOfSight extends AbstractAlgorithm {
 	
 	/**
 	 * Compute accuracy details for metadata
-	 * 
+	 *  
 	 * Uses the observed distance from the los, device accuracy (CEP68), 
 	 * dem planimetric acc, and a user defined threshold for determining accuracy metadata.
 	 * These resulting quality values are calculated from combinations of the input metadata. 
@@ -308,7 +329,7 @@ public class GetLineOfSight extends AbstractAlgorithm {
 	 * 				array(DQ_usability,  DQ_TopologicalConsistencyValue, DQ_AbsoluteExternalPositionalAccuracyValue)
 	 * 
 	 */
-	private static double[] computeAccuracyMetadata(double obsDistance,double CEP68_SDev, double XYAccuracyOfDem_SDev,double thresholdLoSDistance) {		
+	private static double[] computeAccuracyMetadata(double obsDistance, double CEP68_SDev, double XYAccuracyOfDem_SDev, double thresholdLoSDistance) {		
 		/* prototype R code
 		DQUsa = 1-p
 				where
@@ -325,8 +346,7 @@ public class GetLineOfSight extends AbstractAlgorithm {
 		//Compute the uncertainty of the LoS distance. Intuitively, a function of the sensor and the LoS accuracy).
 		double Dist_uncert = Math.sqrt(Math.pow(CEP68_SDev,2)+Math.pow(LoS_uncert,2));
 			
-		System.out.println(LoS_uncert);
-		System.out.println(Dist_uncert);
+		System.out.println("Dist Uncert " + Dist_uncert);
 		
 		//Construct a normal dist of the observed distance (mu) with the dist uncert (sigma).   
 		NormalDistribution d = new NormalDistribution(obsDistance, Dist_uncert, NormalDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
@@ -334,6 +354,8 @@ public class GetLineOfSight extends AbstractAlgorithm {
 		//Then take probability that P(X <= threshold)
 		double cumulPrb = d.cumulativeProbability(thresholdLoSDistance);		
 		
+		System.out.println("cumulPrb " + cumulPrb );
+		System.out.println("LOS uncert " + LoS_uncert);
 		double[] currentResult = new double[]{cumulPrb, cumulPrb, LoS_uncert}; 
 		return currentResult;			
 	}
