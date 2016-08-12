@@ -87,7 +87,7 @@
 						<ows:AnyValue/>	
 					</LiteralData>
 			</Input>
-			<Input maxOccurs="1" minOccurs="0">
+			<Input maxOccurs="1" minOccurs="1">
 				<ows:Identifier>positionAccuracyFieldName</ows:Identifier>
 				<ows:Title>positionAccuracyFieldName</ows:Title>
 					<LiteralData>

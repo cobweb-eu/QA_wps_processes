@@ -105,14 +105,6 @@ public class GetLineOfSight extends AbstractAlgorithm {
 		
 		
 		//Default, test values
-		/*
-		double obsDistance = 4; //ie. will be the mean in distribution test.   
-		double CEP68_SDev = 2;  // ie. the accuracy of the mobile phone.
-		double XYAccuracyOfDem_SDev = 2; //ie. the horiz accuracy of the DEM. 
-		double thresholdLoSDistance= 0.2; // threshold for stat test.
-		*/
-		
-		//Default values
 		double CEP68_SDev = 2;  // ie. the accuracy of the mobile phone.
 		double XYAccuracyOfDem_SDev = 2; //ie. the horiz accuracy of the DEM. 
 		double thresholdLoSDistance = 5; // threshold for stat test.
@@ -134,8 +126,7 @@ public class GetLineOfSight extends AbstractAlgorithm {
 		tiltFieldName = ((LiteralStringBinding) inputData.get(INPUT_TILTNAME).get(0)).getPayload();
 		userHeight = ((LiteralDoubleBinding) inputData.get(INPUT_USERHEIGHT).get(0)).getPayload();
 		positionAccuracyFieldName = ((LiteralStringBinding) inputData.get(INPUT_POSITIONACCURACYNAME).get(0)).getPayload();
-		
-				
+						
 		// Try and read the raster
 		Raster heightMap = null;
 		try {		
@@ -144,9 +135,8 @@ public class GetLineOfSight extends AbstractAlgorithm {
 		
 			//reading the raster, Raster class expects a Arc/Info ASCII Grid (AAIGrid in gdal), these get pretty big and need hefty memory.
 			heightMap = new Raster(surfaceModel.getBaseFile(true).getAbsolutePath()); //take the WPS input, points to WPS temp storage
-			//heightMap = new Raster("C:\\wales\\snowdonia_2m_dsm_bigtiff_with_overview.tif");//Hard coded load for testing
-			//heightMap = new Raster("C:\\wales\\snowdonia_2m_dsm_bigtiff_with_overview.tif");//Hard coded load for testing
-			//heightMap = new Raster("C:\\wales\\big_tiff_snow_crop_north_ver2.txt");
+			//heightMap = new Raster("C:\\wales\\big_tiff_snow_crop_north_holefilled.txt");
+			//heightMap = new Raster("C:\\wales\\big_tiff_snow_crop_south_holefilled_ver2.txt");			
 		} catch (IOException e) {
 			LOGGER.error("Could not read from provided surface model", e);
 			throw new ExceptionReport("Could not read from provided surface model: " + e.getMessage(), "IOException", e.getCause());
@@ -210,7 +200,7 @@ public class GetLineOfSight extends AbstractAlgorithm {
 					double[] accuracyMedata = computeAccuracyMetadata(horizontalDistance,CEP68_SDev,XYAccuracyOfDem_SDev,thresholdLoSDistance);
 					DQ_UsabilityValue = accuracyMedata[0];
 					DQ_TopologicalConsistencyValue = accuracyMedata[1];
-					DQ_AbsoluteExternalPositionalAccuracyValue =accuracyMedata[2]; 
+					DQ_AbsoluteExternalPositionalAccuracyValue = accuracyMedata[2];
 					
 					losExceptionName = "No Exception";
 					
@@ -234,6 +224,7 @@ public class GetLineOfSight extends AbstractAlgorithm {
 				// Set results feautre gome
 				GeometryFactory gf = new GeometryFactory(); //
 				
+				//Need to parameterise whether we use the device position (ie. the initial) or the observed point from los  
 				//Point point = gf.createPoint(new Coordinate(easting, northing)); //Set as the line of sight as result feature geometry							
 				Point point = gf.createPoint(position);//set as the raw original reported position 
 				
@@ -245,6 +236,9 @@ public class GetLineOfSight extends AbstractAlgorithm {
 				
 				//Add the los exception field 
 				feature.setAttribute("LOS_Exception", losExceptionName);
+				feature.setAttribute("LOS_easting", easting);
+				feature.setAttribute("LOS_northing", northing);
+				feature.setAttribute("LOS_distance", horizontalDistance);
 				
 				// add to feature list
 				featureList.add(feature);
@@ -315,7 +309,11 @@ public class GetLineOfSight extends AbstractAlgorithm {
 		builder.add("DQ_10", Double.class);
 		builder.add("DQ_14", Double.class);
 		
+		//Add los result details
 		builder.add("LOS_Exception", String.class);
+		builder.add("LOS_easting", Double.class);
+		builder.add("LOS_northing", Double.class);
+		builder.add("LOS_distance", Double.class);
 		
 		return builder.buildFeatureType();
 	}
@@ -384,6 +382,9 @@ public class GetLineOfSight extends AbstractAlgorithm {
 			return LiteralStringBinding.class;
 		if(identifier.equalsIgnoreCase(INPUT_USERHEIGHT))
 			return LiteralDoubleBinding.class;
+		if(identifier.equalsIgnoreCase(INPUT_POSITIONACCURACYNAME))
+			return LiteralStringBinding.class;
+		
 		return null;
 	}
 

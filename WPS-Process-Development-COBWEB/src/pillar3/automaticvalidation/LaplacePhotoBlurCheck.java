@@ -55,7 +55,7 @@ public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
 		System.out.println(dqResult[0]);
 	}
 	
-*/	
+	 */	
 	
 	static Logger LOG = Logger.getLogger(LaplacePhotoBlurCheck.class);
 		
