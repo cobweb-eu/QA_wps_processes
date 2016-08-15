@@ -187,7 +187,7 @@ public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
 				}		
 		
 				// Do the check and set usability accordingly
-				BlurCheckAwt blurChecker = new BlurCheckAwt(original, threshold, true);
+				BlurCheckAwt blurChecker = new BlurCheckAwt(original, threshold, false); // careful with debug - tomcat installation directory must be writeable if using it.
 				
 				blurChecker.run();	// This should probably run on a thread! 
 		
