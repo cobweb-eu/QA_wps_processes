@@ -27,7 +27,7 @@ Further details of the software can be found in the COBWEB D4.6 and D4.7 deliver
 ## Installation
 ### Docker image installation
 
-A Docker image with Tomcat, R, 52NorthWPS and the Quality Control processes is available. The image is forked from the 52North [tethys_docker](https://github.com/tethysplatform/tethys_docker) and is started in the same way with:
+A Docker image with Tomcat, R, 52NorthWPS and the Quality Control processes is available. The image is forked from the 52North [tethys_docker](https://github.com/tethysplatform/tethys_docker), uses 52North WPS 3.3.0 (with some patches applied) is started in the same way with:
 
     $ sudo docker run -d -p 8080:8080 --name n52wps maptopixel/n52wps-mvn-git
     
@@ -35,7 +35,7 @@ A Docker image with Tomcat, R, 52NorthWPS and the Quality Control processes is a
 
 ### Full installation instructions
 
-1. Install 52North Web Processing Service (v3.4.0 and v3.3.0 have been tested). Instructions for achieving this are available from 52North.
+1. Install 52North Web Processing Service, v3.4.0 and v3.3.0 (however the latter requires some patches) have been tested. Instructions for achieving this are available from 52North. For patching v3.3.0, updated versions of the [52n-wps-r-3.3.0.jar](http://geoprocessing.forum.52north.org/Reading-raster-data-inputs-with-wpsr-td4026006.html) and [52n-wps-io-geotools-3.3.0.jar](http://geoprocessing.forum.52north.org/Chaining-FeatureCollections-td4025861.html) are required.
 
 2. Install 52North WPS geotoools package.
 
