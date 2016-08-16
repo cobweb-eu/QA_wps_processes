@@ -26,11 +26,11 @@ import pillar1.lbs.GetLineOfSight;
  */
 public class LineOfSightWPSTest extends TestCase {	
 	private static final String XPATH_GEOMETRY = "//*:Point/*:pos/text()";
-	private static final boolean DEBUG = false;
+	private static final boolean DEBUG = true;
 	
 	// Configuration parameters
 
-	private final String wpsLocation = "http://localhost:8080/wps/WebProcessingService";	// The WPS is installed here
+	private final String wpsLocation = "http://localhost:8010/wps/WebProcessingService";	// The WPS is installed here
 	private final String processID = "pillar1.lbs.GetLineOfSight";	// The process we are testing
 	private final String testObservationHoneysuckle = "http://geo.envsys.co.uk:8080/geoserver/cobweb/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=cobweb:CobwebSampleData&outputFormat=gml3&featureId=CobwebSampleData.61&srsName=EPSG:27700";
 
@@ -107,6 +107,7 @@ public class LineOfSightWPSTest extends TestCase {
 		reqBuilder.addLiteralData(GetLineOfSight.INPUT_BEARINGNAME, "bearing");
 		reqBuilder.addLiteralData(GetLineOfSight.INPUT_TILTNAME, "tilt");
 		reqBuilder.addLiteralData(GetLineOfSight.INPUT_USERHEIGHT, "1.5");
+		reqBuilder.addLiteralData(GetLineOfSight.INPUT_POSITIONACCURACYNAME, "accD2");
 		reqBuilder.setSchemaForOutput(refSchema, "result");	
 		reqBuilder.setMimeTypeForOutput(refMimeType, "result");
 		
@@ -114,6 +115,8 @@ public class LineOfSightWPSTest extends TestCase {
 			System.out.println("--- Building request ---");
 			System.out.println("\t Observation: \t" + url);
 			System.out.println("\t Surface Model: \t" + surfaceModel);
+			System.out.println("--- Printing request ---");
+			System.out.println(reqBuilder.getExecute().toString());
 		}
 		
  		// Check the execute request we are about to build and return
