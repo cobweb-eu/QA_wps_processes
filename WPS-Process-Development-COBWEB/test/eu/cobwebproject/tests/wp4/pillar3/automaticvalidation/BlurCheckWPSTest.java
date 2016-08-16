@@ -19,7 +19,11 @@ import org.n52.wps.client.WPSClientSession;
  * Class to test the blur check functionality through the WPS
  * 
  * It relies on the process being installed in a local WPS
- * and the images being served from a similar location
+ * and the images being served from a similar location. 
+ * The process populates a metadata field (DQ01) using the blur 
+ * check results (0 -> 1, based on threshold). See LaplacePhotoBlurCheck
+ * for more info.     
+ * 
  * 
  * @author Sebastian Clarke - Environment Systems
  *
