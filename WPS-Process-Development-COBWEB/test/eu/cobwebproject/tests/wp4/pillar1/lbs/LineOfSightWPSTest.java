@@ -74,6 +74,9 @@ public class LineOfSightWPSTest extends TestCase {
 		ExecuteResponseDocument responseDocument = (ExecuteResponseDocument) response;
 		// Assert whether matches expected 
 		XmlObject[] positionTags = responseDocument.execQuery(XPATH_GEOMETRY);
+		
+		if (DEBUG) System.out.println("positionTags[0]: " + positionTags.toString());
+		
 		assertTrue("Too many results", positionTags.length <= 1);
 		assertTrue("No results found", positionTags.length == 1);
 		assertTrue(positionTags[0].newCursor().getTextValue().equals("-1.0 -1.0"));
@@ -87,9 +90,28 @@ public class LineOfSightWPSTest extends TestCase {
 		ExecuteResponseDocument responseDocument = (ExecuteResponseDocument) response;
 		// Assert whether matches expected 
 		XmlObject[] positionTags = responseDocument.execQuery(XPATH_GEOMETRY);
+		
+		if (DEBUG) System.out.println("positionTags[0]: " + positionTags[0].newCursor().getTextValue());
+				
 		assertTrue("Too many results", positionTags.length <= 1);
 		assertTrue("No results found", positionTags.length == 1);
 		assertTrue(positionTags[0].newCursor().getTextValue().equals("276283.41790517466 298378.18305935315"));
+	}
+	
+	@Test
+	public void testObservationWithCustomHeightmapDataQuality() throws IOException, WPSClientException {
+		ExecuteDocument request = buildRequest(testObservationHoneysuckle, testRemoteSurfaceModelObs);
+		Object response = wpsClient.execute(wpsLocation, request);
+		assertTrue(response instanceof ExecuteResponseDocument);		
+		ExecuteResponseDocument responseDocument = (ExecuteResponseDocument) response;
+		// Assert whether matches expected 
+		XmlObject[] dqTags = responseDocument.execQuery("//*:DQ_01/text()");
+					
+		if (DEBUG) System.out.println("dqTags[0]: " + dqTags[0].newCursor().getTextValue());
+				
+		assertTrue("Too many results", dqTags.length <= 1);
+		assertTrue("No results found", dqTags.length == 1);
+		assertTrue(dqTags[0].newCursor().getTextValue().equals("0.7201655364002941"));
 	}
 	
 	/**
@@ -116,7 +138,7 @@ public class LineOfSightWPSTest extends TestCase {
 			System.out.println("\t Observation: \t" + url);
 			System.out.println("\t Surface Model: \t" + surfaceModel);
 			System.out.println("--- Printing request ---");
-			System.out.println(reqBuilder.getExecute().toString());
+			//System.out.println(reqBuilder.getExecute().toString());
 		}
 		
  		// Check the execute request we are about to build and return
