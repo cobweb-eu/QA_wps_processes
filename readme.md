@@ -101,7 +101,7 @@ and/or like ``ERROR org.n52.wps.server.handler.RequestHandler: exception handlin
 
 * An R proces returning error like ``Caused by: java.lang.StringIndexOutOfBoundsException: String index out of range: -1`` is usually because of issues with output variable creation or annotation.
 
-* Incorrectly compiled Java processes can cause unexpected errors. Check GetCapbilities requests execute correctly following addition of new processes. E.g. An error of ``ERR_INCOMPLETE_CHUNKED_ENCODING`` may occur if one process is not compiled or deployed correctly.
+* Incorrectly compiled Java processes can cause unexpected errors. Check GetCapbilities requests execute correctly following addition of new processes. E.g. An error of ``ERR_INCOMPLETE_CHUNKED_ENCODING`` may occur if one process is not compiled or deployed correctly. Or GetCapabilities may work occuring to the 52North log but does not return any XML in the browser. Use DescribeProcess call on suspicious processes - CountTweetsWithLocation was causing this on one deployment.
 
 * Java errors similar ``Unsupported major.minor version 52.0`` indicate that a Java process may be compiled and run with different versions. Avoid this issue by compiling on the runtime machine and/or specifying source & target Java versions e.g. ``javac -Xlint -cp "../../../lib/*" -source 1.7 -target 1.7 GetLineOfSight.java``
 
