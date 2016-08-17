@@ -20,7 +20,7 @@ The repository contains two dirs:
 * ``/WPS-Process-Development-COBWEB`` - contains Java process implementations
 * ``/WPS-R-Process-Development-COBWEB`` - contains R process implementations
 * ``/SampleWPSExecuteRequests`` - contains sample ExecuteRequests for deployed WPS processes
-* 
+
 ## Documentation
 Additional documentation and learning materials on using the Web Processing Service within the workflow editor can be found in the [QAwAT](https://github.com/cobweb-eu/workflow-at) repository and workflow [wiki](https://github.com/cobweb-eu/workflow-at/wiki).
 Further details of the software can be found in the COBWEB D4.6 and D4.7 deliverables.
@@ -71,6 +71,9 @@ A Docker image with Tomcat, R, 52NorthWPS and the Quality Control processes is a
 
 ## Bugs
 * 52North 52n-wps-webapp-3.3.0 built with GeoTools appears not to be able to generate integer output fields in response documents. E.g. for QCs that take an input and replicate its field names for the output data, integer fields are lost. FeatureId type fields are often integers so this is a pain. Doubles and strings appear to be unaffected.
+
+* As mentioned above, v3.3 of 52North was found to exhibit bugs leading to the requirement of patched versions of two .jars [52n-wps-r-3.3.0.jar](http://geoprocessing.forum.52north.org/Reading-raster-data-inputs-with-wpsr-td4026006.html) and [52n-wps-io-geotools-3.3.0.jar](http://geoprocessing.forum.52north.org/Chaining-FeatureCollections-td4025861.html) are required. The docker installation includes these patched libraries.
+
 
 
 ## Troubleshooting common issues
