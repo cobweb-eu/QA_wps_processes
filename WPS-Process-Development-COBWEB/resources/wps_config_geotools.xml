@@ -568,7 +568,7 @@
 			<Property name="Algorithm" active="true">pillar4.authoritativedata.TwoColumnLookup</Property>
 			<Property name="Algorithm" active="true">pillar3.automaticvalidation.ValueRange</Property>
 			<Property name="Algorithm" active="true">pillar3.automaticvalidation.LaplacePhotoBlurCheck</Property>
-			<Property name="Algorithm" active="true">pillar6.bigdata.CountTweetsWithLocation</Property>
+			<!--<Property name="Algorithm" active="true">pillar6.bigdata.CountTweetsWithLocation</Property>-->
 			<Property name="Algorithm" active="true">pillar2.cleaning.AttributeRange</Property>
 			<Property name="Algorithm" active="true">pillar2.cleaning.FilterOnAttribute</Property>
 			<Property name="Algorithm" active="true">pillar2.cleaning.PositionBoundingBox</Property>

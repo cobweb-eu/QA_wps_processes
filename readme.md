@@ -19,6 +19,7 @@ For convenience and rapid set up a Docker image has been made available. Alterna
 The repository contains two dirs:
 * ``/WPS-Process-Development-COBWEB`` - contains Java process implementations
 * ``/WPS-R-Process-Development-COBWEB`` - contains R process implementations
+* ``/SampleWPSExecuteRequests`` - contains sample ExecuteRequests for deployed WPS processes
 
 ## Documentation
 Additional documentation and learning materials on using the Web Processing Service within the workflow editor can be found in the [QAwAT](https://github.com/cobweb-eu/workflow-at) repository and workflow [wiki](https://github.com/cobweb-eu/workflow-at/wiki).
@@ -71,6 +72,9 @@ A Docker image with Tomcat, R, 52NorthWPS and the Quality Control processes is a
 ## Bugs
 * 52North 52n-wps-webapp-3.3.0 built with GeoTools appears not to be able to generate integer output fields in response documents. E.g. for QCs that take an input and replicate its field names for the output data, integer fields are lost. FeatureId type fields are often integers so this is a pain. Doubles and strings appear to be unaffected.
 
+* As mentioned above, v3.3 of 52North was found to exhibit bugs leading to the requirement of patched versions of two .jars [52n-wps-r-3.3.0.jar](http://geoprocessing.forum.52north.org/Reading-raster-data-inputs-with-wpsr-td4026006.html) and [52n-wps-io-geotools-3.3.0.jar](http://geoprocessing.forum.52north.org/Chaining-FeatureCollections-td4025861.html) are required. The docker installation includes these patched libraries.
+
+
 
 ## Troubleshooting common issues
 
@@ -97,7 +101,7 @@ and/or like ``ERROR org.n52.wps.server.handler.RequestHandler: exception handlin
 
 * An R proces returning error like ``Caused by: java.lang.StringIndexOutOfBoundsException: String index out of range: -1`` is usually because of issues with output variable creation or annotation.
 
-* Incorrectly compiled Java processes can cause unexpected errors. Check GetCapbilities requests execute correctly following addition of new processes. E.g. An error of ``ERR_INCOMPLETE_CHUNKED_ENCODING`` may occur if one process is not compiled or deployed correctly.
+* Incorrectly compiled Java processes can cause unexpected errors. Check GetCapbilities requests execute correctly following addition of new processes. E.g. An error of ``ERR_INCOMPLETE_CHUNKED_ENCODING`` may occur if one process is not compiled or deployed correctly. Or GetCapabilities may work occuring to the 52North log but does not return any XML in the browser. Use DescribeProcess call on suspicious processes - CountTweetsWithLocation was causing this on one deployment.
 
 * Java errors similar ``Unsupported major.minor version 52.0`` indicate that a Java process may be compiled and run with different versions. Avoid this issue by compiling on the runtime machine and/or specifying source & target Java versions e.g. ``javac -Xlint -cp "../../../lib/*" -source 1.7 -target 1.7 GetLineOfSight.java``
 
