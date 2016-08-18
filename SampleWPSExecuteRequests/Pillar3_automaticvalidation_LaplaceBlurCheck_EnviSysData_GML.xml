@@ -1,0 +1,37 @@
+<Execute service="WPS" version="1.0.0" xmlns="http://www.opengis.net/wps/1.0.0" xmlns:ns="http://www.opengis.net/ows/1.1" xmlns:xlin="http://www.w3.org/1999/xlink">
+  <ns:Identifier>pillar3.automaticvalidation.LaplacePhotoBlurCheck</ns:Identifier>
+  <DataInputs>
+    <Input>
+      <ns:Identifier>inputObservations</ns:Identifier>
+      <Reference xlin:href="http://geo.envsys.co.uk:8080/geoserver/cobweb/ows?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=cobweb%3Acobweb_blur_shapes&amp;maxfeatures=50&amp;outputformat=gml3&amp;featureID=cobweb_blur_shapes.1" />
+    </Input>
+    <Input>
+      <ns:Identifier>urlFieldName</ns:Identifier>
+      <Data>
+        <LiteralData dataType="xs:string">fieldcon_2</LiteralData>
+      </Data>
+    </Input>
+    <Input>
+      <ns:Identifier>urlPrefix</ns:Identifier>
+      <Data>
+        <LiteralData dataType="xs:string">http://cwlight.envsys.co.uk/img/</LiteralData>
+      </Data>
+    </Input>
+    <Input>
+      <ns:Identifier>threshold</ns:Identifier>
+      <Data>
+        <LiteralData dataType="xs:integer">1500</LiteralData>
+      </Data>
+    </Input>
+  </DataInputs>
+  <ResponseForm>
+    <ResponseDocument>
+      <Output asReference="false">
+        <ows:Identifier xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">result</ows:Identifier>
+      </Output>
+      <Output asReference="false">
+        <ows:Identifier xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">qual_result</ows:Identifier>
+      </Output>
+    </ResponseDocument>
+  </ResponseForm>
+</Execute>
