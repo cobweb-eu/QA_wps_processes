@@ -30,7 +30,7 @@ import org.n52.wps.client.WPSClientSession;
  */
 public class BlurCheckWPSTest extends TestCase {
 	// Configuration parameters
-	private static final boolean DEBUG = false;
+	private static final boolean DEBUG = true;
 
 	private final String wpsLocation = "http://localhost:8080/wps/WebProcessingService";	// The WPS is installed here
 	private final String imageBase = "http://cwlight.envsys.co.uk/img/";								// Test images served from here
