@@ -225,8 +225,8 @@ public class GetLineOfSight extends AbstractAlgorithm {
 				GeometryFactory gf = new GeometryFactory(); //
 				
 				//Need to parameterise whether we use the device position (ie. the initial) or the observed point from los  
-				//Point point = gf.createPoint(new Coordinate(easting, northing)); //Set as the line of sight as result feature geometry							
-				Point point = gf.createPoint(position);//set as the raw original reported position 
+				Point point = gf.createPoint(new Coordinate(easting, northing)); //Set as the line of sight as result feature geometry							
+				//Point point = gf.createPoint(position);//set as the raw original reported position 
 				
 				SimpleFeature feature = builder.buildFeature(String.valueOf(counter));
 				feature.setDefaultGeometry(point);
