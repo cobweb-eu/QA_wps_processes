@@ -260,15 +260,16 @@ public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
 		
 		double DQ_UsabilityValue = 0;				
 		if (imageVariance < threshold && threshold != 0) {
-			System.out.println("variance less than the threshold");
+			LOG.warn("variance less than the threshold");
 			DQ_UsabilityValue = imageVariance/threshold;
 		} else { 
-			System.out.println("variance is more than the threshold");
+			LOG.warn("variance is more than the threshold");
 			DQ_UsabilityValue =	1;
 		}
 		
 
-		double[] currentResult = new double[]{DQ_UsabilityValue}; 
+		double[] currentResult = new double[]{DQ_UsabilityValue};
+		LOG.warn("Returning final DQ Val: " + DQ_UsabilityValue);
 		return currentResult;			
 	}
 	
