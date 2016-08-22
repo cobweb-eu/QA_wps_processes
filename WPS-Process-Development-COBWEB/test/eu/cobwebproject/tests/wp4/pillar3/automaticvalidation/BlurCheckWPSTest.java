@@ -35,7 +35,6 @@ public class BlurCheckWPSTest extends TestCase {
 	private final String wpsLocation = "http://localhost:8010/wps/WebProcessingService";	// The WPS is installed here
 	private final String imageBase = "http://cwlight.envsys.co.uk/img/";								// Test images served from here
 	private final String processID = "pillar3.automaticvalidation.LaplacePhotoBlurCheck";				// The process we are testing
-
 	
 	private final String refSchema = "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd";
 	private final String refMimeType = "text/xml; subtype=gml/3.1.0";
@@ -192,7 +191,7 @@ public class BlurCheckWPSTest extends TestCase {
 	 */
 	private boolean executeRequestCheckResponse(ExecuteDocument request, String desiredUsability) throws WPSClientException {
 		Object response = wpsClient.execute(wpsLocation, request);
-		//if(DEBUG) System.out.println(response);
+		if(DEBUG) System.out.println(response);
 		assertTrue(response instanceof ExecuteResponseDocument);		
 		ExecuteResponseDocument responseDocument = (ExecuteResponseDocument) response;
 		// Return whether usability matches expected
