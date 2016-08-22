@@ -192,7 +192,7 @@ public class BlurCheckWPSTest extends TestCase {
 	 */
 	private boolean executeRequestCheckResponse(ExecuteDocument request, String desiredUsability) throws WPSClientException {
 		Object response = wpsClient.execute(wpsLocation, request);
-		//if(DEBUG) System.out.println(response);
+		if(DEBUG) System.out.println(response);
 		assertTrue(response instanceof ExecuteResponseDocument);		
 		ExecuteResponseDocument responseDocument = (ExecuteResponseDocument) response;
 		// Return whether usability matches expected
