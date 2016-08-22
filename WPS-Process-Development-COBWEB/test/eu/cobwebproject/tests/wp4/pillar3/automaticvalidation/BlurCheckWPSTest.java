@@ -32,7 +32,7 @@ public class BlurCheckWPSTest extends TestCase {
 	// Configuration parameters
 	private static final boolean DEBUG = true;
 
-	private final String wpsLocation = "http://localhost:8010/wps/WebProcessingService";	// The WPS is installed here
+	private final String wpsLocation = "http://localhost:8080/wps/WebProcessingService";	// The WPS is installed here
 	private final String imageBase = "http://cwlight.envsys.co.uk/img/";								// Test images served from here
 	private final String processID = "pillar3.automaticvalidation.LaplacePhotoBlurCheck";				// The process we are testing
 	

@@ -236,8 +236,6 @@ public class LaplacePhotoBlurCheck extends AbstractAlgorithm{
 			fi.close();			
 		}
 		
-		
-		
 		HashMap<String, IData> results = new HashMap<String, IData>();
 		results.put("result", new GTVectorDataBinding((FeatureCollection)resultFeatureCollection));
 		results.put("qual_result", new GTVectorDataBinding((FeatureCollection)qual_resultFeatureCollection));
