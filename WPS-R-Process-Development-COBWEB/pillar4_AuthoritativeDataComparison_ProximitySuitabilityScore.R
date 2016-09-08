@@ -366,7 +366,7 @@ testInit <-function(){
   #setwd("C:\\Users\\ezzjfr\\Documents\\R_scripts\\JKWData4Pillar5_proxmitySuitabilityPOlygonScore\\JKWData\\")
   #inputObservations<<- "SnowdoniaNationalParkJapaneseKnotweedSurvey_AllPoints_EnglishCleaned_final.shp"
   setwd("C:\\Users\\ezzjfr\\Documents\\R_scripts\\JKWData4Pillar5_proxmitySuitabilityPOlygonScore\\")
-  inputObservations<<- "SnowdoniaNationalParkJapaneseKnotweedSurvey_IdAsString_out_outP2LQ2_pillar5_ProximitySuitabilityPolygonScore.shp"
+  inputObservations<<- "SnowdoniaNationalParkJapaneseKnotweedSurvey_IdAsString_outP5PSP.shp"
   
   
   #setwd("/Users/lgzdl/Documents/Dids/DidsE/COBWEB/Co-Design/JKW knotweed (Snodonian)/DidData/")	
@@ -437,8 +437,7 @@ Auth <-readOGR(Authdsn,layer=inputAuthData) # or use readShp
 #inputAuthData =ogrListLayers(Authdsn)[1] # supposed only one layer
 #Obs <-readOGR(Obsdsn,layer= inputObservations) # 
 #Auth <-readOGR(Authdsn,layer= inputAuthData) # or use readShp
-GML=attr(ogrListLayers(Obsdsn),"driver")=="GML" 
-
+#GML=attr(ogrListLayers(Obsdsn),"driver")=="GML" 
 
 
 
@@ -523,20 +522,13 @@ UpdatedObs=NULL
 
 localDir=getwd()
 #if(is.null(UpdatedObs))UpdatedObs=paste(inputObservations,"_outP4PSPS",sep="")
+
+#if(GML) #writeOGR(Obs,localDir, layer=UpdatedObs, driver="GML" ,overwrite_layer=TRUE)
+#if(!GML) writeOGR(Obs,localDir, layer=UpdatedObs, driver="ESRI Shapefile" ,overwrite_layer=TRUE)
+#cat(paste("Saved Destination: ", localDir, "\n with \n",UpdatedObs, " .gml or .shp ",sep=""), "\n" )
+
 if(is.null(UpdatedObs))UpdatedObs=paste(layername,"_outP4PSPS",sep="")
+UpdatedObs=paste0(layername, "_outP4PSPS.shp")
+writeOGR(Obs,UpdatedObs,"data","ESRI Shapefile")
 
-
-if(GML) writeOGR(Obs,localDir, layer=UpdatedObs, driver="GML" ,overwrite_layer=TRUE)
-if(!GML) writeOGR(Obs,localDir, layer=UpdatedObs, driver="ESRI Shapefile" ,overwrite_layer=TRUE)
-
-
-
-cat(paste("Saved Destination: ", localDir, "\n with \n",UpdatedObs, " .gml or .shp ",sep=""), "\n" )
-
-# wps.out: id=UpdatedObs, type=shp_x, title = Observation and metadata for quality updated, abstract= each feature in the collection; 
-
-# old out ObsMetaQ.output, xml, title = Observation metadata for quality updated, abstract= each feature in the collection 
-# old out AuthMetaQ.output, xml, title = Auth metadata updated if asked for, abstract= each feature in the collection
-# old out UserMetaQ.ouput, xml, title = User metadata for quality updated, abstract= each feature in the collection
-
-# outputs  by WPS4R
+# wps.out: UpdatedObs, shp_x, returned geometry;

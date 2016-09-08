@@ -297,8 +297,7 @@ testInit<-function(){
   
 	setwd("C:\\Users\\ezzjfr\\Documents\\R_scripts\\JKWData4Pillar5_proxmitySuitabilityPOlygonScore\\")
 	inputObservations<<- "SnowdoniaNationalParkJapaneseKnotweedSurvey_IdAsString_out_outP2LQ2_pillar5_ProximitySuitabilityPolygonScore.shp"
-	
-  
+	  
   DQparam<<-"DQ_ThematicClassificationCorrectness"
   SurveyQueryEndPoint<<-"SnowdoniaNationalParkJapaneseKnotweedSurvey_pillar5_ProximitySuitabilityPolygonScore.shp"# need to find a more illustrative one ...
   SurveyQueryEndPoint<<-"NULL"# need to find a more illustrative one ...

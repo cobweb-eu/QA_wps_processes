@@ -39,8 +39,8 @@
 
 # wps.in: inputAuthoritativeData, shp_x, title = Authoritative data polygons, abstract= gml or shp of the polygon thematic data ; 
 # wps.in: AuthUUIDFieldName, string, title = the  Authoritative ID fieldname,  abstract = record identifier ; 
-# wps.in: AuthFieldName, string, value=NULL title = the  Authoritative fieldname categorising the polygons,  abstract = attribute for selection of polygons to be in. If NULL all the polygons are considered ;
-# wps.in: AuthFieldNameValue, string, value=woodland, title = the fieldname selection,  abstract = value of the AuthFieldname to select as polygons to be in ;  
+# wps.in: AuthFieldName, string, title = the Authoritative fieldname categorising the polygons,  abstract = attribute for selection of polygons to be in. If NULL all the polygons are considered ;
+# wps.in: AuthFieldNameValue, string, title = the fieldname selection,  abstract = value of the AuthFieldname to select as polygons to be in ;  
 # wps.in: ThematicAgreement, boolean, value= 0, title = Agreement or Disagreement,  abstract = Agreement or Disagreement of thematic layer and citizen observations i.e. if being in the polygon is increasing the accuracy /quality  (agreement) or not  ;
 # wps.in: ScopeLevel, string, value= feature, title= scope as dataset or feature, abstract= if quality is given at feature level for the authoritative data use " feature";
 
@@ -330,15 +330,21 @@ bboxAsPol <-function(obj){
 #wps.off
 testInit <-function(){
 	#setwd("/Users/lgzdl/Documents/Dids/DidsE/COBWEB/Co-Design/JKW knotweed (Snodonian)/DidData/")
-	#inputObservations<<- "SnowdoniaNationalParkJapaneseKnotweedSurvey.shp"#"SnowJKW.shp" #shp Snow is smaller
+	#inputObservations<<- "SnowdoniaNationalParkJapaneseKnotweedSurvey_IdAsString.shp"#"SnowJKW.shp" #shp Snow is smaller
     
   setwd("C:\\Users\\ezzjfr\\Documents\\R_scripts\\JKWData4Pillar5_proxmitySuitabilityPOlygonScore\\")
-  inputObservations<<- "SnowdoniaNationalParkJapaneseKnotweedSurvey.shp"#"SnowJKW.shp"#shp Snow is smaller
+  inputObservations<<- "SnowdoniaNationalParkJapaneseKnotweedSurvey_IdAsString.shp"#"SnowJKW.shp"#shp Snow is smaller
 	
+  setwd("C:\\Program Files\\Apache Software Foundation\\Tomcat 7.0\\temp\\wps4r-workspace-201696-161742_c30a5da3")
+  inputObservations<<- "3652671e-0549-4110-87d6-1302c98ba258.shp"
+  
+  setwd("C:\\Users\\ezzjfr\\Documents\\R_scripts\\JKWData4Pillar5_proxmitySuitabilityPOlygonScore\\")
+  #inputAuthoritativeData<<-"3652671e-0549-4110-87d6-1302c98ba258.shp"     #shp or gml or woodland.shp (selected) was not projected
+  inputAuthoritativeData<<-"Woodland.shp"     #shp or gml or woodland.shp (selected) was not projected
   
 	UUIDFieldName<<-"Iden"     #string 
 	ObsAttrType <<-c("classification","non-quantitative")
-	inputAuthoritativeData<<-"Woodland.shp"     #shp or gml or woodland.shp (selected) was not projected
+	
 	AuthUUIDFieldName<<-"OBJECTID"
 	AuthFieldName<<-"CATEGORY"
 	AuthFieldNameValue<<-"Woodland"
@@ -371,11 +377,24 @@ library(rgeos)
           
 
 
-#julian readOGR
+
+
+#julian readOGR of observations
 layername <- sub(".shp","", inputObservations) # just use the file name as the layer name
 Obsdsn = inputObservations
-Obs <- readOGR(dsn = Obsdsn, layer = layername)
+#Obs <- readOGR(dsn = Obsdsn, layer = layername) # Broken for multi-point reading
+readMultiPointAsOGR = function(filename) {  
+  library(maptools)
+  shape <- readShapePoints(filename)
+  tempfilename = paste0(filename,"_tempfilenametemp")
+  writeOGR(shape, ".", tempfilename, driver="ESRI Shapefile")
+  #ogrInfo(".",tempfilename )
+  tempObs <-readOGR(".",layer= tempfilename) # 
+  return(tempObs)
+}
+Obs = readMultiPointAsOGR(layername )
 
+#julian readOGR of auths
 authLayername <- sub(".shp","", inputAuthoritativeData) # just use the file name as the layer name
 Authdsn = inputAuthoritativeData
 Auth <- readOGR(dsn = Authdsn, layer = authLayername)
@@ -383,7 +402,6 @@ Auth <- readOGR(dsn = Authdsn, layer = authLayername)
 # Manually assign projection
 proj4string(Auth) <- CRS("+init=epsg:27700")
 proj4string(Obs) <- CRS("+init=epsg:27700")
-
 
 
 #Didier readOGR
@@ -445,8 +463,8 @@ AuthMetaQ= GetSetMetaQ(AuthMetaQ,listQ=c(Authlist,14, 16, 17,18), Idrecords = Au
 VolMetaQ= GetSetMetaQ(VolMetaQ,listQ=c(19, 21,22,24, 25), Idrecords =Obs@data[,UUIDFieldName],scope='volunteer')
 
 ## Main loop for each citizen data
-#for (i in 1:dim(Obs@data)[1]){
-for (i in 1:10){
+for (i in 1:dim(Obs@data)[1]){
+#for (i in 1:10){
   bufferS= 0.01
   AuthDQ_14=0
   if(any(AuthMetaQ[,"DQ_14"]!=888)) AuthDQ_14=mean(c(AuthMetaQ[AuthMetaQ[,"DQ_14"]!=888,"DQ_14"]),na.rm=TRUE)
@@ -498,3 +516,4 @@ if(outputForma=="CSW"||outputForma=="SOS" ){
 UpdatedObs=paste0(layername, "_outP4PIP.shp")
 writeOGR(Obs,UpdatedObs,"data","ESRI Shapefile")
 # wps.out: UpdatedObs, shp_x, returned geometry;
+

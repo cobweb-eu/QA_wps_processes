@@ -378,16 +378,19 @@ testInit <-function(){
   setwd("C:\\Users\\ezzjfr\\Documents\\R_scripts\\JKWData4Pillar5_proxmitySuitabilityPOlygonScore\\")
   #setwd("C:\\Users\\ezzjfr\\Documents\\R_scripts\\JKWData4Pillar5_proxmitySuitabilityPOlygonScore\\single_obs\\")  
   #setwd("C:\\Program Files\\Apache Software Foundation\\Tomcat 7.0\\temp\\wps4r-workspace-2016427-162943_9cffd284\\")
-  
 	#inputObservations<<-"SnowdoniaNationalParkJapaneseKnotweedSurvey_IdAsString.shp" #shp
   #inputObservations<<-"temp.shp"
-  #inputObservations<<-"7a3e63db-275a-467b-a4ca-863c69627702.shp"
-  inputObservations<<-"SnowdoniaNationalParkJapaneseKnotweedSurvey_IdAsString_out_outP2LQ2.shp" #shp
+  
+  setwd("C:\\Program Files\\Apache Software Foundation\\Tomcat 7.0\\temp\\wps4r-workspace-201695-140614_f64f2531")
+  inputObservations<<-"63a9f56b-70e4-4249-91fe-99182d9933fe.shp"
+  #inputObservations<<-"SnowdoniaNationalParkJapaneseKnotweedSurvey_IdAsString.shp" #shp
+  
+  
 	UUIDFieldName<<-"IdAsString"     #string 
   UUIDFieldName<<-"Iden"     #string
 	inputModData<<-"JKWrisk_10mSquares.shp"     #shp
-  inputModData<<-"JKWrisk_10mSquares_subset_10_features.shp"     #shp
-  #inputModData<<-"029f1c56-da19-453e-80ed-2536f16d0008.shp"
+  #inputModData<<-"JKWrisk_10mSquares_within_1km_survey_points.shp"     #shp
+  inputModData<<-"83ccc64d-83f5-4702-becd-20bcb9a04688.shp"
 	ModAttribFieldName<<-"GRIDCODE" # string
 	ModUUIDFieldName<<-"ID"
 	Qual2QuantEncoding<<-"cbind(c(0_1_2_3)_ c(0.0 _0.25 _0.65 _0.90))"
@@ -428,7 +431,7 @@ Obsdsn = inputObservations
 readMultiPointAsOGR = function(filename) {  
   library(maptools)
   shape <- readShapePoints(filename)
-  tempfilename = paste0(filename,"_tempfilenametemp")
+  tempfilename = paste0(filename,"_tempfilenametemp2")
   writeOGR(shape, ".", tempfilename, driver="ESRI Shapefile")
   #ogrInfo(".",tempfilename )
   tempObs <-readOGR(".",layer= tempfilename) # 
