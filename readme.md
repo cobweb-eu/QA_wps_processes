@@ -95,7 +95,7 @@ org.n52.wps.server.ExceptionReport: Could not find an appropriate generator base
 
 * Incorrectly configured R processes can cause unexpected errors. Avoid using commas within the the WPS4R input/ouput tags as these are used for parsing. To help debugging, monitoring the RServe stdout can be useful (start the R server with RServe(TRUE) from an R prompt - only seems to work for Linux).
 
-* An R proces returning error like ``ERROR org.n52.wps.server.request.ExecuteRequest: Exception/Error while executing ExecuteRequest for org.n52.wps.server.r.pillar2.Cleaning.UsabilityFilterOut: java.lang.NullPointerException`` 
+* An R process returning error like ``ERROR org.n52.wps.server.request.ExecuteRequest: Exception/Error while executing ExecuteRequest for org.n52.wps.server.r.pillar2.Cleaning.UsabilityFilterOut: java.lang.NullPointerException`` 
 and/or like ``ERROR org.n52.wps.server.handler.RequestHandler: exception handling ExecuteRequest.`` could mean that input variables are not defined as a correct type e.g. inputObservations is defined as a String rather than a geospatial type. 
 
 * An R proces returning error like ``Caused by: java.lang.StringIndexOutOfBoundsException: String index out of range: -1`` is usually because of issues with output variable creation or annotation.
@@ -106,6 +106,8 @@ and/or like ``ERROR org.n52.wps.server.handler.RequestHandler: exception handlin
 
 * R processes that use the RGDAL library (rather than maptools) for reading observations will fail when points are in a multipoint data structure, which some java processes generate for some reason. This is because readOGR doesn't support multipoint structures (https://stat.ethz.ch/pipermail/r-sig-geo/2011-July/012416.html).
 
+* R processes can use a lot of memory in certain cases and therefore be limited by the resources of the host R server (e.g. where Rserve is installed - probably the same as the WPS host but potentially can be separate). This is particularly noticeable for processes that use large datasets as part of the quality control e.g. testing pillar5.ProximitySuitabilityPolygonScore with a ~60000 polygon feature likelihood model required a 12Gb machine.
+* 
 ## Other non-WPS issues
 
 * If Tomcat7 is not starting and it is not the WPS at fault, check that the JDK and JRE are configured correctly (i.e. us the JRE that ships with the JDK). This is common problem on fresh installations
