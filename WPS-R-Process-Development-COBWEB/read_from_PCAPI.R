@@ -4,9 +4,9 @@ library(sp); library(maptools);library(rgdal);
 # Author: Julian Rosser
 ###############################################################################
 
-# wps.in: url, string;
-# wps.in: id, string;
-# wps.in: jsonFileId, string;
+# wps.in: url, string, title = REST URL,  abstract = This is the end-point URL for the rest service;
+# wps.in: id, string, title = User ID of the query,  abstract = This is the uuid for the query;
+# wps.in: jsonFileId, string, title = Survey JSON ID,  abstract = This is the survey ID of the json data;
 
 library(curl)
 library(rjson)
@@ -15,7 +15,7 @@ library(rjson)
 #test vars
 url = "https://dyfi.cobwebproject.eu/pcapi/records/local"
 id = "2338e388-f34e-25d9-945c-54cffd9c46c2"
-jsonFileId = "b1b28830-9443-46b1-82f7-3d772f30cdbb"
+jsonFileId = "b1b28830-9443-46b1-82f7-3d772f30cdbb"#
 # wps.on;
 
 #assumed kvp
