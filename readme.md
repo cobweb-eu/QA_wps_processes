@@ -36,11 +36,11 @@ Note: for correct configuration, you will need to amend the hostname in the wps_
 
 ### Full installation instructions
 
-1. Install 52North Web Processing Service, v3.4.0 and v3.3.0 (however the latter requires some patches) have been tested. Instructions for achieving this are available from 52North. For patching v3.3.0, updated versions of the [52n-wps-r-3.3.0.jar](http://geoprocessing.forum.52north.org/Reading-raster-data-inputs-with-wpsr-td4026006.html) and [52n-wps-io-geotools-3.3.0.jar](http://geoprocessing.forum.52north.org/Chaining-FeatureCollections-td4025861.html) are required.
+1. Install 52North Web Processing Service v3.3.0 (some patches are required). Instructions for achieving this are available from 52North. For patching v3.3.0, updated versions of the [52n-wps-r-3.3.0.jar](http://geoprocessing.forum.52north.org/Reading-raster-data-inputs-with-wpsr-td4026006.html) and [52n-wps-io-geotools-3.3.0.jar](http://geoprocessing.forum.52north.org/Chaining-FeatureCollections-td4025861.html) are required.
 
 2. Install 52North WPS geotoools package.
 
-3. Clone and deploy Quality Control processes from this (QA_WPS_Processes) repository.
+3. Clone the processes from this (QA_WPS_Processes) repository.
 
 - To install Java processes:
 
