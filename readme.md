@@ -22,7 +22,7 @@ The repository contains two dirs:
 * ``/SampleWPSExecuteRequests`` - contains sample ExecuteRequests for deployed WPS processes
 
 ## Documentation
-Additional documentation and learning materials on using the Web Processing Service within the workflow editor can be found in the [QAwAT](https://github.com/cobweb-eu/workflow-at) repository and workflow [wiki](https://github.com/cobweb-eu/workflow-at/wiki).
+Additional documentation and learning materials on using the Web Processing Service within the workflow editor can be found in the workflow authoring tool (https://github.com/cobweb-eu/workflow-at) repository and workflow [wiki](https://github.com/cobweb-eu/workflow-at/wiki).
 Further details of the software can be found in the COBWEB D4.6 and D4.7 deliverables.
 
 ## Installation
