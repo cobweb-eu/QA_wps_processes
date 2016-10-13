@@ -96,6 +96,8 @@ org.n52.wps.server.ExceptionReport: Could not find an appropriate generator base
 
 * Incorrectly configured R processes can cause unexpected errors. Avoid using commas within the the WPS4R input/ouput tags as these are used for parsing. To help debugging, monitoring the RServe stdout can be useful (start the R server with RServe(TRUE) from an R prompt - only seems to work for Linux).
 
+* Dependency issues may arise if you deploy Java compiled outside of the WPS, even though these may deploy and describe correctly. Possibly can manifest as problems in the RequestHandler code of 52North e.g. ``org.n52.wps.extension.Buffer: java.lang.NoClassDefFoundError: org/junit/Assert``
+
 * An R process returning error like ``ERROR org.n52.wps.server.request.ExecuteRequest: Exception/Error while executing ExecuteRequest for org.n52.wps.server.r.pillar2.Cleaning.UsabilityFilterOut: java.lang.NullPointerException`` 
 and/or like ``ERROR org.n52.wps.server.handler.RequestHandler: exception handling ExecuteRequest.`` could mean that input variables are not defined as a correct type e.g. inputObservations is defined as a String rather than a geospatial type. 
 
