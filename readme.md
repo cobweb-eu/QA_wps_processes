@@ -12,7 +12,7 @@ This repository contains quality tests (Quality Controls). The Quality Controls 
 
 For the R processes, RServe is also required as are various R packages which should be installed from the R terminal as normal.
 
-For convenience and rapid set up a Docker image has been made available. Alternatively the system may be compiled and deployed from source.
+For convenience and rapid set up a [Docker](https://www.docker.com/) image has been made available, see Installation instructions below for further details. Alternatively the system may be compiled and deployed from source.
 
 ## Structure
 
@@ -28,11 +28,11 @@ Further details of the software can be found in the COBWEB D4.6 and D4.7 deliver
 ## Installation
 ### Docker image installation
 
-A Docker image with Tomcat, R, 52NorthWPS and the Quality Control processes is available. The image is forked from the 52North [tethys_docker](https://github.com/tethysplatform/tethys_docker), uses 52North WPS 3.3.0 (with some patches applied) is started in the same way with:
+A Docker image with Tomcat, R, 52NorthWPS and the Quality Control processes is available. The image is forked from the 52North [tethys_docker](https://github.com/tethysplatform/tethys_docker), uses 52North WPS 3.3.0 (with some patches applied) and is started in the same way with:
 
     $ sudo docker run -d -p 8010:8010 --name n52wps maptopixel/n52wps-mvn-git
 
-Note: for correct configuration, you will need to amend the hostname in the wps_config_geotools.xml to match your own host. I.e. edit the the line that starts ``<Server protocol`` in /usr/share/tomcat7-wps/wpshome/config/wps_config_geotools.xml 
+Note: for correct configuration of the runtime docker container, you will need to amend the hostname in the 52North WPS wps_config_geotools.xml to match your own host. I.e. edit the the line that starts ``<Server protocol`` in /usr/share/tomcat7-wps/wpshome/config/wps_config_geotools.xml
 
 ### Full installation instructions
 
